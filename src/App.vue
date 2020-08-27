@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <div v-if="chapter101">
     <div class="media">
         <div @click="showPic1">
         <img src="@/assets/questionMark.png" class="mr-3" alt="QuestionMark" width="220" height="175">
@@ -29,6 +30,7 @@
       </div>
     </div>
   </div>
+  </div>
 </template>
 
 <script>
@@ -39,6 +41,7 @@ export default {
   },
   data: function () {
     return {
+      chapter101: true,
       pic1: false,
       pic2: false,
       pic3: false
