@@ -37,6 +37,9 @@
         <img src="@/assets/questionMark.png" class="mr-3" alt="QuestionMark" width="150" height="130">
       </div>
     </div>
+    <div id="rentGeneratorBtn">
+      <button type="button" class="btn btn-info btn-lg" @click="rent">Rent generator</button>
+    </div>
   </div>
   </div>
 </template>
@@ -76,6 +79,9 @@ export default {
       } else {
         this.pic3 = false;
       }
+  },
+  rent: function() {
+    console.log("Rent generator");
   }
 }
 }
@@ -142,6 +148,14 @@ export default {
     position: fixed;
     right:250px;
     bottom:450px;
+    margin:0;
+    padding:0;
+    width:142%;
+}
+#rentGeneratorBtn {
+    position: fixed;
+    left: 345px;
+    bottom: 580px;
     margin:0;
     padding:0;
     width:142%;
