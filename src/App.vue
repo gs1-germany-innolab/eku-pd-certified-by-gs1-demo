@@ -12,6 +12,9 @@
     <div id="redNeedPower">
       <img src="@/assets/needPower.png" class="mr-3" alt="QuestionMark" width="300" height="275">
     </div>
+    <div id="redLightning">
+      <img src="@/assets/roterBlitz.png" class="mr-3" alt="QuestionMark" width="175" height="225">
+    </div>
     <div id="leftPump">
       <div @click="showPic2" >
         <img src="@/assets/questionMark.png" class="mr-3" alt="QuestionMark" width="150" height="130">
@@ -113,6 +116,14 @@ export default {
     position: fixed;
     left:350px;
     bottom:650px;
+    margin:0;
+    padding:0;
+    width:142%;
+}
+#redLightning {
+    position: fixed;
+    left: -350px;
+    bottom:550px;
     margin:0;
     padding:0;
     width:142%;
