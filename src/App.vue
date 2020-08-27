@@ -1,19 +1,21 @@
 <template>
   <div id="app">
     <div v-if="chapter101">
-    <div class="media">
-        <div @click="showPic1">
-        <img src="@/assets/questionMark.png" class="mr-3" alt="QuestionMark" width="220" height="175">
-        </div>
-        <div v-if="pic1">
-            <img src="@/assets/qmwb.png" class="mr-3" alt="QuestionMark" width="600" height="375">
-        </div>
+    <div v-if="pic1">
+      <div id="useCase">
+        <img src="@/assets/qmwb.png" class="mr-3" alt="QuestionMark" width="500" height="300">
+      </div>
+    </div>
+    <div id="upperleftPic">
+      <div @click="showPic1" >
+        <img src="@/assets/questionMark.png" class="mr-3" alt="QuestionMark" width="200" height="165">
+      </div>
     </div>
     <div id="redNeedPower">
-      <img src="@/assets/needPower.png" class="mr-3" alt="QuestionMark" width="300" height="275">
+      <img src="@/assets/needPower.png" class="mr-3" alt="needPower" width="300" height="275">
     </div>
     <div id="redLightning">
-      <img src="@/assets/roterBlitz.png" class="mr-3" alt="QuestionMark" width="175" height="225">
+      <img src="@/assets/roterBlitz.png" class="mr-3" alt="redLightning" width="175" height="225">
     </div>
     <div id="leftPump">
       <div @click="showPic2" >
@@ -124,6 +126,22 @@ export default {
     position: fixed;
     left: -350px;
     bottom:550px;
+    margin:0;
+    padding:0;
+    width:142%;
+}
+#upperleftPic {
+    position: fixed;
+    right:400px;
+    top:50px;
+    margin:0;
+    padding:0;
+    width:142%;
+}
+#useCase {
+    position: fixed;
+    right:250px;
+    bottom:450px;
     margin:0;
     padding:0;
     width:142%;
