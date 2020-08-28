@@ -41,6 +41,54 @@
       <button type="button" class="btn btn-info btn-lg" @click="rent">Rent generator</button>
     </div>
   </div>
+  <div v-if="chapter103">
+    <div v-if="redGenerator">
+      <div id="redGenerator">
+        <img src="@/assets/redGenerator.png" class="mr-3" alt="QuestionMark" width="200" height="170">
+      </div>
+      <div id="QMredGenerator">
+        <img src="@/assets/questionMark.png" class="mr-3" alt="QuestionMark" width="130" height="110">
+      </div>
+    </div>
+    <div v-if="blueGenerator">
+      <div id="blueGenerator">
+        <img src="@/assets/blueGenerator.png" class="mr-3" alt="QuestionMark" width="200" height="170">
+      </div>
+      <div id="QMblueGenerator">
+        <img src="@/assets/questionMark.png" class="mr-3" alt="QuestionMark" width="130" height="110">
+      </div>
+    </div>
+    <div v-if="greenGenerator">
+      <div id="greenGenerator">
+        <img src="@/assets/greenGenerator.png" class="mr-3" alt="QuestionMark" width="200" height="170">
+      </div>
+      <div id="QMgreenGenerator">
+        <div>
+          <img src="@/assets/questionMark.png" class="mr-3" alt="QuestionMark" width="130" height="110" @click="showETL3">
+        </div>
+      </div>
+      <div v-if="gGEcoTypeLabel">
+        <div id="gGETL">
+          <img src="@/assets/etl2.png" class="mr-3" alt="QuestionMark" width="220" height="200">
+        </div>
+    </div>
+    </div>
+    <div v-if="yellowGenerator">
+      <div id="yellowGenerator">
+        <img src="@/assets/yellowGenerator.png" class="mr-3" alt="QuestionMark" width="200" height="170">
+      </div>
+      <div id="QMyellowGenerator">
+        <div>
+            <img src="@/assets/questionMark.png" class="mr-3" alt="QuestionMark" width="130" height="110" @click="this.showETL4">
+        </div>
+      </div>
+      <div v-if="yGEcoTypeLabel">
+        <div id="yGETL">
+          <img src="@/assets/etl2.png" class="mr-3" alt="QuestionMark" width="220" height="200">
+        </div>
+    </div>
+    </div>
+  </div>
   </div>
 </template>
 
@@ -52,10 +100,19 @@ export default {
   },
   data: function () {
     return {
-      chapter101: true,
+      chapter101: false,
+      chapter103: true,
       pic1: false,
       pic2: false,
-      pic3: false
+      pic3: false,
+      redGenerator: false,
+      blueGenerator: false,
+      greenGenerator: true,
+      yellowGenerator: true,
+      rGEcoTypeLabel: false,
+      bGEcoTypeLabel: false,
+      gGEcoTypeLabel: false,
+      yGEcoTypeLabel: false
     }
   },
   methods: {
@@ -82,6 +139,22 @@ export default {
   },
   rent: function() {
     console.log("Rent generator");
+  },
+  showETL4: function() {
+    if (this.yGEcoTypeLabel == false) {
+        this.yGEcoTypeLabel = true;
+      } else {
+        this.yGEcoTypeLabel = false;
+      } 
+    console.log("TEST");
+  },
+  showETL3: function() {
+    if (this.gGEcoTypeLabel == false) {
+        this.gGEcoTypeLabel = true;
+      } else {
+        this.gGEcoTypeLabel = false;
+      } 
+    console.log("TEST");
   }
 }
 }
@@ -159,6 +232,75 @@ export default {
     margin:0;
     padding:0;
     width:142%;
+}
+#redGenerator {
+    position: fixed;
+    left: 400px;
+    bottom: 50px;
+    margin:0;
+    padding:0;
+    width:142%;
+}
+#blueGenerator {
+    position: fixed;
+    left: 200px;
+    bottom: 70px;
+    margin:0;
+    padding:0;
+    width:142%;
+}
+#greenGenerator {
+    position: fixed;
+    right: 420px;
+    bottom: 50px;
+    margin:0;
+    padding:0;
+    width:142%;
+}
+#yellowGenerator {
+    position: fixed;
+    right: 140px;
+    bottom: 40px;
+    margin:0;
+    padding:0;
+    width:142%;
+}
+#QMredGenerator {
+    position: fixed;
+    left: 480px;
+    bottom: 140px;
+    margin:0;
+    padding:0;
+    width:142%;
+}
+#QMblueGenerator {
+    position: fixed;
+    left: 120px;
+    bottom: 160px;
+    margin:0;
+    padding:0;
+    width:142%;
+}
+#QMgreenGenerator {
+    position: fixed;
+    right: 460px;
+    bottom: 270px;
+    margin:0;
+    padding:0;
+    width:142%;
+}
+#QMyellowGenerator {
+    position: fixed;
+    right: 70px;
+    bottom: 140px;
+    margin:0;
+    padding:0;
+    width:142%;
+}
+#yGETL {
+    position: fixed;
+    left: 400px;
+    bottom: 250px;
 }
 
 
