@@ -69,7 +69,7 @@
         <img src="@/assets/yellowETL.png" class="m-4" alt="QuestionMark" width="180" height="170">
         <hr class="my-4">
         <div class="form-check-inline mr-5 ml-5">
-          <input class="form-check-input position-static mr-5 ml-5" type="checkbox" id="blankCheckbox" value="option1" aria-label="..." v-model="redGenerator">
+          <input class="form-check-input position-static mr-5 ml-5" type="checkbox" id="blankCheckbox" value="option1" aria-label="..." v-model="redGenerator" @click="checkIfEnoughKW">
         </div>
         <div class="form-check-inline mr-5 ml-5">
           <input class="form-check-input position-static mr-5 ml-5" type="checkbox" id="blankCheckbox" value="option1" aria-label="..." v-model="blueGenerator">
@@ -195,7 +195,7 @@ export default {
       rGEcoTypeLabel: false,
       bGEcoTypeLabel: false,
       gGEcoTypeLabel: false,
-      yGEcoTypeLabel: false,
+      yGEcoTypeLabel: false
     }
   },
   methods: {
@@ -224,10 +224,15 @@ export default {
     console.log("Renting done");
     this.chapter101 = false;
     this.chapter102 = false;
+    if (this.redGenerator == false && this.blueGenerator == false && this.greenGenerator == false && this.yellowGenerator == false) {
+      this.redGenerator = true;
+      this.greenGenerator = true;
+      this.yellowGenerator = true;
+    }
     this.chapter103 = true;
   },
   goToStore: function() {
-    console.log("Renting done");
+    console.log("Went to store");
     this.chapter101 = false;
     this.chapter102 = true;
   },
