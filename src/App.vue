@@ -98,6 +98,12 @@
         </div>
     </div>
     </div>
+    <div id="positivePowerbalance">
+      <img src="@/assets/positivePowerbalance.png" class="mr-3" alt="QuestionMark" width="270" height="210">
+    </div>
+    <div id="pPText">
+      <p>Powerbalance:</p>
+    </div>
   </div>
   </div>
 </template>
@@ -110,15 +116,15 @@ export default {
   },
   data: function () {
     return {
-      chapter101: false,
-      chapter103: true,
+      chapter101: true,
+      chapter103: false,
       pic1: false,
       pic2: false,
       pic3: false,
-      redGenerator: true,
-      blueGenerator: true,
-      greenGenerator: true,
-      yellowGenerator: true,
+      redGenerator: false,
+      blueGenerator: false,
+      greenGenerator: false,
+      yellowGenerator: false,
       rGEcoTypeLabel: false,
       bGEcoTypeLabel: false,
       gGEcoTypeLabel: false,
@@ -149,6 +155,9 @@ export default {
   },
   rent: function() {
     console.log("Rent generator");
+    this.redGenerator = true;
+    this.chapter101 = false;
+    this.chapter103 = true;
   },
   showETL4: function() {
     if (this.yGEcoTypeLabel == false) {
@@ -184,76 +193,67 @@ export default {
 
 <style>
 #rightPump {
-    position: absolute;
-    right:0;
+    position: fixed;
+    right:650px;
     bottom:50px;
     margin:0;
     padding:0;
-    width:75%;
 }
 #leftPump {
     position: fixed;
-    right:-30px;
+    left:580px;
     bottom:200px;
     margin:0;
     padding:0;
-    width:135%;
 }
 #leftPic {
     position: fixed;
-    right:150px;
+    left: 400px;
     bottom:50px;
     margin:0;
     padding:0;
-    width:135%;
 }
 #rightPic {
     position: fixed;
-    left:0px;
+    right:400px;
     bottom:50px;
     margin:0;
     padding:0;
-    width:142%;
 }
 #redNeedPower {
     position: fixed;
-    left:350px;
+    right:50px;
     bottom:650px;
     margin:0;
     padding:0;
-    width:142%;
 }
 #redLightning {
     position: fixed;
-    left: -350px;
+    left: 870px;
     bottom:550px;
     margin:0;
     padding:0;
-    width:142%;
 }
 #upperleftPic {
     position: fixed;
-    right:400px;
+    left:100px;
     top:50px;
     margin:0;
     padding:0;
-    width:142%;
 }
 #useCase {
     position: fixed;
-    right:250px;
+    left:80px;
     bottom:450px;
     margin:0;
     padding:0;
-    width:142%;
 }
 #rentGeneratorBtn {
     position: fixed;
-    left: 345px;
+    right: 130px;
     bottom: 580px;
     margin:0;
     padding:0;
-    width:142%;
 }
 #redGenerator {
     position: fixed;
@@ -331,7 +331,18 @@ export default {
     right: 300px;
     bottom: 280px;
 }
-
+#positivePowerbalance {
+    position: fixed;
+    right: 100px;
+    bottom: 700px;
+}
+#pPText {
+    position: fixed;
+    right: 125px;
+    bottom: 780px;
+    color: black;
+    font-size: 37px;
+}
 
 body {
   background-image: url("assets/landingPage.jpg");
