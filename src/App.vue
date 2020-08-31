@@ -221,6 +221,18 @@
     <div id="errorPfeil">
       <img src="@/assets/pfeil.png" class="mr-3" alt="redLightning" width="150" height="150">
     </div>
+    <div id="errorETLText">
+      <p>Electronic type <br> label is not <br> trust worthy!</p>
+    </div>
+    <div id="errorOverheatText">
+      <p>Overheat! <br> Power down!</p>
+    </div>
+    <div id="errorRunningText">
+      <p>The generator <br> is running <br> outside of his <br> specs!</p>
+    </div>
+    <div id="errorDistributorText">
+      <p>Distributor <br> exaggerated <br> with specs!</p>
+    </div>
   </div>
   </div>
 </template>
@@ -549,6 +561,39 @@ export default {
     right: 150px;
     bottom: 450px;
 }
+#errorETLText {
+  position: fixed;
+  right: 275px;
+  bottom: 635px;
+  color: black;
+  font-size: 35px;
+}
+#errorOverheatText {
+  position: fixed;
+  left: 160px;
+  bottom: 700px;
+  color: black;
+  font-size: 40px;
+}
+#errorRunningText {
+  position: fixed;
+  left: 170px;
+  bottom: 360px;
+  color: black;
+  font-size: 35px;
+}
+#errorDistributorText {
+  position: fixed;
+  left: 180px;
+  bottom: 100px;
+  color: black;
+  font-size: 35px;
+}
+#chapter1EndingBtn {
+  position: fixed;
+  bottom: 100px;
+}
+
 
 
 body {
