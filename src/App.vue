@@ -85,6 +85,19 @@
       </div>
   </div>
   <div v-if="chapter103">
+    <div v-if="blueGenerator">
+      <div id="blueGenerator">
+        <img src="@/assets/blueGenerator.png" class="mr-3" alt="QuestionMark" width="200" height="170">
+      </div>
+      <div id="QMblueGenerator">
+        <img src="@/assets/questionMark.png" class="mr-3" alt="QuestionMark" width="130" height="110" @click="showETL1">
+      </div>
+      <div v-if="bGEcoTypeLabel">
+        <div id="bGETL">
+          <img src="@/assets/blueETL.png" class="mr-3" alt="QuestionMark" width="220" height="200">
+        </div>
+    </div>
+    </div>
     <div v-if="redGenerator">
       <div id="redGenerator">
         <img src="@/assets/redGenerator.png" class="mr-3" alt="QuestionMark" width="200" height="170">
@@ -101,19 +114,6 @@
       <div id="showSmoke">
         <img src="@/assets/smoke.png" class="mr-3" alt="QuestionMark" width="220" height="200">
       </div>
-    </div>
-    </div>
-    <div v-if="blueGenerator">
-      <div id="blueGenerator">
-        <img src="@/assets/blueGenerator.png" class="mr-3" alt="QuestionMark" width="200" height="170">
-      </div>
-      <div id="QMblueGenerator">
-        <img src="@/assets/questionMark.png" class="mr-3" alt="QuestionMark" width="130" height="110" @click="showETL1">
-      </div>
-      <div v-if="bGEcoTypeLabel">
-        <div id="bGETL">
-          <img src="@/assets/blueETL.png" class="mr-3" alt="QuestionMark" width="220" height="200">
-        </div>
     </div>
     </div>
     <div v-if="greenGenerator">
@@ -177,6 +177,11 @@
     </div>
   </div>
   <div v-if="chapter104">
+    <div v-if="blueGenerator">
+      <div id="blueGenerator">
+        <img src="@/assets/blueGenerator.png" class="mr-3" alt="QuestionMark" width="200" height="170">
+      </div>
+    </div>
     <div v-if="redGenerator">
       <div id="redGenerator">
         <img src="@/assets/redGenerator.png" class="mr-3" alt="QuestionMark" width="200" height="170">
@@ -191,11 +196,6 @@
     <div v-if="greenGenerator">
       <div id="greenGenerator">
         <img src="@/assets/greenGenerator.png" class="mr-3" alt="QuestionMark" width="200" height="170">
-      </div>
-    </div>
-    <div v-if="blueGenerator">
-      <div id="blueGenerator">
-        <img src="@/assets/blueGenerator.png" class="mr-3" alt="QuestionMark" width="200" height="170">
       </div>
     </div>
     <div v-if="yellowGenerator">
