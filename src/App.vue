@@ -69,7 +69,7 @@
         <img src="@/assets/yellowETL.png" class="m-4" alt="QuestionMark" width="180" height="170">
         <hr class="my-4">
         <div class="form-check-inline mr-5 ml-5">
-          <input class="form-check-input position-static mr-5 ml-5" type="checkbox" id="blankCheckbox" value="option1" aria-label="..." v-model="redGenerator" @click="checkIfEnoughKW">
+          <input class="form-check-input position-static mr-5 ml-5" type="checkbox" id="blankCheckbox" value="option1" aria-label="..." v-model="redGenerator">
         </div>
         <div class="form-check-inline mr-5 ml-5">
           <input class="form-check-input position-static mr-5 ml-5" type="checkbox" id="blankCheckbox" value="option1" aria-label="..." v-model="blueGenerator">
@@ -233,6 +233,9 @@
     <div id="errorDistributorText">
       <p>Distributor <br> exaggerated <br> with specs!</p>
     </div>
+    <div id="chapter1EndingBtn">
+      <button type="button" class="btn btn-info btn-lg" @click="endChapter1">Acknowledge</button>
+    </div>
   </div>
   </div>
 </template>
@@ -245,14 +248,14 @@ export default {
   },
   data: function () {
     return {
-      chapter101: false,
+      chapter101: true,
       chapter102: false,
       chapter103: false,
-      chapter104: true,
+      chapter104: false,
       pic1: false,
       pic2: false,
       pic3: false,
-      redGenerator: true,
+      redGenerator: false,
       blueGenerator: false,
       greenGenerator: false,
       yellowGenerator: false,
@@ -294,6 +297,7 @@ export default {
       this.redGenerator = true;
       this.greenGenerator = true;
       this.yellowGenerator = true;
+      this.chapter103 = true;
     }
     this.redGenerator = true;
     this.chapter103 = true;
@@ -308,7 +312,7 @@ export default {
         this.yGEcoTypeLabel = true;
         if (this.smoke === true) {
           this.chapter103 = false;
-          this.chapter101 = true;
+          this.chapter104 = true;
         }
         this.smoke = true;
       } else {
@@ -320,7 +324,7 @@ export default {
         this.gGEcoTypeLabel = true;
         if (this.smoke === true) {
           this.chapter103 = false;
-          this.chapter101 = true;
+          this.chapter104 = true;
         }
         this.smoke = true;
       } else {
@@ -332,7 +336,7 @@ export default {
         this.rGEcoTypeLabel = true;
         if (this.smoke === true) {
           this.chapter103 = false;
-          this.chapter101 = true;
+          this.chapter104 = true;
         }
         this.smoke = true;
       } else {
@@ -344,12 +348,23 @@ export default {
         this.bGEcoTypeLabel = true;
         if (this.smoke === true) {
           this.chapter103 = false;
-          this.chapter101 = true;
+          this.chapter104 = true;
         }
         this.smoke = true;
       } else {
         this.bGEcoTypeLabel = false;
       } 
+  },
+  endChapter1: function() {
+    this.chapter104 = false;
+    this.chapter103 = false;
+    this.chapter102 = false;
+    this.chapter101 = true;
+    this.redGenerator = false;
+    this.greenGenerator = false;
+    this.blueGenerator = false;
+    this.yellowGenerator = false;
+    this.smoke = false;
   }
 }
 }
@@ -591,7 +606,8 @@ export default {
 }
 #chapter1EndingBtn {
   position: fixed;
-  bottom: 100px;
+  left: 850px;
+  bottom: 50px;
 }
 
 
