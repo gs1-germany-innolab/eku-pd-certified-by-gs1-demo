@@ -97,6 +97,11 @@
           <img src="@/assets/redETL.png" class="mr-3" alt="QuestionMark" width="220" height="200">
         </div>
     </div>
+    <div v-if="smoke">
+      <div id="showSmoke">
+        <img src="@/assets/smoke.png" class="mr-3" alt="QuestionMark" width="220" height="200">
+      </div>
+    </div>
     </div>
     <div v-if="blueGenerator">
       <div id="blueGenerator">
@@ -182,20 +187,22 @@ export default {
   },
   data: function () {
     return {
-      chapter101: true,
+      chapter101: false,
       chapter102: false,
-      chapter103: false,
+      chapter103: true,
       pic1: false,
       pic2: false,
       pic3: false,
-      redGenerator: false,
+      redGenerator: true,
       blueGenerator: false,
       greenGenerator: false,
       yellowGenerator: false,
       rGEcoTypeLabel: false,
       bGEcoTypeLabel: false,
       gGEcoTypeLabel: false,
-      yGEcoTypeLabel: false
+      yGEcoTypeLabel: false,
+      smoke: false,
+      error: false
     }
   },
   methods: {
@@ -229,6 +236,7 @@ export default {
       this.greenGenerator = true;
       this.yellowGenerator = true;
     }
+    this.redGenerator = true;
     this.chapter103 = true;
   },
   goToStore: function() {
@@ -239,6 +247,11 @@ export default {
   showETL4: function() {
     if (this.yGEcoTypeLabel == false) {
         this.yGEcoTypeLabel = true;
+        if (this.smoke === true) {
+          this.chapter103 = false;
+          this.chapter101 = true;
+        }
+        this.smoke = true;
       } else {
         this.yGEcoTypeLabel = false;
       } 
@@ -246,6 +259,11 @@ export default {
   showETL3: function() {
     if (this.gGEcoTypeLabel == false) {
         this.gGEcoTypeLabel = true;
+        if (this.smoke === true) {
+          this.chapter103 = false;
+          this.chapter101 = true;
+        }
+        this.smoke = true;
       } else {
         this.gGEcoTypeLabel = false;
       } 
@@ -253,6 +271,11 @@ export default {
   showETL2: function() {
     if (this.rGEcoTypeLabel == false) {
         this.rGEcoTypeLabel = true;
+        if (this.smoke === true) {
+          this.chapter103 = false;
+          this.chapter101 = true;
+        }
+        this.smoke = true;
       } else {
         this.rGEcoTypeLabel = false;
       } 
@@ -260,6 +283,11 @@ export default {
   showETL1: function() {
     if (this.bGEcoTypeLabel == false) {
         this.bGEcoTypeLabel = true;
+        if (this.smoke === true) {
+          this.chapter103 = false;
+          this.chapter101 = true;
+        }
+        this.smoke = true;
       } else {
         this.bGEcoTypeLabel = false;
       } 
@@ -443,6 +471,11 @@ export default {
     bottom:550px;
     margin:0;
     padding:0;
+}
+#showSmoke {
+    position: fixed;
+    right: 150px;
+    bottom: 100px;
 }
 
 
