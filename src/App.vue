@@ -559,17 +559,17 @@ export default {
 #errorOverheat {
     position: fixed;
     left: 150px;
-    bottom: 50px;
+    bottom: 650px;
 }
 #errorRunning {
     position: fixed;
     left: 150px;
-    bottom: 650px;
+    bottom: 350px;
 }
 #errorDistributor {
     position: fixed;
-    left: 150px;
-    bottom: 350px;
+    left: 450px;
+    bottom: 650px;
 }
 #errorPfeil {
     position: fixed;
@@ -599,8 +599,8 @@ export default {
 }
 #errorDistributorText {
   position: fixed;
-  left: 180px;
-  bottom: 100px;
+  left: 480px;
+  bottom: 680px;
   color: black;
   font-size: 35px;
 }
