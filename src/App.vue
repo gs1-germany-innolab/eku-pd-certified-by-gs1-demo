@@ -365,6 +365,10 @@ export default {
     this.blueGenerator = false;
     this.yellowGenerator = false;
     this.smoke = false;
+    this.rGEcoTypeLabel = false;
+    this.bGEcoTypeLabel = false;
+    this.gGEcoTypeLabel = false;
+    this.yGEcoTypeLabel = false;
   }
 }
 }
