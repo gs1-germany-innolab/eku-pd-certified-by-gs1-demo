@@ -56,7 +56,7 @@
     <div class="jumbotron" style="background-color: #895D54;">
       <h2 class="display-4" style="color: #E5DDDB;">Welcome to your local rental store!</h2>
       <p class="lead" style="color: #E5DDDB;">Here you can rent different generators to cover your energy needs.</p>
-      <h2 style="color: #E61117;">Reminder: You need 200kW</h2>
+      <h2 style="color: #E61117;" v-if="!valid.enoughKW">Reminder: You need 200kW</h2>
         <hr class="my-4">
         <img src="@/assets/redGenerator.png" class="mr-3" alt="QuestionMark" width="200" height="170">
         <img src="@/assets/blueGenerator.png" class="mr-3" alt="QuestionMark" width="200" height="170">
@@ -264,7 +264,8 @@ export default {
       gGEcoTypeLabel: false,
       yGEcoTypeLabel: false,
       smoke: false,
-      error: false
+      error: false,
+      shopValidated: false
     }
   },
   methods: {
@@ -291,16 +292,11 @@ export default {
   },
   rent: function() {
     console.log("Renting done");
-    this.chapter101 = false;
-    this.chapter102 = false;
-    if (this.redGenerator == false && this.blueGenerator == false && this.greenGenerator == false && this.yellowGenerator == false) {
-      this.redGenerator = true;
-      this.greenGenerator = true;
-      this.yellowGenerator = true;
+    if (this.checkForValidation()) {
+      this.chapter101 = false;
+      this.chapter102 = false;
       this.chapter103 = true;
     }
-    this.redGenerator = true;
-    this.chapter103 = true;
   },
   goToStore: function() {
     console.log("Went to store");
@@ -369,6 +365,32 @@ export default {
     this.bGEcoTypeLabel = false;
     this.gGEcoTypeLabel = false;
     this.yGEcoTypeLabel = false;
+  },
+  checkForValidation () {
+    this.shopValidated = true;
+    if (this.valid.enoughKW == true) {
+      return true;
+    }
+    return false;
+  }
+},
+computed: {
+  valid: function () {
+    var enoughKW = false;
+
+    if (this.redGenerator == true && this.yellowGenerator == true && this.greenGenerator == true) {
+      enoughKW = true;
+    }
+    if (this.redGenerator == true && this.yellowGenerator == true && this.blueGenerator == true) {
+      enoughKW = true;
+    }
+    if (this.redGenerator == true && this.yellowGenerator == true && this.greenGenerator == true && this.blueGenerator == true) {
+      enoughKW = true;
+    }
+
+    return {
+      enoughKW: enoughKW
+    };
   }
 }
 }
