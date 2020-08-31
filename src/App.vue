@@ -14,6 +14,15 @@
     <div id="redNeedPower">
       <img src="@/assets/needPower.png" class="mr-3" alt="needPower" width="300" height="275">
     </div>
+    <div id="pNeedPower">
+      <p>Need power!</p>
+    </div>
+    <div id="pPowerbalance">
+      <p>Powerbalance:</p>
+    </div>
+    <div id="pkW">
+      <p>-200kW</p>
+    </div>
     <div id="redLightning">
       <img src="@/assets/roterBlitz.png" class="mr-3" alt="redLightning" width="175" height="225">
     </div>
@@ -343,6 +352,28 @@ export default {
     color: black;
     font-size: 37px;
 }
+#pNeedPower {
+    position: fixed;
+    right: 110px;
+    bottom: 800px;
+    color: black;
+    font-size: 40px;
+}
+#pPowerbalance {
+    position: fixed;
+    right: 85px;
+    bottom: 750px;
+    color: black;
+    font-size: 40px;
+}
+#pkW {
+    position: fixed;
+    right: 150px;
+    bottom: 700px;
+    color: black;
+    font-size: 40px;
+}
+
 
 body {
   background-image: url("assets/landingPage.jpg");
