@@ -6,6 +6,9 @@
       <div id="useCase">
         <img src="@/assets/qmwb.png" class="mr-3" alt="QuestionMark" width="500" height="300">
       </div>
+      <div id="useCaseText">
+        <p>UseCase</p>
+      </div>
     </div>
     <div id="upperleftPic">
       <div @click="showPic1" >
@@ -445,7 +448,7 @@ computed: {
 #useCase {
     position: fixed;
     left:80px;
-    bottom:450px;
+    bottom:425px;
     margin:0;
     padding:0;
 }
@@ -634,6 +637,13 @@ computed: {
   position: fixed;
   left: 850px;
   bottom: 50px;
+}
+#useCaseText {
+  position: fixed;
+  left: 250px;
+  bottom: 550px;
+  color: black;
+  font-size: 35px;
 }
 
 
