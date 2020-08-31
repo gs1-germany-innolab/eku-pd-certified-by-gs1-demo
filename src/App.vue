@@ -176,6 +176,52 @@
       </div>
     </div>
   </div>
+  <div v-if="chapter104">
+    <div v-if="redGenerator">
+      <div id="redGenerator">
+        <img src="@/assets/redGenerator.png" class="mr-3" alt="QuestionMark" width="200" height="170">
+      </div>
+      <div id="rGETL">
+        <img src="@/assets/errorETL.png" class="mr-3" alt="QuestionMark" width="220" height="200">
+      </div>
+    </div>
+    <div id="showSmoke">
+        <img src="@/assets/smoke.png" class="mr-3" alt="QuestionMark" width="220" height="200">
+      </div>
+    <div v-if="greenGenerator">
+      <div id="greenGenerator">
+        <img src="@/assets/greenGenerator.png" class="mr-3" alt="QuestionMark" width="200" height="170">
+      </div>
+    </div>
+    <div v-if="blueGenerator">
+      <div id="blueGenerator">
+        <img src="@/assets/blueGenerator.png" class="mr-3" alt="QuestionMark" width="200" height="170">
+      </div>
+    </div>
+    <div v-if="yellowGenerator">
+      <div id="yellowGenerator">
+        <img src="@/assets/yellowGenerator.png" class="mr-3" alt="QuestionMark" width="200" height="170">
+      </div>
+    </div>
+    <div id="redLightning">
+      <img src="@/assets/roterBlitz.png" class="mr-3" alt="redLightning" width="175" height="225">
+    </div>
+    <div id="errorETL">
+      <img src="@/assets/errorBG.png" class="mr-3" alt="redLightning" width="250" height="250">
+    </div>
+    <div id="errorOverheat">
+      <img src="@/assets/errorBG.png" class="mr-3" alt="redLightning" width="250" height="250">
+    </div>
+    <div id="errorRunning">
+      <img src="@/assets/errorBG.png" class="mr-3" alt="redLightning" width="250" height="250">
+    </div>
+    <div id="errorDistributor">
+      <img src="@/assets/errorBG.png" class="mr-3" alt="redLightning" width="250" height="250">
+    </div>
+    <div id="errorPfeil">
+      <img src="@/assets/pfeil.png" class="mr-3" alt="redLightning" width="150" height="150">
+    </div>
+  </div>
   </div>
 </template>
 
@@ -189,7 +235,8 @@ export default {
     return {
       chapter101: false,
       chapter102: false,
-      chapter103: true,
+      chapter103: false,
+      chapter104: true,
       pic1: false,
       pic2: false,
       pic3: false,
@@ -476,6 +523,31 @@ export default {
     position: fixed;
     right: 150px;
     bottom: 100px;
+}
+#errorETL {
+    position: fixed;
+    right: 250px;
+    bottom: 600px;
+}
+#errorOverheat {
+    position: fixed;
+    left: 150px;
+    bottom: 50px;
+}
+#errorRunning {
+    position: fixed;
+    left: 150px;
+    bottom: 650px;
+}
+#errorDistributor {
+    position: fixed;
+    left: 150px;
+    bottom: 350px;
+}
+#errorPfeil {
+    position: fixed;
+    right: 150px;
+    bottom: 450px;
 }
 
 
