@@ -63,10 +63,10 @@
         <img src="@/assets/greenGenerator.png" class="mr-3" alt="QuestionMark" width="200" height="170">
         <img src="@/assets/yellowGenerator.png" class="mr-3" alt="QuestionMark" width="200" height="170">
         <hr class="my-4">
-        <img src="@/assets/etl2.png" class="m-4" alt="QuestionMark" width="180" height="170">
-        <img src="@/assets/etl2.png" class="m-3" alt="QuestionMark" width="180" height="170">
-        <img src="@/assets/etl2.png" class="m-3" alt="QuestionMark" width="180" height="170">
-        <img src="@/assets/etl2.png" class="m-4" alt="QuestionMark" width="180" height="170">
+        <img src="@/assets/redETL.png" class="m-4" alt="QuestionMark" width="180" height="170">
+        <img src="@/assets/blueETL.png" class="m-3" alt="QuestionMark" width="180" height="170">
+        <img src="@/assets/greenETL.png" class="m-3" alt="QuestionMark" width="180" height="170">
+        <img src="@/assets/yellowETL.png" class="m-4" alt="QuestionMark" width="180" height="170">
         <hr class="my-4">
         <div class="form-check-inline mr-5 ml-5">
           <input class="form-check-input position-static mr-5 ml-5" type="checkbox" id="blankCheckbox" value="option1" aria-label="..." v-model="redGenerator">
@@ -77,9 +77,10 @@
         <div class="form-check-inline mr-5 ml-5">
           <input class="form-check-input position-static mr-5 ml-5" type="checkbox" id="blankCheckbox" value="option1" aria-label="..." v-model="greenGenerator">
         </div>
-        <div class="form-check-inline mr-5 ml-5">
-          <input class="form-check-input position-static mr-5 ml-5" type="checkbox" id="blankCheckbox" value="option1" aria-label="..." v-model="yellowGenerator">
+        <div class="form-check-inline ml-5 mr-5">
+          <input class="form-check-input position-static ml-5 mr-5" type="checkbox" id="blankCheckbox" value="option1" aria-label="..." v-model="yellowGenerator">
         </div>
+        <hr class="my-4">
           <button type="button" class="btn btn-info btn-lg" @click="rent">Rent generator</button>
       </div>
   </div>
@@ -93,7 +94,7 @@
       </div>
       <div v-if="rGEcoTypeLabel">
         <div id="rGETL">
-          <img src="@/assets/etl2.png" class="mr-3" alt="QuestionMark" width="220" height="200">
+          <img src="@/assets/redETL.png" class="mr-3" alt="QuestionMark" width="220" height="200">
         </div>
     </div>
     </div>
@@ -106,7 +107,7 @@
       </div>
       <div v-if="bGEcoTypeLabel">
         <div id="bGETL">
-          <img src="@/assets/etl2.png" class="mr-3" alt="QuestionMark" width="220" height="200">
+          <img src="@/assets/blueETL.png" class="mr-3" alt="QuestionMark" width="220" height="200">
         </div>
     </div>
     </div>
@@ -121,7 +122,7 @@
       </div>
       <div v-if="gGEcoTypeLabel">
         <div id="gGETL">
-          <img src="@/assets/etl2.png" class="mr-3" alt="QuestionMark" width="220" height="200">
+          <img src="@/assets/greenETL.png" class="mr-3" alt="QuestionMark" width="220" height="200">
         </div>
     </div>
     </div>
@@ -136,7 +137,7 @@
       </div>
       <div v-if="yGEcoTypeLabel">
         <div id="yGETL">
-          <img src="@/assets/etl2.png" class="mr-3" alt="QuestionMark" width="220" height="200">
+          <img src="@/assets/yellowETL.png" class="mr-3" alt="QuestionMark" width="220" height="200">
         </div>
     </div>
     </div>
