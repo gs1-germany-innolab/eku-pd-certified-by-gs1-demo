@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <div id="background1">
     <div v-if="chapter101">
     <div v-if="pic1">
       <div id="useCase">
@@ -47,8 +48,40 @@
       </div>
     </div>
     <div id="rentGeneratorBtn">
-      <button type="button" class="btn btn-info btn-lg" @click="rent">Rent generator</button>
+      <button type="button" class="btn btn-info btn-lg" @click="goToStore">Go to local store</button>
     </div>
+  </div>
+  </div>
+  <div v-if="chapter102">
+    <div class="jumbotron" style="background-color: #895D54;">
+      <h2 class="display-4" style="color: #E5DDDB;">Welcome to your local rental store!</h2>
+      <p class="lead" style="color: #E5DDDB;">Here you can rent different generators to cover your energy needs.</p>
+      <h2 style="color: #E61117;">Reminder: You need 200kW</h2>
+        <hr class="my-4">
+        <img src="@/assets/redGenerator.png" class="mr-3" alt="QuestionMark" width="200" height="170">
+        <img src="@/assets/blueGenerator.png" class="mr-3" alt="QuestionMark" width="200" height="170">
+        <img src="@/assets/greenGenerator.png" class="mr-3" alt="QuestionMark" width="200" height="170">
+        <img src="@/assets/yellowGenerator.png" class="mr-3" alt="QuestionMark" width="200" height="170">
+        <hr class="my-4">
+        <img src="@/assets/etl2.png" class="m-4" alt="QuestionMark" width="180" height="170">
+        <img src="@/assets/etl2.png" class="m-3" alt="QuestionMark" width="180" height="170">
+        <img src="@/assets/etl2.png" class="m-3" alt="QuestionMark" width="180" height="170">
+        <img src="@/assets/etl2.png" class="m-4" alt="QuestionMark" width="180" height="170">
+        <hr class="my-4">
+        <div class="form-check-inline mr-5 ml-5">
+          <input class="form-check-input position-static mr-5 ml-5" type="checkbox" id="blankCheckbox" value="option1" aria-label="..." v-model="redGenerator">
+        </div>
+        <div class="form-check-inline mr-5 ml-5">
+          <input class="form-check-input position-static mr-5 ml-5" type="checkbox" id="blankCheckbox" value="option1" aria-label="..." v-model="blueGenerator">
+        </div>
+        <div class="form-check-inline mr-5 ml-5">
+          <input class="form-check-input position-static mr-5 ml-5" type="checkbox" id="blankCheckbox" value="option1" aria-label="..." v-model="greenGenerator">
+        </div>
+        <div class="form-check-inline mr-5 ml-5">
+          <input class="form-check-input position-static mr-5 ml-5" type="checkbox" id="blankCheckbox" value="option1" aria-label="..." v-model="yellowGenerator">
+        </div>
+          <button type="button" class="btn btn-info btn-lg" @click="rent">Rent generator</button>
+      </div>
   </div>
   <div v-if="chapter103">
     <div v-if="redGenerator">
@@ -113,6 +146,29 @@
     <div id="pPText">
       <p>Powerbalance:</p>
     </div>
+    <div id="greenLightning">
+      <img src="@/assets/greenBlitz.png" class="mr-3" alt="redLightning" width="175" height="225">
+    </div>
+    <div id="leftPump">
+      <div @click="showPic2" >
+        <img src="@/assets/questionMark.png" class="mr-3" alt="QuestionMark" width="150" height="130">
+      </div>
+    </div>
+    <div v-if="pic2">
+      <div id="leftPic">
+        <img src="@/assets/etl1.png" class="mr-3" alt="QuestionMark" width="220" height="200">
+      </div>
+    </div>
+    <div v-if="pic3">
+      <div id="rightPic">
+        <img src="@/assets/etl2.png" class="mr-3" alt="QuestionMark" width="220" height="200">
+      </div>
+    </div>
+    <div id="rightPump">
+      <div @click="showPic3" >
+        <img src="@/assets/questionMark.png" class="mr-3" alt="QuestionMark" width="150" height="130">
+      </div>
+    </div>
   </div>
   </div>
 </template>
@@ -126,6 +182,7 @@ export default {
   data: function () {
     return {
       chapter101: true,
+      chapter102: false,
       chapter103: false,
       pic1: false,
       pic2: false,
@@ -137,7 +194,7 @@ export default {
       rGEcoTypeLabel: false,
       bGEcoTypeLabel: false,
       gGEcoTypeLabel: false,
-      yGEcoTypeLabel: false
+      yGEcoTypeLabel: false,
     }
   },
   methods: {
@@ -163,10 +220,15 @@ export default {
       }
   },
   rent: function() {
-    console.log("Rent generator");
-    this.redGenerator = true;
+    console.log("Renting done");
     this.chapter101 = false;
+    this.chapter102 = false;
     this.chapter103 = true;
+  },
+  goToStore: function() {
+    console.log("Renting done");
+    this.chapter101 = false;
+    this.chapter102 = true;
   },
   showETL4: function() {
     if (this.yGEcoTypeLabel == false) {
@@ -217,17 +279,13 @@ export default {
 }
 #leftPic {
     position: fixed;
-    left: 400px;
-    bottom:50px;
-    margin:0;
-    padding:0;
+    left: 600px;
+    bottom:330px;
 }
 #rightPic {
     position: fixed;
-    right:400px;
-    bottom:50px;
-    margin:0;
-    padding:0;
+    right: 600px;
+    bottom: 200px;
 }
 #redNeedPower {
     position: fixed;
@@ -322,7 +380,7 @@ export default {
 }
 #yGETL {
     position: fixed;
-    left: 400px;
+    left: 350px;
     bottom: 250px;
 }
 #gGETL {
@@ -372,6 +430,13 @@ export default {
     bottom: 700px;
     color: black;
     font-size: 40px;
+}
+#greenLightning {
+    position: fixed;
+    left: 870px;
+    bottom:550px;
+    margin:0;
+    padding:0;
 }
 
 
