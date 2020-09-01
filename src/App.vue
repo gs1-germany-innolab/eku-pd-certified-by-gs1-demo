@@ -59,7 +59,7 @@
     <div class="jumbotron" style="background-color: #895D54;">
       <h2 class="display-4" style="color: #E5DDDB;">Welcome to your local rental store!</h2>
       <p class="lead" style="color: #E5DDDB;">Here you can rent different generators to cover your energy needs.</p>
-      <h2 style="color: #E61117;" v-if="!valid.enoughKW">Reminder: You need 200kW</h2>
+      <h2 style="color: #E61117;" v-if="!valid.enoughKW">Reminder: Current energy demand {{powerBalance}}kW</h2>
         <hr class="my-4">
         <img src="@/assets/redGenerator.png" class="mr-3" alt="QuestionMark" width="200" height="170">
         <img src="@/assets/blueGenerator.png" class="mr-3" alt="QuestionMark" width="200" height="170">
