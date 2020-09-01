@@ -4,10 +4,10 @@
     <div v-if="chapter101">
     <div v-if="pic1">
       <div id="useCase">
-        <img src="@/assets/qmwb.png" class="mr-3" alt="QuestionMark" width="500" height="300">
+        <img src="@/assets/qmwb.png" class="mr-3" alt="QuestionMark" width="500" height="400">
       </div>
       <div id="useCaseText">
-        <p>UseCase</p>
+        <p>You are in a desert <br> in the middle of the USA. <br> You would like to <br> put your oil towers into operation, <br> but you do not have <br> the necessary electricity.</p>
       </div>
     </div>
     <div id="upperleftPic">
@@ -458,7 +458,7 @@ computed: {
 #useCase {
     position: fixed;
     left:80px;
-    bottom:425px;
+    top:200px;
     margin:0;
     padding:0;
 }
@@ -650,10 +650,10 @@ computed: {
 }
 #useCaseText {
   position: fixed;
-  left: 250px;
-  bottom: 550px;
+  left: 110px;
+  bottom: 425px;
   color: black;
-  font-size: 35px;
+  font-size: 30px;
 }
 #chapter103Powerbalance {
   position: fixed;
