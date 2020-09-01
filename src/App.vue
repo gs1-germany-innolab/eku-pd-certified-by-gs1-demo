@@ -178,6 +178,7 @@
         <img src="@/assets/questionMark.png" class="mr-3" alt="QuestionMark" width="150" height="130">
       </div>
     </div>
+    <p id="chapter103Powerbalance">+{{powerBalance}}kW</p>
   </div>
   <div v-if="chapter104">
     <div v-if="blueGenerator">
@@ -268,7 +269,8 @@ export default {
       yGEcoTypeLabel: false,
       smoke: false,
       error: false,
-      shopValidated: false
+      shopValidated: false,
+      powerBalance: -200
     }
   },
   methods: {
@@ -296,6 +298,13 @@ export default {
   rent: function() {
     console.log("Renting done");
     if (this.checkForValidation()) {
+      this.powerBalance += 175;
+      if (this.greenGenerator == true) {
+        this.powerBalance += 25;
+      }
+      if (this.blueGenerator == true) {
+        this.powerBalance += 50;
+      }
       this.chapter101 = false;
       this.chapter102 = false;
       this.chapter103 = true;
@@ -645,6 +654,14 @@ computed: {
   color: black;
   font-size: 35px;
 }
+#chapter103Powerbalance {
+  position: fixed;
+  right: 190px;
+  top: 170px;
+  color: black;
+  font-size: 40px;
+}
+
 
 
 
