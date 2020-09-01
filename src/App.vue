@@ -25,7 +25,7 @@
       <p>Powerbalance:</p>
     </div>
     <div id="pkW">
-      <p>-200kW</p>
+      <p>{{powerBalance}}kW</p>
     </div>
     <div id="redLightning">
       <img src="@/assets/roterBlitz.png" class="mr-3" alt="redLightning" width="175" height="225">
@@ -377,6 +377,7 @@ export default {
     this.bGEcoTypeLabel = false;
     this.gGEcoTypeLabel = false;
     this.yGEcoTypeLabel = false;
+    this.powerBalance = -200;
   },
   checkForValidation () {
     this.shopValidated = true;
