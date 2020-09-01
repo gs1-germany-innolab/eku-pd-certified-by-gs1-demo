@@ -4,10 +4,10 @@
     <div v-if="chapter101">
     <div v-if="pic1">
       <div id="useCase">
-        <img src="@/assets/qmwb.png" class="mr-3" alt="QuestionMark" width="500" height="300">
+        <img src="@/assets/qmwb.png" class="mr-3" alt="QuestionMark" width="500" height="400">
       </div>
       <div id="useCaseText">
-        <p>UseCase</p>
+        <p>You are in a desert <br> in the middle of the USA. <br> You would like to <br> put your oil towers into operation, <br> but you do not have <br> the necessary electricity.</p>
       </div>
     </div>
     <div id="upperleftPic">
@@ -25,7 +25,7 @@
       <p>Powerbalance:</p>
     </div>
     <div id="pkW">
-      <p>-200kW</p>
+      <p>{{powerBalance}}kW</p>
     </div>
     <div id="redLightning">
       <img src="@/assets/roterBlitz.png" class="mr-3" alt="redLightning" width="175" height="225">
@@ -59,7 +59,7 @@
     <div class="jumbotron" style="background-color: #895D54;">
       <h2 class="display-4" style="color: #E5DDDB;">Welcome to your local rental store!</h2>
       <p class="lead" style="color: #E5DDDB;">Here you can rent different generators to cover your energy needs.</p>
-      <h2 style="color: #E61117;" v-if="!valid.enoughKW">Reminder: You need 200kW</h2>
+      <h2 style="color: #E61117;" v-if="!valid.enoughKW">Reminder: Current energy demand {{powerBalance}}kW</h2>
         <hr class="my-4">
         <img src="@/assets/redGenerator.png" class="mr-3" alt="QuestionMark" width="200" height="170">
         <img src="@/assets/blueGenerator.png" class="mr-3" alt="QuestionMark" width="200" height="170">
@@ -178,6 +178,7 @@
         <img src="@/assets/questionMark.png" class="mr-3" alt="QuestionMark" width="150" height="130">
       </div>
     </div>
+    <p id="chapter103Powerbalance">+{{powerBalance}}kW</p>
   </div>
   <div v-if="chapter104">
     <div v-if="blueGenerator">
@@ -268,7 +269,8 @@ export default {
       yGEcoTypeLabel: false,
       smoke: false,
       error: false,
-      shopValidated: false
+      shopValidated: false,
+      powerBalance: -200
     }
   },
   methods: {
@@ -296,6 +298,13 @@ export default {
   rent: function() {
     console.log("Renting done");
     if (this.checkForValidation()) {
+      this.powerBalance += 175;
+      if (this.greenGenerator == true) {
+        this.powerBalance += 25;
+      }
+      if (this.blueGenerator == true) {
+        this.powerBalance += 50;
+      }
       this.chapter101 = false;
       this.chapter102 = false;
       this.chapter103 = true;
@@ -368,6 +377,7 @@ export default {
     this.bGEcoTypeLabel = false;
     this.gGEcoTypeLabel = false;
     this.yGEcoTypeLabel = false;
+    this.powerBalance = -200;
   },
   checkForValidation () {
     this.shopValidated = true;
@@ -448,7 +458,7 @@ computed: {
 #useCase {
     position: fixed;
     left:80px;
-    bottom:425px;
+    top:200px;
     margin:0;
     padding:0;
 }
@@ -640,11 +650,19 @@ computed: {
 }
 #useCaseText {
   position: fixed;
-  left: 250px;
-  bottom: 550px;
+  left: 110px;
+  bottom: 425px;
   color: black;
-  font-size: 35px;
+  font-size: 30px;
 }
+#chapter103Powerbalance {
+  position: fixed;
+  right: 190px;
+  top: 170px;
+  color: black;
+  font-size: 40px;
+}
+
 
 
 
