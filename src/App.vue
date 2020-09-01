@@ -37,12 +37,22 @@
     </div>
     <div v-if="pic2">
       <div id="leftPic">
-        <img src="@/assets/etl1.png" class="mr-3" alt="QuestionMark" width="220" height="200">
+          <DigitalTypeLabel 
+          color="green"
+          :power="pump1Power" 
+          gs1id="urn:epc:id:giai:0614141.12345400"
+          manufacturer="Manufacturer 1"
+          font_size="16px"></DigitalTypeLabel>
       </div>
     </div>
     <div v-if="pic3">
       <div id="rightPic">
-        <img src="@/assets/etl2.png" class="mr-3" alt="QuestionMark" width="220" height="200">
+         <DigitalTypeLabel 
+          color="green"
+          :power="pump2Power" 
+          gs1id="urn:epc:id:giai:0614141.12345400"
+          manufacturer="Manufacturer 1"
+          font_size="16px"></DigitalTypeLabel>
       </div>
     </div>
     <div id="rightPump">
@@ -164,13 +174,25 @@
       </div>
     </div>
     <div v-if="pic2">
+        <!-- TODO: change label details -->
       <div id="leftPic">
-        <img src="@/assets/etl1.png" class="mr-3" alt="QuestionMark" width="220" height="200">
+         <DigitalTypeLabel 
+          color="green"
+          :power="pump1Power" 
+          gs1id="urn:epc:id:giai:0614141.12345400"
+          manufacturer="Manufacturer 1"
+          font_size="16px"></DigitalTypeLabel>
       </div>
     </div>
     <div v-if="pic3">
       <div id="rightPic">
-        <img src="@/assets/etl2.png" class="mr-3" alt="QuestionMark" width="220" height="200">
+          <!-- TODO: -->
+         <DigitalTypeLabel 
+          color="green"
+          :power="pump1Power" 
+          gs1id="urn:epc:id:giai:0614141.12345400"
+          manufacturer="Manufacturer 1"
+          font_size="16px"></DigitalTypeLabel>
       </div>
     </div>
     <div id="rightPump">
@@ -245,10 +267,12 @@
 </template>
 
 <script>
+import DigitalTypeLabel from './components/DigitalTypeLabel.vue';
+
 export default {
   name: 'App',
   components: {
-    
+    DigitalTypeLabel
   },
   data: function () {
     return {
@@ -270,7 +294,8 @@ export default {
       smoke: false,
       error: false,
       shopValidated: false,
-      powerBalance: -200
+      pump1Power: -100,
+      pump2Power: -120
     }
   },
   methods: {
@@ -377,7 +402,6 @@ export default {
     this.bGEcoTypeLabel = false;
     this.gGEcoTypeLabel = false;
     this.yGEcoTypeLabel = false;
-    this.powerBalance = -200;
   },
   checkForValidation () {
     this.shopValidated = true;
@@ -404,6 +428,9 @@ computed: {
     return {
       enoughKW: enoughKW
     };
+  },
+  powerBalance(){
+      return this.pump1Power + this.pump2Power;
   }
 }
 }
