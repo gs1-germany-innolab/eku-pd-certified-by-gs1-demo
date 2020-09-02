@@ -347,6 +347,7 @@
         </div>
         <hr class="my-4">
           <button type="button" class="btn btn-info btn-lg" @click="rentCh2">Rent generator</button>
+          <button type="button" class="btn btn-info btn-lg ml-5" @click="autoRentCh2">Auto rent generator</button>
       </div>
   </div>
   <div v-if="chapter203">
@@ -475,10 +476,10 @@ export default {
       pic1: false,
       pic2: false,
       pic3: false,
-      redGenerator: true,
-      blueGenerator: true,
-      greenGenerator: true,
-      yellowGenerator: true,
+      redGenerator: false,
+      blueGenerator: false,
+      greenGenerator: false,
+      yellowGenerator: false,
       rGEcoTypeLabel: false,
       bGEcoTypeLabel: false,
       gGEcoTypeLabel: false,
@@ -542,6 +543,16 @@ export default {
       this.chapter202 = false;
       this.chapter203 = true;
     }
+  },
+   autoRentCh2: function() {
+    console.log("Auto renting done in chapter 2");
+      this.positivePowerBalance += 200;
+      this.redGenerator = true;
+      this.greenGenerator = true;
+      this.yellowGenerator = true;
+      this.chapter201 = false;
+      this.chapter202 = false;
+      this.chapter203 = true;
   },
   goToStore: function() {
     console.log("Went to store");
