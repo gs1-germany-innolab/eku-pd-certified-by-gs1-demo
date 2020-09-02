@@ -261,6 +261,197 @@
       <button type="button" class="btn btn-info btn-lg" @click="endChapter1">See the difference with CertifiedByGS1</button>
     </div>
   </div>
+  <div v-if="chapter201">
+      <div id="useCase">
+        <img src="@/assets/qmwb.png" class="mr-3" alt="QuestionMark" width="500" height="400">
+      </div>
+      <div id="useCaseText">
+        <p>You are in a desert <br> in the middle of the USA. <br> You would like to <br> put your oil towers into operation, <br> but you do not have <br> the necessary electricity.</p>
+      </div>
+    <div id="redNeedPower">
+      <img src="@/assets/needPower.png" class="mr-3" alt="needPower" width="300" height="275">
+    </div>
+    <div id="pNeedPower">
+      <p>Need power!</p>
+    </div>
+    <div id="pPowerbalance">
+      <p>Powerbalance:</p>
+    </div>
+    <div id="pkW">
+      <p>{{powerBalance}}kW</p>
+    </div>
+    <div id="redLightning">
+      <img src="@/assets/roterBlitz.png" class="mr-3" alt="redLightning" width="175" height="225">
+    </div>
+    <div id="leftPump">
+      <div @click="showPic2" >
+        <img src="@/assets/questionMark.png" class="mr-3" alt="QuestionMark" width="150" height="130">
+      </div>
+    </div>
+    <div v-if="pic2">
+      <div id="leftPic">
+          <DigitalTypeLabel 
+          color="green"
+          :power="pump1Power" 
+          gs1id="urn:epc:id:giai:0614141.12345400"
+          manufacturer="Manufacturer 001"
+          font_size="16px"></DigitalTypeLabel>
+      </div>
+    </div>
+    <div v-if="pic3">
+      <div id="rightPic">
+         <DigitalTypeLabel 
+          color="green"
+          :power="pump2Power" 
+          gs1id="urn:epc:id:giai:0614141.12345401"
+          manufacturer="Manufacturer 002"
+          font_size="16px"></DigitalTypeLabel>
+      </div>
+    </div>
+    <div id="rightPump">
+      <div @click="showPic3" >
+        <img src="@/assets/questionMark.png" class="mr-3" alt="QuestionMark" width="150" height="130">
+      </div>
+    </div>
+    <div id="rentGeneratorBtn">
+      <button type="button" class="btn btn-info btn-lg" @click="goToStoreCh2">Go to local store</button>
+    </div>
+  </div>
+  <div v-if="chapter202">
+    <div class="jumbotron" style="background-color: #895D54;">
+      <h2 class="display-4" style="color: #E5DDDB;">Welcome to your local rental store!</h2>
+      <p class="lead" style="color: #E5DDDB;">Here you can rent different generators to cover your energy needs.</p>
+      <h2 style="color: #E61117;" v-if="!valid.enoughKW">Reminder: Current energy demand {{powerBalance}}kW</h2>
+        <hr class="my-4">
+        <img src="@/assets/redGenerator.png" class="mr-3" alt="QuestionMark" width="200" height="170">
+        <img src="@/assets/blueGenerator.png" class="mr-3" alt="QuestionMark" width="200" height="170">
+        <img src="@/assets/greenGenerator.png" class="mr-3" alt="QuestionMark" width="200" height="170">
+        <img src="@/assets/yellowGenerator.png" class="mr-3" alt="QuestionMark" width="200" height="170">
+        <hr class="my-4">
+        <img src="@/assets/redETLCh2.png" class="m-4" alt="QuestionMark" width="180" height="170">
+        <img src="@/assets/blueETLCh2.png" class="m-3" alt="QuestionMark" width="180" height="170">
+        <img src="@/assets/greenETLCh2.png" class="m-3" alt="QuestionMark" width="180" height="170">
+        <img src="@/assets/yellowETLCh2.png" class="m-4" alt="QuestionMark" width="180" height="170">
+        <hr class="my-4">
+        <div class="form-check-inline mr-5 ml-5">
+          <input class="form-check-input position-static mr-5 ml-5" type="checkbox" id="blankCheckbox" value="option1" aria-label="..." v-model="redGenerator">
+        </div>
+        <div class="form-check-inline mr-5 ml-5">
+          <input class="form-check-input position-static mr-5 ml-5" type="checkbox" id="blankCheckbox" value="option1" aria-label="..." v-model="blueGenerator">
+        </div>
+        <div class="form-check-inline mr-5 ml-5">
+          <input class="form-check-input position-static mr-5 ml-5" type="checkbox" id="blankCheckbox" value="option1" aria-label="..." v-model="greenGenerator">
+        </div>
+        <div class="form-check-inline ml-5 mr-5">
+          <input class="form-check-input position-static ml-5 mr-5" type="checkbox" id="blankCheckbox" value="option1" aria-label="..." v-model="yellowGenerator">
+        </div>
+        <hr class="my-4">
+          <button type="button" class="btn btn-info btn-lg" @click="rentCh2">Rent generator</button>
+      </div>
+  </div>
+  <div v-if="chapter203">
+    <div v-if="blueGenerator">
+      <div id="blueGenerator">
+        <img src="@/assets/blueGenerator.png" class="mr-3" alt="QuestionMark" width="200" height="170">
+      </div>
+      <div id="QMblueGenerator">
+        <img src="@/assets/questionMark.png" class="mr-3" alt="QuestionMark" width="130" height="110" @click="showETL1">
+      </div>
+      <div v-if="bGEcoTypeLabel">
+        <div id="bGETL">
+          <img src="@/assets/blueETLCh2.png" class="mr-3" alt="QuestionMark" width="220" height="200">
+        </div>
+    </div>
+    </div>
+    <div v-if="redGenerator">
+      <div id="redGenerator">
+        <img src="@/assets/redGenerator.png" class="mr-3" alt="QuestionMark" width="200" height="170">
+      </div>
+      <div id="QMredGenerator">
+        <img src="@/assets/questionMark.png" class="mr-3" alt="QuestionMark" width="130" height="110" @click="this.showETL2">
+      </div>
+      <div v-if="rGEcoTypeLabel">
+        <div id="rGETL">
+          <img src="@/assets/redETLCh2.png" class="mr-3" alt="QuestionMark" width="220" height="200">
+        </div>
+    </div>
+    <div v-if="smoke">
+      <div id="showSmoke">
+        <img src="@/assets/smoke.png" class="mr-3" alt="QuestionMark" width="220" height="200">
+      </div>
+    </div>
+    </div>
+    <div v-if="greenGenerator">
+      <div id="greenGenerator">
+        <img src="@/assets/greenGenerator.png" class="mr-3" alt="QuestionMark" width="200" height="170">
+      </div>
+      <div id="QMgreenGenerator">
+        <div>
+          <img src="@/assets/questionMark.png" class="mr-3" alt="QuestionMark" width="130" height="110" @click="showETL3">
+        </div>
+      </div>
+      <div v-if="gGEcoTypeLabel">
+        <div id="gGETL">
+          <img src="@/assets/greenETLCh2.png" class="mr-3" alt="QuestionMark" width="220" height="200">
+        </div>
+    </div>
+    </div>
+    <div v-if="yellowGenerator">
+      <div id="yellowGenerator">
+        <img src="@/assets/yellowGenerator.png" class="mr-3" alt="QuestionMark" width="200" height="170">
+      </div>
+      <div id="QMyellowGenerator">
+        <div>
+            <img src="@/assets/questionMark.png" class="mr-3" alt="QuestionMark" width="130" height="110" @click="this.showETL4">
+        </div>
+      </div>
+      <div v-if="yGEcoTypeLabel">
+        <div id="yGETL">
+          <img src="@/assets/yellowETLCh2.png" class="mr-3" alt="QuestionMark" width="220" height="200">
+        </div>
+    </div>
+    </div>
+    <div id="positivePowerbalance">
+      <img src="@/assets/positivePowerbalance.png" class="mr-3" alt="QuestionMark" width="270" height="210">
+    </div>
+    <div id="pPText">
+      <p>Powerbalance:</p>
+    </div>
+    <div id="greenLightning">
+      <img src="@/assets/greenBlitz.png" class="mr-3" alt="redLightning" width="175" height="225">
+    </div>
+    <div id="leftPump">
+      <div @click="showPic2" >
+        <img src="@/assets/questionMark.png" class="mr-3" alt="QuestionMark" width="150" height="130">
+      </div>
+    </div>
+    <div v-if="pic2">
+      <div id="leftPic">
+         <DigitalTypeLabel 
+          color="green"
+          :power="pump1Power" 
+          gs1id="urn:epc:id:giai:0614141.12345400"
+          manufacturer="Manufacturer 001"
+          font_size="16px"></DigitalTypeLabel>
+      </div>
+    </div>
+    <div v-if="pic3">
+      <div id="rightPic">
+         <DigitalTypeLabel 
+          color="green"
+          :power="pump1Power" 
+          gs1id="urn:epc:id:giai:0614141.12345401"
+          manufacturer="Manufacturer 002"
+          font_size="16px"></DigitalTypeLabel>
+      </div>
+    </div>
+    <div id="rightPump">
+      <div @click="showPic3" >
+        <img src="@/assets/questionMark.png" class="mr-3" alt="QuestionMark" width="150" height="130">
+      </div>
+    </div>
+    <p id="chapter103Powerbalance">+{{positivePowerBalance}}kW</p>
+  </div>
   </div>
 </template>
 
@@ -278,13 +469,16 @@ export default {
       chapter102: false,
       chapter103: false,
       chapter104: false,
+      chapter201: false,
+      chapter202: false,
+      chapter203: false,
       pic1: false,
       pic2: false,
       pic3: false,
-      redGenerator: false,
-      blueGenerator: false,
-      greenGenerator: false,
-      yellowGenerator: false,
+      redGenerator: true,
+      blueGenerator: true,
+      greenGenerator: true,
+      yellowGenerator: true,
       rGEcoTypeLabel: false,
       bGEcoTypeLabel: false,
       gGEcoTypeLabel: false,
@@ -334,13 +528,34 @@ export default {
       this.chapter103 = true;
     }
   },
+  rentCh2: function() {
+    console.log("Renting done in chapter 2");
+    if (this.checkForValidation()) {
+      this.positivePowerBalance += 175;
+      if (this.greenGenerator == true) {
+        this.positivePowerBalance += 25;
+      }
+      if (this.blueGenerator == true) {
+        this.positivePowerBalance += 50;
+      }
+      this.chapter201 = false;
+      this.chapter202 = false;
+      this.chapter203 = true;
+    }
+  },
   goToStore: function() {
     console.log("Went to store");
     this.chapter101 = false;
     this.chapter102 = true;
   },
+  goToStoreCh2: function() {
+    console.log("Went to store in chapter 2");
+    this.chapter201 = false;
+    this.chapter202 = true;
+  },
   showETL4: function() {
-    if (this.yGEcoTypeLabel == false) {
+    if (this.chapter103 == true) {
+      if (this.yGEcoTypeLabel == false) {
         this.yGEcoTypeLabel = true;
         if (this.smoke === true) {
           this.chapter103 = false;
@@ -350,9 +565,17 @@ export default {
       } else {
         this.yGEcoTypeLabel = false;
       } 
+    } else {
+      if (this.yGEcoTypeLabel == false) {
+        this.yGEcoTypeLabel = true;
+      } else {
+        this.yGEcoTypeLabel = false;
+      }
+    }
   },
   showETL3: function() {
-    if (this.gGEcoTypeLabel == false) {
+    if (this.chapter103 == true) {
+      if (this.gGEcoTypeLabel == false) {
         this.gGEcoTypeLabel = true;
         if (this.smoke === true) {
           this.chapter103 = false;
@@ -362,9 +585,17 @@ export default {
       } else {
         this.gGEcoTypeLabel = false;
       } 
+    } else {
+      if (this.gGEcoTypeLabel == false) {
+        this.gGEcoTypeLabel = true;
+      } else {
+        this.gGEcoTypeLabel = false;
+      }
+    }
   },
   showETL2: function() {
-    if (this.rGEcoTypeLabel == false) {
+    if (this.chapter103 == true) {
+      if (this.rGEcoTypeLabel == false) {
         this.rGEcoTypeLabel = true;
         if (this.smoke === true) {
           this.chapter103 = false;
@@ -374,9 +605,17 @@ export default {
       } else {
         this.rGEcoTypeLabel = false;
       } 
+    } else {
+      if (this.rGEcoTypeLabel == false) {
+        this.rGEcoTypeLabel = true;
+      } else {
+        this.rGEcoTypeLabel = false;
+      }
+    }
   },
   showETL1: function() {
-    if (this.bGEcoTypeLabel == false) {
+    if (this.chapter103 == true) {
+      if (this.bGEcoTypeLabel == false) {
         this.bGEcoTypeLabel = true;
         if (this.smoke === true) {
           this.chapter103 = false;
@@ -386,12 +625,20 @@ export default {
       } else {
         this.bGEcoTypeLabel = false;
       } 
+    } else {
+      if (this.bGEcoTypeLabel == false) {
+        this.bGEcoTypeLabel = true;
+      } else {
+        this.bGEcoTypeLabel = false;
+      }
+    }
   },
   endChapter1: function() {
+    this.chapter201 = true;
     this.chapter104 = false;
     this.chapter103 = false;
     this.chapter102 = false;
-    this.chapter101 = true;
+    this.chapter101 = false;
     this.redGenerator = false;
     this.greenGenerator = false;
     this.blueGenerator = false;
