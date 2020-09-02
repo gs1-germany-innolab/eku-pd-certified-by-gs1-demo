@@ -484,11 +484,11 @@ export default {
   },
   data: function () {
     return {
-      chapter101: false,
+      chapter101: true,
       chapter102: false,
       chapter103: false,
       chapter104: false,
-      chapter201: true,
+      chapter201: false,
       chapter202: false,
       chapter203: false,
       pic1: false,
@@ -901,7 +901,7 @@ computed: {
 #errorETL {
     position: fixed;
     right: 250px;
-    bottom: 600px;
+    top: 125px;
 }
 #errorOverheat {
     position: fixed;
@@ -921,12 +921,12 @@ computed: {
 #errorPfeil {
     position: fixed;
     right: 150px;
-    bottom: 450px;
+    top: 375px;
 }
 #errorETLText {
   position: fixed;
   right: 275px;
-  bottom: 635px;
+  top: 160px;
   color: black;
   font-size: 35px;
 }
@@ -959,7 +959,7 @@ computed: {
 #useCaseText {
   position: fixed;
   left: 110px;
-  bottom: 425px;
+  top: 250px;
   color: black;
   font-size: 30px;
 }
