@@ -323,10 +323,10 @@
       <p class="lead" style="color: #E5DDDB;">Here you can rent different generators to cover your energy needs.</p>
       <h2 style="color: #E61117;" v-if="!valid.enoughKW">Reminder: Current energy demand {{powerBalance}}kW</h2>
         <hr class="my-4">
-        <img src="@/assets/redGenerator.png" class="mr-3" alt="QuestionMark" width="200" height="170">
-        <img src="@/assets/blueGenerator.png" class="mr-3" alt="QuestionMark" width="200" height="170">
-        <img src="@/assets/greenGenerator.png" class="mr-3" alt="QuestionMark" width="200" height="170">
-        <img src="@/assets/yellowGenerator.png" class="mr-3" alt="QuestionMark" width="200" height="170">
+        <img src="@/assets/redGeneratorCh2.png" class="mr-3" alt="QuestionMark" width="200" height="170">
+        <img src="@/assets/blueGeneratorCh2.png" class="mr-3" alt="QuestionMark" width="200" height="170">
+        <img src="@/assets/greenGeneratorCh2.png" class="mr-3" alt="QuestionMark" width="200" height="170">
+        <img src="@/assets/yellowGeneratorCh2.png" class="mr-3" alt="QuestionMark" width="200" height="170">
         <hr class="my-4">
         <img src="@/assets/redETLCh2.png" class="m-4" alt="QuestionMark" width="180" height="170">
         <img src="@/assets/blueETLCh2.png" class="m-3" alt="QuestionMark" width="180" height="170">
@@ -353,7 +353,7 @@
   <div v-if="chapter203">
     <div v-if="blueGenerator">
       <div id="blueGenerator">
-        <img src="@/assets/blueGenerator.png" class="mr-3" alt="QuestionMark" width="200" height="170">
+        <img src="@/assets/blueGeneratorCh2.png" class="mr-3" alt="QuestionMark" width="200" height="170">
       </div>
       <div id="QMblueGenerator">
         <img src="@/assets/questionMark.png" class="mr-3" alt="QuestionMark" width="130" height="110" @click="showETL1">
@@ -366,7 +366,7 @@
     </div>
     <div v-if="redGenerator">
       <div id="redGenerator">
-        <img src="@/assets/redGenerator.png" class="mr-3" alt="QuestionMark" width="200" height="170">
+        <img src="@/assets/redGeneratorCh2.png" class="mr-3" alt="QuestionMark" width="200" height="170">
       </div>
       <div id="QMredGenerator">
         <img src="@/assets/questionMark.png" class="mr-3" alt="QuestionMark" width="130" height="110" @click="this.showETL2">
@@ -384,7 +384,7 @@
     </div>
     <div v-if="greenGenerator">
       <div id="greenGenerator">
-        <img src="@/assets/greenGenerator.png" class="mr-3" alt="QuestionMark" width="200" height="170">
+        <img src="@/assets/greenGeneratorCh2.png" class="mr-3" alt="QuestionMark" width="200" height="170">
       </div>
       <div id="QMgreenGenerator">
         <div>
@@ -399,7 +399,7 @@
     </div>
     <div v-if="yellowGenerator">
       <div id="yellowGenerator">
-        <img src="@/assets/yellowGenerator.png" class="mr-3" alt="QuestionMark" width="200" height="170">
+        <img src="@/assets/yellowGeneratorCh2.png" class="mr-3" alt="QuestionMark" width="200" height="170">
       </div>
       <div id="QMyellowGenerator">
         <div>
@@ -466,11 +466,11 @@ export default {
   },
   data: function () {
     return {
-      chapter101: true,
+      chapter101: false,
       chapter102: false,
       chapter103: false,
       chapter104: false,
-      chapter201: false,
+      chapter201: true,
       chapter202: false,
       chapter203: false,
       pic1: false,
