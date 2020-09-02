@@ -41,7 +41,7 @@
           color="green"
           :power="pump1Power" 
           gs1id="urn:epc:id:giai:0614141.12345400"
-          manufacturer="Manufacturer 1"
+          manufacturer="Manufacturer 001"
           font_size="16px"></DigitalTypeLabel>
       </div>
     </div>
@@ -50,8 +50,8 @@
          <DigitalTypeLabel 
           color="green"
           :power="pump2Power" 
-          gs1id="urn:epc:id:giai:0614141.12345400"
-          manufacturer="Manufacturer 1"
+          gs1id="urn:epc:id:giai:0614141.12345401"
+          manufacturer="Manufacturer 002"
           font_size="16px"></DigitalTypeLabel>
       </div>
     </div>
@@ -174,24 +174,22 @@
       </div>
     </div>
     <div v-if="pic2">
-        <!-- TODO: change label details -->
       <div id="leftPic">
          <DigitalTypeLabel 
           color="green"
           :power="pump1Power" 
           gs1id="urn:epc:id:giai:0614141.12345400"
-          manufacturer="Manufacturer 1"
+          manufacturer="Manufacturer 001"
           font_size="16px"></DigitalTypeLabel>
       </div>
     </div>
     <div v-if="pic3">
       <div id="rightPic">
-          <!-- TODO: -->
          <DigitalTypeLabel 
           color="green"
           :power="pump1Power" 
-          gs1id="urn:epc:id:giai:0614141.12345400"
-          manufacturer="Manufacturer 1"
+          gs1id="urn:epc:id:giai:0614141.12345401"
+          manufacturer="Manufacturer 002"
           font_size="16px"></DigitalTypeLabel>
       </div>
     </div>
@@ -200,7 +198,7 @@
         <img src="@/assets/questionMark.png" class="mr-3" alt="QuestionMark" width="150" height="130">
       </div>
     </div>
-    <p id="chapter103Powerbalance">+{{powerBalance}}kW</p>
+    <p id="chapter103Powerbalance">+{{positivePowerBalance}}kW</p>
   </div>
   <div v-if="chapter104">
     <div v-if="blueGenerator">
@@ -260,7 +258,7 @@
       <p>Distributor <br> exaggerated <br> with specs!</p>
     </div>
     <div id="chapter1EndingBtn">
-      <button type="button" class="btn btn-info btn-lg" @click="endChapter1">Acknowledge</button>
+      <button type="button" class="btn btn-info btn-lg" @click="endChapter1">See the difference with CertifiedByGS1</button>
     </div>
   </div>
   </div>
@@ -294,8 +292,9 @@ export default {
       smoke: false,
       error: false,
       shopValidated: false,
+      positivePowerBalance: -180,
       pump1Power: -100,
-      pump2Power: -120
+      pump2Power: -80
     }
   },
   methods: {
@@ -323,12 +322,12 @@ export default {
   rent: function() {
     console.log("Renting done");
     if (this.checkForValidation()) {
-      this.powerBalance += 175;
+      this.positivePowerBalance += 175;
       if (this.greenGenerator == true) {
-        this.powerBalance += 25;
+        this.positivePowerBalance += 25;
       }
       if (this.blueGenerator == true) {
-        this.powerBalance += 50;
+        this.positivePowerBalance += 50;
       }
       this.chapter101 = false;
       this.chapter102 = false;
@@ -402,6 +401,7 @@ export default {
     this.bGEcoTypeLabel = false;
     this.gGEcoTypeLabel = false;
     this.yGEcoTypeLabel = false;
+    this.positivePowerBalance = -180;
   },
   checkForValidation () {
     this.shopValidated = true;
