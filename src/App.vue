@@ -262,14 +262,17 @@
     </div>
   </div>
   <div v-if="chapter201">
-      <div id="useCase">
-        <img src="@/assets/qmwb.png" class="mr-3" alt="QuestionMark" width="500" height="400">
+      <div id="useCaseCh2">
+        <img src="@/assets/qmwb.png" class="mr-3" alt="QuestionMark" width="500" height="500">
       </div>
-      <div id="useCaseText">
-        <p>You are in a desert <br> in the middle of the USA. <br> You would like to <br> put your oil towers into operation, <br> but you do not have <br> the necessary electricity.</p>
+      <div id="useCaseTextCh2">
+        <p>Problem:<br> If it was not signed,<br> it might have been tuned. <br> This could result in a high damage!<br>Solution:<br>Signed data from the manufacturer!</p>
       </div>
     <div id="redNeedPower">
       <img src="@/assets/needPower.png" class="mr-3" alt="needPower" width="300" height="275">
+    </div>
+    <div id="chain">
+      <img src="@/assets/chain.png" class="mr-3" alt="needPower" width="450" height="150">
     </div>
     <div id="pNeedPower">
       <p>Need power!</p>
@@ -371,9 +374,24 @@
       <div id="QMredGenerator">
         <img src="@/assets/questionMark.png" class="mr-3" alt="QuestionMark" width="130" height="110" @click="this.showETL2">
       </div>
-      <div v-if="rGEcoTypeLabel">
+      <div v-if="rGEcoTypeLabel || this.endingExplanation">
         <div id="rGETL">
           <img src="@/assets/redETLCh2.png" class="mr-3" alt="QuestionMark" width="220" height="200">
+        </div>
+        <div id="etlTrustExp">
+          <img src="@/assets/qmwb.png" class="mr-3" alt="QuestionMark" width="400" height="200">
+        </div>
+        <div id="trustPfeil">
+          <img src="@/assets/pfeil.png" class="mr-3" alt="QuestionMark" width="175" height="120">
+        </div>
+        <div id="trustText">
+          <p>The label is trustworthy because <br> it was signed by the manufacturer himself. <br> So this device was not tuned.</p>
+        </div>
+        <div id="expProblem">
+          <img src="@/assets/qmwb.png" class="mr-3" alt="QuestionMark" width="550" height="350">
+        </div>
+        <div id="expProblemText">
+          <p>Summarized:<br> If we receive signed data<br> from a device signed by the manufacturer,<br> we can "blindly" trust this device <br> and thus avoid damage through manipulation.</p>
         </div>
     </div>
     <div v-if="smoke">
@@ -489,7 +507,8 @@ export default {
       shopValidated: false,
       positivePowerBalance: -180,
       pump1Power: -100,
-      pump2Power: -80
+      pump2Power: -80,
+      endingExplanation: false
     }
   },
   methods: {
@@ -579,6 +598,7 @@ export default {
     } else {
       if (this.yGEcoTypeLabel == false) {
         this.yGEcoTypeLabel = true;
+        this.endingExplanation = true;
       } else {
         this.yGEcoTypeLabel = false;
       }
@@ -599,6 +619,7 @@ export default {
     } else {
       if (this.gGEcoTypeLabel == false) {
         this.gGEcoTypeLabel = true;
+        this.endingExplanation = true;
       } else {
         this.gGEcoTypeLabel = false;
       }
@@ -619,6 +640,7 @@ export default {
     } else {
       if (this.rGEcoTypeLabel == false) {
         this.rGEcoTypeLabel = true;
+        this.endingExplanation = true;
       } else {
         this.rGEcoTypeLabel = false;
       }
@@ -639,6 +661,7 @@ export default {
     } else {
       if (this.bGEcoTypeLabel == false) {
         this.bGEcoTypeLabel = true;
+        this.endingExplanation = true;
       } else {
         this.bGEcoTypeLabel = false;
       }
@@ -729,7 +752,7 @@ computed: {
 #redLightning {
     position: fixed;
     left: 870px;
-    bottom:550px;
+    top:200px;
     margin:0;
     padding:0;
 }
@@ -823,7 +846,7 @@ computed: {
 #rGETL {
     position: fixed;
     right: 40px;
-    bottom: 250px;
+    top: 520px;
 }
 #bGETL {
     position: fixed;
@@ -833,12 +856,12 @@ computed: {
 #positivePowerbalance {
     position: fixed;
     right: 100px;
-    bottom: 700px;
+    top: 75px;
 }
 #pPText {
     position: fixed;
     right: 125px;
-    bottom: 780px;
+    top: 120px;
     color: black;
     font-size: 37px;
 }
@@ -866,7 +889,7 @@ computed: {
 #greenLightning {
     position: fixed;
     left: 870px;
-    bottom:550px;
+    top:200px;
     margin:0;
     padding:0;
 }
@@ -947,7 +970,56 @@ computed: {
   color: black;
   font-size: 40px;
 }
-
+#etlTrustExp {
+  position: fixed;
+  right: 400px;
+  top: 200px;
+}
+#trustPfeil {
+  position: fixed;
+  right: 250px;
+  top: 400px;
+}
+#trustText {
+  position: fixed;
+  right: 430px;
+  top: 250px;
+  color: black;
+  font-size: 20px;
+}
+#expProblem {
+   position: fixed;
+  left: 50px;
+  top: 100px;
+}
+#expProblemText {
+  position: fixed;
+  left: 75px;
+  top: 150px;
+  color: black;
+  font-size: 25px;
+}
+#useCaseTextCh2 {
+  position: fixed;
+  left: 130px;
+  top: 150px;
+  color: black;
+  font-size: 25px;
+}
+#useCaseCh2 {
+    position: fixed;
+    left:80px;
+    top:100px;
+    margin:0;
+    padding:0;
+}
+#chain {
+    position: fixed;
+    left:105px;
+    top:400px;
+    margin:0;
+    padding:0;
+}
 
 
 
