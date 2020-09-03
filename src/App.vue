@@ -330,6 +330,15 @@
         <img src="@/assets/blueGeneratorCh2.png" class="mr-3" alt="QuestionMark" width="200" height="170">
         <img src="@/assets/greenGeneratorCh2.png" class="mr-3" alt="QuestionMark" width="200" height="170">
         <img src="@/assets/yellowGeneratorCh2.png" class="mr-3" alt="QuestionMark" width="200" height="170">
+        <div v-if="showExpShop">
+        <div id="expShop">
+          <br>
+          <img src="@/assets/qmwb.png" class="mr-3" alt="QuestionMark" width="450" height="210">
+          <div id="expShopText">
+            <p>These devices were signed by the manufacturer <br>and therefore these devices also have signed data.<br> You can recognize this by the certification.<br> This device and the corresponding data<br> are therefore trustworthy.</p>
+          </div>
+        </div>
+    </div>
         <hr class="my-4">
         <img src="@/assets/redETLCh2.png" class="m-4" alt="QuestionMark" width="180" height="170">
         <img src="@/assets/blueETLCh2.png" class="m-3" alt="QuestionMark" width="180" height="170">
@@ -351,6 +360,9 @@
         <hr class="my-4">
           <button type="button" class="btn btn-info btn-lg" @click="rentCh2">Rent generator</button>
           <button type="button" class="btn btn-info btn-lg ml-5" @click="autoRentCh2">Auto rent generator</button>
+      <div id="QMShop">
+            <img src="@/assets/questionMark.png" class="mr-3" alt="QuestionMark" width="130" height="110" @click="this.showExpInShop">
+      </div>
       </div>
   </div>
   <div v-if="chapter203">
@@ -508,7 +520,8 @@ export default {
       positivePowerBalance: -180,
       pump1Power: -100,
       pump2Power: -80,
-      endingExplanation: false
+      endingExplanation: false,
+      showExpShop: false
     }
   },
   methods: {
@@ -531,6 +544,13 @@ export default {
         this.pic3 = true;
       } else {
         this.pic3 = false;
+      }
+  },
+  showExpInShop: function() {
+    if (this.showExpShop == false) {
+        this.showExpShop = true;
+      } else {
+        this.showExpShop = false;
       }
   },
   rent: function() {
@@ -1019,6 +1039,22 @@ computed: {
     top:400px;
     margin:0;
     padding:0;
+}
+#QMShop {
+  position: absolute;
+  left:350px;
+  top:350px;
+}
+#expShop {
+  position: relative;
+}
+#expShopText {
+  position: relative;
+  left: 0px;
+  top: -175px;
+  color: black;
+  font-size: 18px;
+  clear: both;
 }
 
 
