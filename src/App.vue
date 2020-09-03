@@ -406,10 +406,8 @@
           <p>Summarized:<br> If we receive signed data<br> from a device signed by the manufacturer,<br> we can "blindly" trust this device <br> and thus avoid damage through manipulation.</p>
         </div>
     </div>
-    <div v-if="smoke">
-      <div id="showSmoke">
-        <img src="@/assets/smoke.png" class="mr-3" alt="QuestionMark" width="220" height="200">
-      </div>
+    <div id="endButton">
+      <button type="button" class="btn btn-primary btn-lg" @click="endStory">End story</button>
     </div>
     </div>
     <div v-if="greenGenerator">
@@ -703,6 +701,26 @@ export default {
     this.gGEcoTypeLabel = false;
     this.yGEcoTypeLabel = false;
     this.positivePowerBalance = -180;
+  },
+  endStory: function() {
+    this.chapter101 = true;
+    this.chapter102 = false;
+    this.chapter103 = false;
+    this.chapter104 = false;
+    this.chapter203 = false;
+    this.chapter202 = false;
+    this.chapter201 = false;
+    this.redGenerator = false;
+    this.greenGenerator = false;
+    this.blueGenerator = false;
+    this.yellowGenerator = false;
+    this.rGEcoTypeLabel = false;
+    this.bGEcoTypeLabel = false;
+    this.gGEcoTypeLabel = false;
+    this.yGEcoTypeLabel = false;
+    this.positivePowerBalance = -180;
+    this.pic2 = false;
+    this.pic3 = false;
   },
   checkForValidation () {
     this.shopValidated = true;
@@ -1055,6 +1073,11 @@ computed: {
   color: black;
   font-size: 18px;
   clear: both;
+}
+#endButton {
+  position: absolute;
+  bottom: 20px;
+  right: 900px;
 }
 
 
