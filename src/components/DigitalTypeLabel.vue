@@ -1,32 +1,39 @@
-
 <template>
-  <ShowHideBox
-  :top="top"
-  :left="left"
-  width="290px"
-  height="230px"
-  show="">
-    <div class="outer dtl" :style="coloredStrokes">
-      <div class="inner dtl" :style="coloredFill">
-        <div class="dtlCaption" :style="{ fontSize: font_size}">Digital Type Label</div>
-        <div class="dtlRow" :style="{ fontSize: font_size}">{{gs1id}}</div>
-        <div class="dtlRow" :style="{ fontSize: font_size}">{{manufacturer}}</div>
-        <div class="dtlRow" :style="{ fontSize: font_size}">Power: {{power}} kW</div>
-      </div>
+  <div class="outer dtl" :style="coloredStrokes">
+    <div class="inner dtl" :style="coloredFill">
+      <div class="dtlCaption" :style="{ fontSize: font_size}">Digital Type Label</div>
+      <div class="dtlRow" :style="{ fontSize: font_size}">{{asset}}</div>
+      <div class="dtlRow" :style="{ fontSize: font_size}">{{gs1id}}</div>
+      <div class="dtlRow" :style="{ fontSize: font_size}">{{manufacturer}}</div>
+      <div class="dtlRow" :style="{ fontSize: font_size}">{{ powerLabel }}</div>
     </div>
-  </ShowHideBox>
+  </div>
 </template>
 <script>
-import ShowHideBox from "./ShowHideBox.vue";
-
 export default {
   name: "DigitalTypeLabel",
-  components: { ShowHideBox },
-  props: ["power", "gs1id", "manufacturer", "color", "font_size", "top", "left"],
+  components: {},
+  props: [
+    "asset",
+    "power",
+    "gs1id",
+    "manufacturer",
+    "color",
+    "font_size",
+    "width",
+    "height",
+  ],
   data: function () {
     return {};
   },
   computed: {
+      powerLabel(){
+if (this.power < 0){
+    return "Consumes < " + (-this.power) + " kWh";
+}  
+return "Generates " + this.power + " kWh";
+}
+,
     coloredStrokes() {
       return {
         "border-color": this.color,
@@ -53,23 +60,21 @@ export default {
 }
 .dtlRow {
   width: 95%;
-  padding-left: 2px;
   color: black;
   border-style: solid;
   border-width: 1px;
   margin: auto;
-  margin-top: 10px;
-  text-align: left;
+  margin-top: 3px;
   background-color: rgba(255, 255, 255, 0.3);
   border-color: rgba(0, 0, 0, 0.2);
 }
 .outer.dtl {
-  width: 100%;
-  height: 100%;
+  width: 210px;
+  height: 210px;
 }
 .inner.dtl {
-  width: 270px;
-  height: 210px;
+  width: 95%;
+  height: 100%;
   margin: auto;
   display: inline-block;
 }

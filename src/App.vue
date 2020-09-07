@@ -1,27 +1,30 @@
 <template>
-  <div id="app">
-    <DigitalTypeLabel
+  <div id="app" class="fullsize">
+    <ShowHideDigitalTypeLabel
       color="green"
+      asset="Pump"
       :power="pump1Power"
-      gs1id="urn:epc:id:giai:0614141.12345400"
+      gs1id="8004 40471112342"
       manufacturer="Manufacturer 001"
       font_size="16px"
       top="75%"
       left="30%"
-      style="z-index:0;"
-    ></DigitalTypeLabel>
-    <DigitalTypeLabel
+      style="z-index:1;"
+    ></ShowHideDigitalTypeLabel>
+    <!--gs1id="urn:epc:id:giai:0614141.12345401"-->
+    <ShowHideDigitalTypeLabel
       color="green"
       :power="pump2Power"
-      gs1id="urn:epc:id:giai:0614141.12345401"
+      asset="Pump"
+      gs1id="8004 061414112345401"
       manufacturer="Manufacturer 002"
       font_size="16px"
       top="73%"
       left="52%"
-      style="z-index:0;"
-    ></DigitalTypeLabel>
+      style="z-index:1;"
+    ></ShowHideDigitalTypeLabel>
 
-    <div v-if="chapter101">
+    <div v-if="chapter101" class="fullsize">
       <TextBox
         left="10px"
         top="20px"
@@ -51,8 +54,11 @@
       </div>
     </div>
 
-    <div v-if="chapter102">
-      <div class="jumbotron" style="background-color: #895D54; z-index:10;">
+    <div v-if="chapter102" class="fullsize">
+      <div
+        class="jumbotron"
+        style="background-color: #895D54; position:relative; z-index:10; width:95vw;margin:auto; height:96vh; margin-top:2vh;"
+      >
         <h2 class="display-4" style="color: #E5DDDB;">Welcome to your local rental store!</h2>
         <p
           class="lead"
@@ -92,6 +98,16 @@
           height="170"
         />
         <hr class="my-4" />
+        <DigitalTypeLabel
+        asset="Generator"
+          power="100"
+          gs1id="0815"
+          manufacturer="Manufacturer A"
+          color="green"
+          font_size="16px"
+          width="190px"
+          height="210px"
+        ></DigitalTypeLabel>
         <img src="@/assets/redETL.png" class="m-4" alt="QuestionMark" width="180" height="170" />
         <img src="@/assets/blueETL.png" class="m-3" alt="QuestionMark" width="180" height="170" />
         <img src="@/assets/greenETL.png" class="m-3" alt="QuestionMark" width="180" height="170" />
@@ -141,7 +157,7 @@
         <button type="button" class="btn btn-info btn-lg" @click="rent">Rent generators</button>
       </div>
     </div>
-    <div v-if="chapter103">
+    <div v-if="chapter103" class="fullsize">
       <div v-if="blueGenerator">
         <div id="blueGenerator">
           <img
@@ -291,7 +307,7 @@
 
       <p id="chapter103Powerbalance">+{{positivePowerBalance}}kW</p>
     </div>
-    <div v-if="chapter104">
+    <div v-if="chapter104" class="fullsize">
       <div v-if="blueGenerator">
         <div id="blueGenerator">
           <img
@@ -360,7 +376,7 @@
         >See the difference with CertifiedByGS1</button>
       </div>
     </div>
-    <div v-if="chapter201">
+    <div v-if="chapter201" class="fullsize">
       <div id="useCaseCh2">
         <img src="@/assets/qmwb.png" class="mr-3" alt="QuestionMark" width="500" height="500" />
       </div>
@@ -392,12 +408,12 @@
       <div id="redLightning">
         <img src="@/assets/roterBlitz.png" class="mr-3" alt="redLightning" width="175" height="225" />
       </div>
-      
+
       <div id="rentGeneratorBtn">
         <button type="button" class="btn btn-info btn-lg" @click="goToStoreCh2">Go to local store</button>
       </div>
     </div>
-    <div v-if="chapter202">
+    <div v-if="chapter202" class="fullsize">
       <div class="jumbotron" style="background-color: #895D54; z-index:10;">
         <h2 class="display-4" style="color: #E5DDDB;">Welcome to your local rental store!</h2>
         <p
@@ -523,7 +539,7 @@
         </div>
       </div>
     </div>
-    <div v-if="chapter203">
+    <div v-if="chapter203" class="fullsize">
       <div v-if="blueGenerator">
         <div id="blueGenerator">
           <img
@@ -699,7 +715,7 @@
       <div id="greenLightning">
         <img src="@/assets/greenBlitz.png" class="mr-3" alt="redLightning" width="175" height="225" />
       </div>
-     
+
       <p id="chapter103Powerbalance">+{{positivePowerBalance}}kW</p>
     </div>
   </div>
@@ -707,6 +723,7 @@
 
 <script>
 import DigitalTypeLabel from "./components/DigitalTypeLabel.vue";
+import ShowHideDigitalTypeLabel from "./components/ShowHideDigitalTypeLabel.vue";
 import TextBox from "./components/TextBox.vue";
 
 export default {
@@ -714,6 +731,7 @@ export default {
   components: {
     DigitalTypeLabel,
     TextBox,
+    ShowHideDigitalTypeLabel
   },
   data: function () {
     return {
@@ -965,6 +983,14 @@ export default {
 </script>
 
 <style>
+.fullsize {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
 #rightPump {
   position: ab;
   right: 650px;
@@ -1212,13 +1238,11 @@ export default {
 }
 
 #app {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  width: 100%;
-  height: 100%;
+  z-index: -1;
+  height: auto;
+  padding-top: 56%; /* css trick to set hight to percentage of width */
   background-image: url("assets/landingPage.jpg");
-  background-size: cover;
+  background-size: 100%;
   background-repeat: no-repeat;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
