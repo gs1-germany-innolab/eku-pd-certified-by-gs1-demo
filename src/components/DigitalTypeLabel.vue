@@ -24,7 +24,7 @@ export default {
     coloredStrokes() {
       return {
         "border-color": this.color,
-        background: `repeating-linear-gradient(-45deg, transparent, transparent 3px, ${this.color} 3px, red 5px)`,
+        background: `repeating-linear-gradient(-45deg, transparent, transparent 3px, ${this.color} 3px, ${this.color} 5px)`,
       };
     },
     coloredFill() {
