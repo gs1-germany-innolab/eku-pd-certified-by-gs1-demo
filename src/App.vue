@@ -1,5 +1,26 @@
 <template>
   <div id="app">
+    <DigitalTypeLabel
+      color="green"
+      :power="pump1Power"
+      gs1id="urn:epc:id:giai:0614141.12345400"
+      manufacturer="Manufacturer 001"
+      font_size="16px"
+      top="75%"
+      left="30%"
+      style="z-index:0;"
+    ></DigitalTypeLabel>
+    <DigitalTypeLabel
+      color="green"
+      :power="pump2Power"
+      gs1id="urn:epc:id:giai:0614141.12345401"
+      manufacturer="Manufacturer 002"
+      font_size="16px"
+      top="73%"
+      left="52%"
+      style="z-index:0;"
+    ></DigitalTypeLabel>
+
     <div v-if="chapter101">
       <TextBox
         left="10px"
@@ -24,57 +45,14 @@
       <div id="redLightning">
         <img src="@/assets/roterBlitz.png" class="mr-3" alt="redLightning" width="175" height="225" />
       </div>
-      <div id="leftPump">
-        <div @click="showPic2">
-          <img
-            src="@/assets/questionMark.png"
-            class="mr-3"
-            alt="QuestionMark"
-            width="150"
-            height="130"
-          />
-        </div>
-      </div>
-      <div v-if="pic2">
-        <div id="leftPic">
-          <DigitalTypeLabel
-            color="green"
-            :power="pump1Power"
-            gs1id="urn:epc:id:giai:0614141.12345400"
-            manufacturer="Manufacturer 001"
-            font_size="16px"
-          ></DigitalTypeLabel>
-        </div>
-      </div>
-      <div v-if="pic3">
-        <div id="rightPic">
-          <DigitalTypeLabel
-            color="green"
-            :power="pump2Power"
-            gs1id="urn:epc:id:giai:0614141.12345401"
-            manufacturer="Manufacturer 002"
-            font_size="16px"
-          ></DigitalTypeLabel>
-        </div>
-      </div>
-      <div id="rightPump">
-        <div @click="showPic3">
-          <img
-            src="@/assets/questionMark.png"
-            class="mr-3"
-            alt="QuestionMark"
-            width="150"
-            height="130"
-          />
-        </div>
-      </div>
+
       <div id="rentGeneratorBtn">
         <button type="button" class="btn btn-info btn-lg" @click="goToStore">Go to local store</button>
       </div>
     </div>
 
     <div v-if="chapter102">
-      <div class="jumbotron" style="background-color: #895D54;">
+      <div class="jumbotron" style="background-color: #895D54; z-index:10;">
         <h2 class="display-4" style="color: #E5DDDB;">Welcome to your local rental store!</h2>
         <p
           class="lead"
@@ -160,7 +138,7 @@
           />
         </div>
         <hr class="my-4" />
-        <button type="button" class="btn btn-info btn-lg" @click="rent">Rent generator</button>
+        <button type="button" class="btn btn-info btn-lg" @click="rent">Rent generators</button>
       </div>
     </div>
     <div v-if="chapter103">
@@ -310,50 +288,7 @@
       <div id="greenLightning">
         <img src="@/assets/greenBlitz.png" class="mr-3" alt="redLightning" width="175" height="225" />
       </div>
-      <div id="leftPump">
-        <div @click="showPic2">
-          <img
-            src="@/assets/questionMark.png"
-            class="mr-3"
-            alt="QuestionMark"
-            width="150"
-            height="130"
-          />
-        </div>
-      </div>
-      <div v-if="pic2">
-        <div id="leftPic">
-          <DigitalTypeLabel
-            color="green"
-            :power="pump1Power"
-            gs1id="urn:epc:id:giai:0614141.12345400"
-            manufacturer="Manufacturer 001"
-            font_size="16px"
-          ></DigitalTypeLabel>
-        </div>
-      </div>
-      <div v-if="pic3">
-        <div id="rightPic">
-          <DigitalTypeLabel
-            color="green"
-            :power="pump1Power"
-            gs1id="urn:epc:id:giai:0614141.12345401"
-            manufacturer="Manufacturer 002"
-            font_size="16px"
-          ></DigitalTypeLabel>
-        </div>
-      </div>
-      <div id="rightPump">
-        <div @click="showPic3">
-          <img
-            src="@/assets/questionMark.png"
-            class="mr-3"
-            alt="QuestionMark"
-            width="150"
-            height="130"
-          />
-        </div>
-      </div>
+
       <p id="chapter103Powerbalance">+{{positivePowerBalance}}kW</p>
     </div>
     <div v-if="chapter104">
@@ -457,56 +392,13 @@
       <div id="redLightning">
         <img src="@/assets/roterBlitz.png" class="mr-3" alt="redLightning" width="175" height="225" />
       </div>
-      <div id="leftPump">
-        <div @click="showPic2">
-          <img
-            src="@/assets/questionMark.png"
-            class="mr-3"
-            alt="QuestionMark"
-            width="150"
-            height="130"
-          />
-        </div>
-      </div>
-      <div v-if="pic2">
-        <div id="leftPic">
-          <DigitalTypeLabel
-            color="green"
-            :power="pump1Power"
-            gs1id="urn:epc:id:giai:0614141.12345400"
-            manufacturer="Manufacturer 001"
-            font_size="16px"
-          ></DigitalTypeLabel>
-        </div>
-      </div>
-      <div v-if="pic3">
-        <div id="rightPic">
-          <DigitalTypeLabel
-            color="green"
-            :power="pump2Power"
-            gs1id="urn:epc:id:giai:0614141.12345401"
-            manufacturer="Manufacturer 002"
-            font_size="16px"
-          ></DigitalTypeLabel>
-        </div>
-      </div>
-      <div id="rightPump">
-        <div @click="showPic3">
-          <img
-            src="@/assets/questionMark.png"
-            class="mr-3"
-            alt="QuestionMark"
-            width="150"
-            height="130"
-          />
-        </div>
-      </div>
+      
       <div id="rentGeneratorBtn">
         <button type="button" class="btn btn-info btn-lg" @click="goToStoreCh2">Go to local store</button>
       </div>
     </div>
     <div v-if="chapter202">
-      <div class="jumbotron" style="background-color: #895D54;">
+      <div class="jumbotron" style="background-color: #895D54; z-index:10;">
         <h2 class="display-4" style="color: #E5DDDB;">Welcome to your local rental store!</h2>
         <p
           class="lead"
@@ -613,7 +505,7 @@
           />
         </div>
         <hr class="my-4" />
-        <button type="button" class="btn btn-info btn-lg" @click="rentCh2">Rent generator</button>
+        <button type="button" class="btn btn-info btn-lg" @click="rentCh2">Rent generators</button>
         <button
           type="button"
           class="btn btn-info btn-lg ml-5"
@@ -807,50 +699,7 @@
       <div id="greenLightning">
         <img src="@/assets/greenBlitz.png" class="mr-3" alt="redLightning" width="175" height="225" />
       </div>
-      <div id="leftPump">
-        <div @click="showPic2">
-          <img
-            src="@/assets/questionMark.png"
-            class="mr-3"
-            alt="QuestionMark"
-            width="150"
-            height="130"
-          />
-        </div>
-      </div>
-      <div v-if="pic2">
-        <div id="leftPic">
-          <DigitalTypeLabel
-            color="green"
-            :power="pump1Power"
-            gs1id="urn:epc:id:giai:0614141.12345400"
-            manufacturer="Manufacturer 001"
-            font_size="16px"
-          ></DigitalTypeLabel>
-        </div>
-      </div>
-      <div v-if="pic3">
-        <div id="rightPic">
-          <DigitalTypeLabel
-            color="green"
-            :power="pump1Power"
-            gs1id="urn:epc:id:giai:0614141.12345401"
-            manufacturer="Manufacturer 002"
-            font_size="16px"
-          ></DigitalTypeLabel>
-        </div>
-      </div>
-      <div id="rightPump">
-        <div @click="showPic3">
-          <img
-            src="@/assets/questionMark.png"
-            class="mr-3"
-            alt="QuestionMark"
-            width="150"
-            height="130"
-          />
-        </div>
-      </div>
+     
       <p id="chapter103Powerbalance">+{{positivePowerBalance}}kW</p>
     </div>
   </div>
@@ -875,8 +724,6 @@ export default {
       chapter201: false,
       chapter202: false,
       chapter203: false,
-      pic2: false,
-      pic3: false,
       redGenerator: false,
       blueGenerator: false,
       greenGenerator: false,
@@ -895,20 +742,6 @@ export default {
     };
   },
   methods: {
-    showPic2: function () {
-      if (this.pic2 == false) {
-        this.pic2 = true;
-      } else {
-        this.pic2 = false;
-      }
-    },
-    showPic3: function () {
-      if (this.pic3 == false) {
-        this.pic3 = true;
-      } else {
-        this.pic3 = false;
-      }
-    },
     showExpInShop: function () {
       if (this.showExpShop == false) {
         this.showExpShop = true;
@@ -1084,8 +917,6 @@ export default {
       this.gGEcoTypeLabel = false;
       this.yGEcoTypeLabel = false;
       this.positivePowerBalance = -180;
-      this.pic2 = false;
-      this.pic3 = false;
     },
     checkForValidation() {
       this.shopValidated = true;
@@ -1152,11 +983,6 @@ export default {
   position: fixed;
   left: 600px;
   bottom: 330px;
-}
-#rightPic {
-  position: fixed;
-  right: 600px;
-  bottom: 200px;
 }
 #redNeedPower {
   position: fixed;

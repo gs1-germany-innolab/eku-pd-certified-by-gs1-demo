@@ -1,26 +1,32 @@
 
 <template>
-  <div class="outer dtl" :style="coloredStrokes">
-    <div class="inner dtl" :style="coloredFill">
-      <div class="dtlCaption" :style="{ fontSize: font_size}">Digital Type Label</div>
-      <div class="dtlRow" :style="{ fontSize: font_size}">{{gs1id}}</div>
-      <div class="dtlRow" :style="{ fontSize: font_size}">{{manufacturer}}</div>
-      <div class="dtlRow" :style="{ fontSize: font_size}">Power: {{power}} kW</div>
+  <ShowHideBox
+  :top="top"
+  :left="left"
+  width="290px"
+  height="230px"
+  show="">
+    <div class="outer dtl" :style="coloredStrokes">
+      <div class="inner dtl" :style="coloredFill">
+        <div class="dtlCaption" :style="{ fontSize: font_size}">Digital Type Label</div>
+        <div class="dtlRow" :style="{ fontSize: font_size}">{{gs1id}}</div>
+        <div class="dtlRow" :style="{ fontSize: font_size}">{{manufacturer}}</div>
+        <div class="dtlRow" :style="{ fontSize: font_size}">Power: {{power}} kW</div>
+      </div>
     </div>
-  </div>
+  </ShowHideBox>
 </template>
 <script>
+import ShowHideBox from "./ShowHideBox.vue";
+
 export default {
   name: "DigitalTypeLabel",
-  components: {},
-  props:["power", "gs1id","manufacturer", "color","font_size"],
+  components: { ShowHideBox },
+  props: ["power", "gs1id", "manufacturer", "color", "font_size", "top", "left"],
   data: function () {
-    return {
-      
-    };
+    return {};
   },
   computed: {
-    
     coloredStrokes() {
       return {
         "border-color": this.color,
@@ -58,8 +64,8 @@ export default {
   border-color: rgba(0, 0, 0, 0.2);
 }
 .outer.dtl {
-  width: 290px;
-  height: 230px;
+  width: 100%;
+  height: 100%;
 }
 .inner.dtl {
   width: 270px;
