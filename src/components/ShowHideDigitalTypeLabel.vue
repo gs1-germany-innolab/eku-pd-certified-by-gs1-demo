@@ -3,10 +3,7 @@
     <DigitalTypeLabel
       :font_size="font_size"
       :color="color"
-      :manufacturer="manufacturer"
-      :gs1id="gs1id"
-      :power="power"
-      :asset="asset"
+      :type="type"
     ></DigitalTypeLabel>
   </ShowHideBox>
 </template>
@@ -18,14 +15,11 @@ export default {
   name: "ShowHideDigitalTypeLabel",
   components: { ShowHideBox, DigitalTypeLabel },
   props: [
-    "power",
-    "gs1id",
-    "manufacturer",
     "color",
     "font_size",
     "top",
     "left",
-    "asset"
+    "type"
   ],
 };
 </script>

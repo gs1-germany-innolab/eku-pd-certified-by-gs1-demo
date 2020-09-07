@@ -2,10 +2,7 @@
   <div id="app" class="fullsize">
     <ShowHideDigitalTypeLabel
       color="green"
-      asset="Pump"
-      :power="pump1Power"
-      gs1id="8004 40471112342"
-      manufacturer="Manufacturer 001"
+      :type="pumps[0]"
       font_size="16px"
       top="75%"
       left="30%"
@@ -14,10 +11,7 @@
     <!--gs1id="urn:epc:id:giai:0614141.12345401"-->
     <ShowHideDigitalTypeLabel
       color="green"
-      :power="pump2Power"
-      asset="Pump"
-      gs1id="8004 061414112345401"
-      manufacturer="Manufacturer 002"
+      :type="pumps[1]"
       font_size="16px"
       top="73%"
       left="52%"
@@ -69,90 +63,111 @@
           v-if="!valid.enoughKW"
         >Reminder: Current energy demand {{powerBalance}}kW</h2>
         <hr class="my-4" />
-        <img
-          src="@/assets/redGenerator.png"
-          class="mr-3"
-          alt="QuestionMark"
-          width="200"
-          height="170"
-        />
-        <img
-          src="@/assets/blueGenerator.png"
-          class="mr-3"
-          alt="QuestionMark"
-          width="200"
-          height="170"
-        />
-        <img
-          src="@/assets/greenGenerator.png"
-          class="mr-3"
-          alt="QuestionMark"
-          width="200"
-          height="170"
-        />
-        <img
-          src="@/assets/yellowGenerator.png"
-          class="mr-3"
-          alt="QuestionMark"
-          width="200"
-          height="170"
-        />
-        <hr class="my-4" />
-        <DigitalTypeLabel
-        asset="Generator"
-          power="100"
-          gs1id="0815"
-          manufacturer="Manufacturer A"
-          color="green"
-          font_size="16px"
-          width="190px"
-          height="210px"
-        ></DigitalTypeLabel>
-        <img src="@/assets/redETL.png" class="m-4" alt="QuestionMark" width="180" height="170" />
-        <img src="@/assets/blueETL.png" class="m-3" alt="QuestionMark" width="180" height="170" />
-        <img src="@/assets/greenETL.png" class="m-3" alt="QuestionMark" width="180" height="170" />
-        <img src="@/assets/yellowETL.png" class="m-4" alt="QuestionMark" width="180" height="170" />
-        <hr class="my-4" />
-        <div class="form-check-inline mr-5 ml-5">
-          <input
-            class="form-check-input position-static mr-5 ml-5"
-            type="checkbox"
-            id="blankCheckbox"
-            value="option1"
-            aria-label="..."
-            v-model="redGenerator"
+        <div style="display:inline-block;">
+          <img
+            src="@/assets/redGenerator.png"
+            class="mr-3"
+            alt="QuestionMark"
+            width="200"
+            height="170"
           />
+          <DigitalTypeLabel
+            :type="generators[0]"
+            color="green"
+            font_size="16px"
+            width="190px"
+            height="210px"
+          ></DigitalTypeLabel>
+          <div class="form-check-inline mr-5 ml-5">
+            <input
+              class="form-check-input position-static mr-5 ml-5"
+              type="checkbox"
+              id="blankCheckbox"
+              value="option1"
+              aria-label="..."
+              v-model="redGenerator"
+            />
+          </div>
         </div>
-        <div class="form-check-inline mr-5 ml-5">
-          <input
-            class="form-check-input position-static mr-5 ml-5"
-            type="checkbox"
-            id="blankCheckbox"
-            value="option1"
-            aria-label="..."
-            v-model="blueGenerator"
+        <div style="display:inline-block;">
+          <img
+            src="@/assets/blueGenerator.png"
+            class="mr-3"
+            alt="QuestionMark"
+            width="200"
+            height="170"
           />
+          <DigitalTypeLabel
+            :type="generators[1]"
+            color="green"
+            font_size="16px"
+            width="190px"
+            height="210px"
+          ></DigitalTypeLabel>
+          <div class="form-check-inline mr-5 ml-5">
+            <input
+              class="form-check-input position-static mr-5 ml-5"
+              type="checkbox"
+              id="blankCheckbox"
+              value="option1"
+              aria-label="..."
+              v-model="blueGenerator"
+            />
+          </div>
         </div>
-        <div class="form-check-inline mr-5 ml-5">
-          <input
-            class="form-check-input position-static mr-5 ml-5"
-            type="checkbox"
-            id="blankCheckbox"
-            value="option1"
-            aria-label="..."
-            v-model="greenGenerator"
+        <div style="display:inline-block;">
+          <img
+            src="@/assets/greenGenerator.png"
+            class="mr-3"
+            alt="QuestionMark"
+            width="200"
+            height="170"
           />
+          <DigitalTypeLabel
+            :type="generators[2]"
+            color="green"
+            font_size="16px"
+            width="190px"
+            height="210px"
+          ></DigitalTypeLabel>
+          <div class="form-check-inline mr-5 ml-5">
+            <input
+              class="form-check-input position-static mr-5 ml-5"
+              type="checkbox"
+              id="blankCheckbox"
+              value="option1"
+              aria-label="..."
+              v-model="greenGenerator"
+            />
+          </div>
         </div>
-        <div class="form-check-inline ml-5 mr-5">
-          <input
-            class="form-check-input position-static ml-5 mr-5"
-            type="checkbox"
-            id="blankCheckbox"
-            value="option1"
-            aria-label="..."
-            v-model="yellowGenerator"
+        <div style="display:inline-block;">
+          <img
+            src="@/assets/yellowGenerator.png"
+            class="mr-3"
+            alt="QuestionMark"
+            width="200"
+            height="170"
           />
+          <DigitalTypeLabel
+            :type="generators[3]"
+            color="green"
+            font_size="16px"
+            width="190px"
+            height="210px"
+          ></DigitalTypeLabel>
+          <div class="form-check-inline ml-5 mr-5">
+            <input
+              class="form-check-input position-static ml-5 mr-5"
+              type="checkbox"
+              id="blankCheckbox"
+              value="option1"
+              aria-label="..."
+              v-model="yellowGenerator"
+            />
+          </div>
         </div>
+
         <hr class="my-4" />
         <button type="button" class="btn btn-info btn-lg" @click="rent">Rent generators</button>
       </div>
@@ -731,7 +746,7 @@ export default {
   components: {
     DigitalTypeLabel,
     TextBox,
-    ShowHideDigitalTypeLabel
+    ShowHideDigitalTypeLabel,
   },
   data: function () {
     return {
@@ -753,10 +768,48 @@ export default {
       smoke: false,
       shopValidated: false,
       positivePowerBalance: -180,
-      pump1Power: -100,
-      pump2Power: -80,
       endingExplanation: false,
       showExpShop: false,
+      pumps: [
+        {
+          power: -100,
+          asset: "Pump",
+          gs1id: "8004 40471112342",
+          manufacturer: "Manufacturer 001",
+        },
+        {
+          power: -80,
+          asset: "Pump",
+          gs1id: "8004 061414112345401",
+          manufacturer: "Manufacturer 002",
+        },
+      ],
+      generators: [
+        {
+          power: 100,
+          asset: "Generator",
+          gs1id: "8004 404711165434",
+          manufacturer: "Manufacturer A",
+        },
+        {
+          power: 50,
+          asset: "Generator",
+          gs1id: "8004 40471116542",
+          manufacturer: "Manufacturer A",
+        },
+        {
+          power: 75,
+          asset: "Generator",
+          gs1id: "8004 404712123",
+          manufacturer: "Manufacturer B",
+        },
+        {
+          power: 40,
+          asset: "Generator",
+          gs1id: "8004 40994712321",
+          manufacturer: "Manufacturer C",
+        },
+      ],
     };
   },
   methods: {

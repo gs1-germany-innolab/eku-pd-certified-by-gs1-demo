@@ -1,10 +1,10 @@
 
 <template>
   <div :style="{position:`absolute`, left: left, top: top, width: width, height: height}">
-    <div v-if="show" @click="toggle">
+    <div v-if="showing" @click="toggle">
       <slot></slot>
     </div>
-    <div v-if="!show" @click="toggle">
+    <div v-if="!showing" @click="toggle">
       <img src="@/assets/questionMark.png" alt="QuestionMark" width="200px" />
     </div>
   </div>
@@ -15,11 +15,16 @@ export default {
   components: {},
   props: ["top", "left", "width", "height", "show"],
   data: function () {
-    return {};
+    return {
+        showing:false,
+    };
+  },
+  mounted(){
+      this.showing=this.show;
   },
   methods: {
     toggle: function () {
-      this.show = !this.show;
+      this.showing = !this.showing;
     },
   },
 };

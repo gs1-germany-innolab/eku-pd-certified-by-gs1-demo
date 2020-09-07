@@ -2,9 +2,9 @@
   <div class="outer dtl" :style="coloredStrokes">
     <div class="inner dtl" :style="coloredFill">
       <div class="dtlCaption" :style="{ fontSize: font_size}">Digital Type Label</div>
-      <div class="dtlRow" :style="{ fontSize: font_size}">{{asset}}</div>
-      <div class="dtlRow" :style="{ fontSize: font_size}">{{gs1id}}</div>
-      <div class="dtlRow" :style="{ fontSize: font_size}">{{manufacturer}}</div>
+      <div class="dtlRow" :style="{ fontSize: font_size}">{{ type.asset }}</div>
+      <div class="dtlRow" :style="{ fontSize: font_size}">{{ type.gs1id }}</div>
+      <div class="dtlRow" :style="{ fontSize: font_size}">{{ type.manufacturer }}</div>
       <div class="dtlRow" :style="{ fontSize: font_size}">{{ powerLabel }}</div>
     </div>
   </div>
@@ -14,10 +14,7 @@ export default {
   name: "DigitalTypeLabel",
   components: {},
   props: [
-    "asset",
-    "power",
-    "gs1id",
-    "manufacturer",
+    "type",
     "color",
     "font_size",
     "width",
@@ -28,10 +25,10 @@ export default {
   },
   computed: {
       powerLabel(){
-if (this.power < 0){
-    return "Consumes < " + (-this.power) + " kWh";
+if (this.type.power < 0){
+    return "Consumes < " + (-this.type.power) + " kWh";
 }  
-return "Generates " + this.power + " kWh";
+return "Generates " + this.type.power + " kWh";
 }
 ,
     coloredStrokes() {
@@ -47,6 +44,9 @@ return "Generates " + this.power + " kWh";
       };
     },
   },
+  mounted(){
+      console.log(this.type);
+  }
 };
 </script>
 
