@@ -1,20 +1,17 @@
 
 <template>
-  <div :style="{position:`absolute`, left: left, top: top, width:width, height:height}">
-    <div v-if="show" @click="toggle">
-      <div class="dtl" :style="computedStyle">
-        <slot></slot>
-      </div>
+  <ShowHideBox :top="top" :left="left" :width="width" :height="height" show="true">
+    <div class="dtl" :style="computedStyle">
+      <slot></slot>
     </div>
-    <div v-if="!show" @click="toggle">
-      <img src="@/assets/questionMark.png" alt="QuestionMark" width="200px" />
-    </div>
-  </div>
+  </ShowHideBox>
 </template>
 <script>
+import ShowHideBox from "./ShowHideBox.vue";
+
 export default {
   name: "TextBox",
-  components: {},
+  components: { ShowHideBox },
   props: ["width", "height", "color", "top", "left"],
   data: function () {
     return {
@@ -41,7 +38,7 @@ export default {
 .dtl {
   position: relative;
   left: 0px;
-  top:0px;
+  top: 0px;
   width: 100%;
   height: 100%;
 

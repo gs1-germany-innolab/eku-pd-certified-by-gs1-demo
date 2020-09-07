@@ -410,48 +410,12 @@
       <div id="redLightning">
         <img src="@/assets/roterBlitz.png" class="mr-3" alt="redLightning" width="175" height="225" />
       </div>
-      <div id="errorETL">
-        <img src="@/assets/errorBG.png" class="mr-3" alt="redLightning" width="250" height="250" />
-      </div>
-      <div id="errorOverheat">
-        <img src="@/assets/errorBG.png" class="mr-3" alt="redLightning" width="250" height="250" />
-      </div>
-      <div id="errorRunning">
-        <img src="@/assets/errorBG.png" class="mr-3" alt="redLightning" width="250" height="250" />
-      </div>
-      <div id="errorDistributor">
-        <img src="@/assets/errorBG.png" class="mr-3" alt="redLightning" width="250" height="250" />
-      </div>
-      <div id="errorPfeil">
-        <img src="@/assets/pfeil.png" class="mr-3" alt="redLightning" width="150" height="150" />
-      </div>
       <div id="errorETLText">
-        <p>
-          Electronic type
-          <br />label is not
-          <br />trust worthy!
-        </p>
-      </div>
-      <div id="errorOverheatText">
-        <p>
-          Overheat!
-          <br />Power down!
-        </p>
-      </div>
-      <div id="errorRunningText">
-        <p>
-          The generator
-          <br />is running
-          <br />outside of his
-          <br />specs!
-        </p>
-      </div>
-      <div id="errorDistributorText">
-        <p>
-          Distributor
-          <br />exaggerated
-          <br />with specs!
-        </p>
+        <TextBox left="10px" top="20px" width="500px" height="400px" color="red">
+          The Digital Type Label was tuned!
+          <br />The Generator has been operated outside specifications!
+          <br />Overheat leads to power outage.
+        </TextBox>
       </div>
       <div id="chapter1EndingBtn">
         <button
@@ -911,7 +875,6 @@ export default {
       chapter201: false,
       chapter202: false,
       chapter203: false,
-      pic1: false,
       pic2: false,
       pic3: false,
       redGenerator: false,
@@ -923,7 +886,6 @@ export default {
       gGEcoTypeLabel: false,
       yGEcoTypeLabel: false,
       smoke: false,
-      error: false,
       shopValidated: false,
       positivePowerBalance: -180,
       pump1Power: -100,
@@ -933,9 +895,6 @@ export default {
     };
   },
   methods: {
-    showPic1: function () {
-      this.pic1 = !this.pic1;
-    },
     showPic2: function () {
       if (this.pic2 == false) {
         this.pic2 = true;
@@ -1341,59 +1300,6 @@ export default {
   position: fixed;
   right: 150px;
   bottom: 100px;
-}
-#errorETL {
-  position: fixed;
-  right: 250px;
-  top: 125px;
-}
-#errorOverheat {
-  position: fixed;
-  left: 150px;
-  bottom: 650px;
-}
-#errorRunning {
-  position: fixed;
-  left: 150px;
-  bottom: 350px;
-}
-#errorDistributor {
-  position: fixed;
-  left: 450px;
-  bottom: 650px;
-}
-#errorPfeil {
-  position: fixed;
-  right: 150px;
-  top: 375px;
-}
-#errorETLText {
-  position: fixed;
-  right: 275px;
-  top: 160px;
-  color: black;
-  font-size: 35px;
-}
-#errorOverheatText {
-  position: fixed;
-  left: 160px;
-  bottom: 700px;
-  color: black;
-  font-size: 40px;
-}
-#errorRunningText {
-  position: fixed;
-  left: 170px;
-  bottom: 360px;
-  color: black;
-  font-size: 35px;
-}
-#errorDistributorText {
-  position: fixed;
-  left: 480px;
-  bottom: 680px;
-  color: black;
-  font-size: 35px;
 }
 #chapter1EndingBtn {
   position: fixed;
