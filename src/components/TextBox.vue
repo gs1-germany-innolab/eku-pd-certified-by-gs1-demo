@@ -1,7 +1,7 @@
 
 <template>
-  <ShowHideBox :top="top" :left="left" :width="width" :height="height" show="true">
-    <div class="dtl" :style="computedStyle">
+  <ShowHideBox :top="top" :left="left" :right="right" :width="width" height="auto" show="true">
+    <div class="textBox" :style="computedStyle">
       <slot></slot>
     </div>
   </ShowHideBox>
@@ -12,7 +12,7 @@ import ShowHideBox from "./ShowHideBox.vue";
 export default {
   name: "TextBox",
   components: { ShowHideBox },
-  props: ["width", "height", "color", "top", "left"],
+  props: ["width", "color", "top", "left", "right"],
   data: function () {
     return {
       show: true,
@@ -35,7 +35,7 @@ export default {
 </script>
 
 <style>
-.dtl {
+.textBox {
   position: relative;
   left: 0px;
   top: 0px;

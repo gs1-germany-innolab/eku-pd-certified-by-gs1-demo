@@ -1,6 +1,6 @@
 
 <template>
-  <div :style="{position:`absolute`, left: left, top: top, width: width, height: height}">
+  <div :style="{position:`absolute`, left: left, right:right, top: top, width: width, height: height}">
     <div v-if="showing" @click="toggle">
       <slot></slot>
     </div>
@@ -13,7 +13,7 @@
 export default {
   name: "ShowHideBox",
   components: {},
-  props: ["top", "left", "width", "height", "show"],
+  props: ["top", "left", "right", "width", "height", "show"],
   data: function () {
     return {
         showing:false,

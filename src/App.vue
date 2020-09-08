@@ -4,7 +4,7 @@
       color="green"
       :type="pumps[0]"
       font_size="16px"
-      top="75%"
+      top="68%"
       left="30%"
       style="z-index:1;"
     ></ShowHideDigitalTypeLabel>
@@ -13,35 +13,45 @@
       color="green"
       :type="pumps[1]"
       font_size="16px"
-      top="73%"
+      top="70%"
       left="52%"
       style="z-index:1;"
     ></ShowHideDigitalTypeLabel>
+
+    <TextBox
+      right="1vw"
+      top="1vh"
+      width="500px"
+      :color="powerBalance < 0 ? `red` : `green`"
+      style="z-index:1;"
+    >Powerbalance: {{ powerBalance }} kWh.</TextBox>
+
+    <div style="position: absolute; left: 50vw; top: 20vh; z-index:1;">
+      <img
+        src="@/assets/redLighning.png"
+        class="mr-3"
+        alt="Red Lightning"
+        width="175"
+        height="225"
+        v-if="powerBalance<0"
+      />
+      <img
+        src="@/assets/greenLighning.png"
+        class="mr-3"
+        alt="Green Lightning"
+        width="175"
+        height="225"
+        v-if="powerBalance>=0"
+      />
+    </div>
 
     <div v-if="chapter101" class="fullsize">
       <TextBox
         left="10px"
         top="20px"
         width="500px"
-        height="400px"
         color="green"
       >You are mining for resources in a remote area without electricity. You need to setup a micro grid to power your mashines.</TextBox>
-
-      <div id="redNeedPower">
-        <img src="@/assets/needPower.png" class="mr-3" alt="needPower" width="300" height="275" />
-      </div>
-      <div id="pNeedPower">
-        <p>Need power!</p>
-      </div>
-      <div id="pPowerbalance">
-        <p>Powerbalance:</p>
-      </div>
-      <div id="pkW">
-        <p>{{powerBalance}}kW</p>
-      </div>
-      <div id="redLightning">
-        <img src="@/assets/roterBlitz.png" class="mr-3" alt="redLightning" width="175" height="225" />
-      </div>
 
       <div id="rentGeneratorBtn">
         <button type="button" class="btn btn-info btn-lg" @click="goToStore">Go to local store</button>
@@ -316,9 +326,6 @@
       <div id="pPText">
         <p>Powerbalance:</p>
       </div>
-      <div id="greenLightning">
-        <img src="@/assets/greenBlitz.png" class="mr-3" alt="redLightning" width="175" height="225" />
-      </div>
 
       <p id="chapter103Powerbalance">+{{positivePowerBalance}}kW</p>
     </div>
@@ -373,9 +380,6 @@
           />
         </div>
       </div>
-      <div id="redLightning">
-        <img src="@/assets/roterBlitz.png" class="mr-3" alt="redLightning" width="175" height="225" />
-      </div>
       <div id="errorETLText">
         <TextBox left="10px" top="20px" width="500px" height="400px" color="red">
           The Digital Type Label was tuned!
@@ -419,9 +423,6 @@
       </div>
       <div id="pkW">
         <p>{{powerBalance}}kW</p>
-      </div>
-      <div id="redLightning">
-        <img src="@/assets/roterBlitz.png" class="mr-3" alt="redLightning" width="175" height="225" />
       </div>
 
       <div id="rentGeneratorBtn">
@@ -727,9 +728,6 @@
       <div id="pPText">
         <p>Powerbalance:</p>
       </div>
-      <div id="greenLightning">
-        <img src="@/assets/greenBlitz.png" class="mr-3" alt="redLightning" width="175" height="225" />
-      </div>
 
       <p id="chapter103Powerbalance">+{{positivePowerBalance}}kW</p>
     </div>
@@ -767,7 +765,6 @@ export default {
       yGEcoTypeLabel: false,
       smoke: false,
       shopValidated: false,
-      positivePowerBalance: -180,
       endingExplanation: false,
       showExpShop: false,
       pumps: [
@@ -790,24 +787,28 @@ export default {
           asset: "Generator",
           gs1id: "8004 404711165434",
           manufacturer: "Manufacturer A",
+          active: false,
         },
         {
           power: 50,
           asset: "Generator",
           gs1id: "8004 40471116542",
           manufacturer: "Manufacturer A",
+          active: false,
         },
         {
           power: 75,
           asset: "Generator",
           gs1id: "8004 404712123",
           manufacturer: "Manufacturer B",
+          active: false,
         },
         {
           power: 40,
           asset: "Generator",
           gs1id: "8004 40994712321",
           manufacturer: "Manufacturer C",
+          active: false,
         },
       ],
     };
@@ -823,13 +824,6 @@ export default {
     rent: function () {
       console.log("Renting done");
       if (this.checkForValidation()) {
-        this.positivePowerBalance += 175;
-        if (this.greenGenerator == true) {
-          this.positivePowerBalance += 25;
-        }
-        if (this.blueGenerator == true) {
-          this.positivePowerBalance += 50;
-        }
         this.chapter101 = false;
         this.chapter102 = false;
         this.chapter103 = true;
@@ -838,13 +832,6 @@ export default {
     rentCh2: function () {
       console.log("Renting done in chapter 2");
       if (this.checkForValidation()) {
-        this.positivePowerBalance += 175;
-        if (this.greenGenerator == true) {
-          this.positivePowerBalance += 25;
-        }
-        if (this.blueGenerator == true) {
-          this.positivePowerBalance += 50;
-        }
         this.chapter201 = false;
         this.chapter202 = false;
         this.chapter203 = true;
@@ -852,7 +839,6 @@ export default {
     },
     autoRentCh2: function () {
       console.log("Auto renting done in chapter 2");
-      this.positivePowerBalance += 200;
       this.redGenerator = true;
       this.greenGenerator = true;
       this.yellowGenerator = true;
@@ -969,7 +955,6 @@ export default {
       this.bGEcoTypeLabel = false;
       this.gGEcoTypeLabel = false;
       this.yGEcoTypeLabel = false;
-      this.positivePowerBalance = -180;
     },
     endStory: function () {
       this.chapter101 = true;
@@ -987,7 +972,6 @@ export default {
       this.bGEcoTypeLabel = false;
       this.gGEcoTypeLabel = false;
       this.yGEcoTypeLabel = false;
-      this.positivePowerBalance = -180;
     },
     checkForValidation() {
       this.shopValidated = true;
@@ -1029,7 +1013,12 @@ export default {
       };
     },
     powerBalance() {
-      return this.pump1Power + this.pump2Power;
+      return (
+        this.pumps.map((x) => x.power).reduce((x, y) => x + y, 0) +
+        this.generators
+          .map((x) => (x.active ? x.power : 0))
+          .reduce((x, y) => x + y, 0)
+      );
     },
   },
 };
@@ -1044,36 +1033,10 @@ export default {
   height: 100%;
 }
 
-#rightPump {
-  position: ab;
-  right: 650px;
-  bottom: 50px;
-  margin: 0;
-  padding: 0;
-}
-#leftPump {
-  position: fixed;
-  left: 580px;
-  bottom: 200px;
-  margin: 0;
-  padding: 0;
-}
-#leftPic {
-  position: fixed;
-  left: 600px;
-  bottom: 330px;
-}
 #redNeedPower {
   position: fixed;
   right: 50px;
   bottom: 650px;
-  margin: 0;
-  padding: 0;
-}
-#redLightning {
-  position: fixed;
-  left: 870px;
-  top: 200px;
   margin: 0;
   padding: 0;
 }
@@ -1161,11 +1124,6 @@ export default {
   right: 300px;
   bottom: 280px;
 }
-#positivePowerbalance {
-  position: fixed;
-  right: 100px;
-  top: 75px;
-}
 #pPText {
   position: fixed;
   right: 125px;
@@ -1177,20 +1135,6 @@ export default {
   position: fixed;
   right: 110px;
   bottom: 800px;
-  color: black;
-  font-size: 40px;
-}
-#pPowerbalance {
-  position: fixed;
-  right: 85px;
-  bottom: 750px;
-  color: black;
-  font-size: 40px;
-}
-#pkW {
-  position: fixed;
-  right: 150px;
-  bottom: 700px;
   color: black;
   font-size: 40px;
 }
