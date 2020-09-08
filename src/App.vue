@@ -24,7 +24,16 @@
       width="500px"
       :color="powerBalance < 0 ? `red` : `green`"
       style="z-index:1;"
-    >Powerbalance: {{ powerBalance }} kWh.</TextBox>
+    >
+      Powerbalance: {{ powerBalance }} kWh.
+      <br />
+      <button
+        type="button"
+        class="btn btn-info btn-lg"
+        @click="goToStore"
+        v-if="powerBalance<0"
+      >Rent Generators</button>
+    </TextBox>
 
     <div style="position: absolute; left: 50vw; top: 20vh; z-index:1;">
       <img
@@ -45,142 +54,50 @@
       />
     </div>
 
-    <div v-if="chapter101" class="fullsize">
-      <TextBox
-        left="10px"
-        top="20px"
-        width="500px"
-        color="green"
-      >You are mining for resources in a remote area without electricity. You need to setup a micro grid to power your mashines.</TextBox>
+    <ShowHideTextBox
+      v-if="showInitText"
+      left="10px"
+      top="20px"
+      width="500px"
+      color="green"
+      style="z-index:1;"
+    >You are mining for resources in a remote area without electricity. You need to setup a micro grid to power your machines.</ShowHideTextBox>
 
-      <div id="rentGeneratorBtn">
-        <button type="button" class="btn btn-info btn-lg" @click="goToStore">Go to local store</button>
+    <div
+      class="jumbotron"
+      style="background-color: #895D54; position:absolute; z-index:10; width:96vw; height:96vh; top:2vh;left:2vw; overflow:auto;"
+      v-if="showStore"
+    >
+      <h2 class="display-4" style="color: #E5DDDB;">Distributor Eve offers:</h2>
+      <p
+        class="lead"
+        style="color: #E5DDDB;"
+      >Here you can rent generators to produce the electric energy needed in the field.</p>
+      <h2 style="color: #E61117;" v-if="powerBalance<0">Energy demand: {{ -powerBalance }}kW</h2>
+      <hr class="my-4" />
+      <div style="display:inline-block;" v-for="generator in generators" :key="generator.pic">
+        <img :src="generator.pic" class="mr-3" alt="Generator" width="200" height="170" />
+        <DigitalTypeLabel
+          :type="generator"
+          color="green"
+          font_size="16px"
+          width="190px"
+          height="210px"
+        ></DigitalTypeLabel>
+        <div class="form-check-inline mr-5 ml-5">
+          <input
+            class="form-check-input position-static mr-5 ml-5"
+            type="checkbox"
+            id="blankCheckbox"
+            value="option1"
+            aria-label="..."
+            v-model="generator.active"
+          />
+        </div>
       </div>
-    </div>
 
-    <div v-if="chapter102" class="fullsize">
-      <div
-        class="jumbotron"
-        style="background-color: #895D54; position:relative; z-index:10; width:95vw;margin:auto; height:96vh; margin-top:2vh;"
-      >
-        <h2 class="display-4" style="color: #E5DDDB;">Welcome to your local rental store!</h2>
-        <p
-          class="lead"
-          style="color: #E5DDDB;"
-        >Here you can rent different generators to cover your energy needs.</p>
-        <h2
-          style="color: #E61117;"
-          v-if="!valid.enoughKW"
-        >Reminder: Current energy demand {{powerBalance}}kW</h2>
-        <hr class="my-4" />
-        <div style="display:inline-block;">
-          <img
-            src="@/assets/redGenerator.png"
-            class="mr-3"
-            alt="QuestionMark"
-            width="200"
-            height="170"
-          />
-          <DigitalTypeLabel
-            :type="generators[0]"
-            color="green"
-            font_size="16px"
-            width="190px"
-            height="210px"
-          ></DigitalTypeLabel>
-          <div class="form-check-inline mr-5 ml-5">
-            <input
-              class="form-check-input position-static mr-5 ml-5"
-              type="checkbox"
-              id="blankCheckbox"
-              value="option1"
-              aria-label="..."
-              v-model="redGenerator"
-            />
-          </div>
-        </div>
-        <div style="display:inline-block;">
-          <img
-            src="@/assets/blueGenerator.png"
-            class="mr-3"
-            alt="QuestionMark"
-            width="200"
-            height="170"
-          />
-          <DigitalTypeLabel
-            :type="generators[1]"
-            color="green"
-            font_size="16px"
-            width="190px"
-            height="210px"
-          ></DigitalTypeLabel>
-          <div class="form-check-inline mr-5 ml-5">
-            <input
-              class="form-check-input position-static mr-5 ml-5"
-              type="checkbox"
-              id="blankCheckbox"
-              value="option1"
-              aria-label="..."
-              v-model="blueGenerator"
-            />
-          </div>
-        </div>
-        <div style="display:inline-block;">
-          <img
-            src="@/assets/greenGenerator.png"
-            class="mr-3"
-            alt="QuestionMark"
-            width="200"
-            height="170"
-          />
-          <DigitalTypeLabel
-            :type="generators[2]"
-            color="green"
-            font_size="16px"
-            width="190px"
-            height="210px"
-          ></DigitalTypeLabel>
-          <div class="form-check-inline mr-5 ml-5">
-            <input
-              class="form-check-input position-static mr-5 ml-5"
-              type="checkbox"
-              id="blankCheckbox"
-              value="option1"
-              aria-label="..."
-              v-model="greenGenerator"
-            />
-          </div>
-        </div>
-        <div style="display:inline-block;">
-          <img
-            src="@/assets/yellowGenerator.png"
-            class="mr-3"
-            alt="QuestionMark"
-            width="200"
-            height="170"
-          />
-          <DigitalTypeLabel
-            :type="generators[3]"
-            color="green"
-            font_size="16px"
-            width="190px"
-            height="210px"
-          ></DigitalTypeLabel>
-          <div class="form-check-inline ml-5 mr-5">
-            <input
-              class="form-check-input position-static ml-5 mr-5"
-              type="checkbox"
-              id="blankCheckbox"
-              value="option1"
-              aria-label="..."
-              v-model="yellowGenerator"
-            />
-          </div>
-        </div>
-
-        <hr class="my-4" />
-        <button type="button" class="btn btn-info btn-lg" @click="rent">Rent generators</button>
-      </div>
+      <hr class="my-4" />
+      <button type="button" class="btn btn-info btn-lg" @click="rent">Rent generators</button>
     </div>
     <div v-if="chapter103" class="fullsize">
       <div v-if="blueGenerator">
@@ -423,10 +340,6 @@
       </div>
       <div id="pkW">
         <p>{{powerBalance}}kW</p>
-      </div>
-
-      <div id="rentGeneratorBtn">
-        <button type="button" class="btn btn-info btn-lg" @click="goToStoreCh2">Go to local store</button>
       </div>
     </div>
     <div v-if="chapter202" class="fullsize">
@@ -738,6 +651,7 @@
 import DigitalTypeLabel from "./components/DigitalTypeLabel.vue";
 import ShowHideDigitalTypeLabel from "./components/ShowHideDigitalTypeLabel.vue";
 import TextBox from "./components/TextBox.vue";
+import ShowHideTextBox from "./components/ShowHideTextBox.vue";
 
 export default {
   name: "App",
@@ -745,11 +659,13 @@ export default {
     DigitalTypeLabel,
     TextBox,
     ShowHideDigitalTypeLabel,
+    ShowHideTextBox,
   },
   data: function () {
     return {
-      chapter101: true,
-      chapter102: false,
+      showInitText: true,
+      showStore: false,
+
       chapter103: false,
       chapter104: false,
       chapter201: false,
@@ -788,6 +704,7 @@ export default {
           gs1id: "8004 404711165434",
           manufacturer: "Manufacturer A",
           active: false,
+          pic: require("@/assets/redGenerator.png"),
         },
         {
           power: 50,
@@ -795,6 +712,7 @@ export default {
           gs1id: "8004 40471116542",
           manufacturer: "Manufacturer A",
           active: false,
+          pic: require("@/assets/blueGenerator.png"),
         },
         {
           power: 75,
@@ -802,6 +720,7 @@ export default {
           gs1id: "8004 404712123",
           manufacturer: "Manufacturer B",
           active: false,
+          pic: require("@/assets/greenGenerator.png"),
         },
         {
           power: 40,
@@ -809,6 +728,7 @@ export default {
           gs1id: "8004 40994712321",
           manufacturer: "Manufacturer C",
           active: false,
+          pic: require("@/assets/yellowGenerator.png"),
         },
       ],
     };
@@ -848,8 +768,8 @@ export default {
     },
     goToStore: function () {
       console.log("Went to store");
-      this.chapter101 = false;
-      this.chapter102 = true;
+      this.showInitText = false;
+      this.showStore = true;
     },
     goToStoreCh2: function () {
       console.log("Went to store in chapter 2");
@@ -1041,13 +961,6 @@ export default {
   padding: 0;
 }
 
-#rentGeneratorBtn {
-  position: fixed;
-  right: 130px;
-  bottom: 580px;
-  margin: 0;
-  padding: 0;
-}
 #redGenerator {
   position: fixed;
   right: 55px;
