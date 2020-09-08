@@ -27,14 +27,14 @@ export default {
 .textBox {
   position: absolute;
 
-  padding: 7px 0;
+  padding: 1vw 0;
 
-  font-size: 40px;
+  font-size: calc(5px + 2vw);
   color: black;
 
   border-style: groove;
   border-width: 3px;
-  border-radius: 50px;
+  border-radius: 2vw;
 
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

@@ -3,27 +3,25 @@
     <ShowHideDigitalTypeLabel
       color="green"
       :type="pumps[0]"
-      font_size="16px"
-      top="68%"
-      left="30%"
+      top="18vw"
+      left="32vw"
       style="z-index:1;"
     ></ShowHideDigitalTypeLabel>
     <!--gs1id="urn:epc:id:giai:0614141.12345401"-->
     <ShowHideDigitalTypeLabel
       color="green"
       :type="pumps[1]"
-      font_size="16px"
-      top="70%"
-      left="52%"
+      top="18vw"
+      left="54vw"
       style="z-index:1;"
     ></ShowHideDigitalTypeLabel>
 
     <TextBox
       right="1vw"
       top="1vh"
-      width="500px"
+      width="35vw"
       :color="powerBalance < 0 ? `red` : `green`"
-      style="z-index:1;"
+      style="z-index:1;font-weight: bold;"
     >
       Powerbalance: {{ powerBalance }} kWh.
       <br />
@@ -35,30 +33,28 @@
       >Rent Generators</button>
     </TextBox>
 
-    <div style="position: absolute; left: 50vw; top: 20vh; z-index:1;">
+    <div style="position: absolute; left: 50vw; top: 5vw; z-index:1;">
       <img
-        src="@/assets/redLighning.png"
+        src="@/assets/redLightning.png"
         class="mr-3"
         alt="Red Lightning"
-        width="175"
-        height="225"
+        style="width:10vw;"
         v-if="powerBalance<0"
       />
       <img
-        src="@/assets/greenLighning.png"
+        src="@/assets/greenLightning.png"
         class="mr-3"
         alt="Green Lightning"
-        width="175"
-        height="225"
+        style="width:10vw;"
         v-if="powerBalance>=0"
       />
     </div>
 
     <ShowHideTextBox
       v-if="showInitText"
-      left="10px"
-      top="20px"
-      width="500px"
+      left="1vw"
+      top="1vw"
+      width="35vw"
       color="green"
       style="z-index:1;"
     >You are mining for resources in a remote area without electricity. You need to setup a micro grid to power your machines.</ShowHideTextBox>
@@ -68,7 +64,7 @@
       style="background-color: #895D54; position:absolute; z-index:10; width:96vw; height:96vh; top:2vh;left:2vw; overflow:auto;"
       v-if="showStore"
     >
-      <h2 class="display-4" style="color: #E5DDDB;">Distributor Eve offers:</h2>
+      <h2 class="display-4" style="color: #E5DDDB;">Distributor Eve</h2>
       <p
         class="lead"
         style="color: #E5DDDB;"
@@ -76,11 +72,10 @@
       <h2 style="color: #E61117;" v-if="powerBalance<0">Energy demand: {{ -powerBalance }}kW</h2>
       <hr class="my-4" />
       <div style="display:inline-block;" v-for="generator in generators" :key="generator.pic">
-        <img :src="generator.pic" class="mr-3" alt="Generator" width="200" height="170" />
+        <img :src="generator.pic" class="mr-3" alt="Generator" width="200" />
         <DigitalTypeLabel
           :type="generator"
           color="green"
-          font_size="16px"
           width="190px"
           height="210px"
         ></DigitalTypeLabel>
@@ -99,153 +94,30 @@
       <hr class="my-4" />
       <button type="button" class="btn btn-info btn-lg" @click="rent">Rent generators</button>
     </div>
-    <div v-if="chapter103" class="fullsize">
-      <div v-if="blueGenerator">
-        <div id="blueGenerator">
-          <img
-            src="@/assets/blueGenerator.png"
-            class="mr-3"
-            alt="QuestionMark"
-            width="200"
-            height="170"
-          />
-        </div>
-        <div id="QMblueGenerator">
-          <img
-            src="@/assets/questionMark.png"
-            class="mr-3"
-            alt="QuestionMark"
-            width="130"
-            height="110"
-            @click="showETL1"
-          />
-        </div>
-        <div v-if="bGEcoTypeLabel">
-          <div id="bGETL">
-            <img
-              src="@/assets/blueETL.png"
-              class="mr-3"
-              alt="QuestionMark"
-              width="220"
-              height="200"
-            />
-          </div>
-        </div>
-      </div>
-      <div v-if="redGenerator">
-        <div id="redGenerator">
-          <img
-            src="@/assets/redGenerator.png"
-            class="mr-3"
-            alt="QuestionMark"
-            width="200"
-            height="170"
-          />
-        </div>
-        <div id="QMredGenerator">
-          <img
-            src="@/assets/questionMark.png"
-            class="mr-3"
-            alt="QuestionMark"
-            width="130"
-            height="110"
-            @click="this.showETL2"
-          />
-        </div>
-        <div v-if="rGEcoTypeLabel">
-          <div id="rGETL">
-            <img src="@/assets/redETL.png" class="mr-3" alt="QuestionMark" width="220" height="200" />
-          </div>
-        </div>
-        <div v-if="smoke">
-          <div id="showSmoke">
-            <img src="@/assets/smoke.png" class="mr-3" alt="QuestionMark" width="220" height="200" />
-          </div>
-        </div>
-      </div>
-      <div v-if="greenGenerator">
-        <div id="greenGenerator">
-          <img
-            src="@/assets/greenGenerator.png"
-            class="mr-3"
-            alt="QuestionMark"
-            width="200"
-            height="170"
-          />
-        </div>
-        <div id="QMgreenGenerator">
-          <div>
-            <img
-              src="@/assets/questionMark.png"
-              class="mr-3"
-              alt="QuestionMark"
-              width="130"
-              height="110"
-              @click="showETL3"
-            />
-          </div>
-        </div>
-        <div v-if="gGEcoTypeLabel">
-          <div id="gGETL">
-            <img
-              src="@/assets/greenETL.png"
-              class="mr-3"
-              alt="QuestionMark"
-              width="220"
-              height="200"
-            />
-          </div>
-        </div>
-      </div>
-      <div v-if="yellowGenerator">
-        <div id="yellowGenerator">
-          <img
-            src="@/assets/yellowGenerator.png"
-            class="mr-3"
-            alt="QuestionMark"
-            width="200"
-            height="170"
-          />
-        </div>
-        <div id="QMyellowGenerator">
-          <div>
-            <img
-              src="@/assets/questionMark.png"
-              class="mr-3"
-              alt="QuestionMark"
-              width="130"
-              height="110"
-              @click="this.showETL4"
-            />
-          </div>
-        </div>
-        <div v-if="yGEcoTypeLabel">
-          <div id="yGETL">
-            <img
-              src="@/assets/yellowETL.png"
-              class="mr-3"
-              alt="QuestionMark"
-              width="220"
-              height="200"
-            />
-          </div>
-        </div>
-      </div>
-      <div id="positivePowerbalance">
+
+
+<div
+        v-for="(generator, index) in generators"
+        :key="generator.pic"
+        :style="`display:inline-block;position:absolute;top:41vw;left: ${index * 25 + 5}vw;`"
+      >
         <img
-          src="@/assets/positivePowerbalance.png"
+          :src="generator.pic"
           class="mr-3"
-          alt="QuestionMark"
-          width="270"
-          height="210"
+          alt="Generator"
+          style="width:calc(10vw + 50px);position:absolute;left:0;top:0;"
+          v-if="generator.active"
         />
-      </div>
-      <div id="pPText">
-        <p>Powerbalance:</p>
+        <ShowHideDigitalTypeLabel
+          v-if="generator.active"
+          :type="generator"
+          color="green"
+          width="190px"
+          height="210px"
+          style="position:absolute; top:calc(-10px - 5vw); left:0;"
+        ></ShowHideDigitalTypeLabel>
       </div>
 
-      <p id="chapter103Powerbalance">+{{positivePowerBalance}}kW</p>
-    </div>
     <div v-if="chapter104" class="fullsize">
       <div v-if="blueGenerator">
         <div id="blueGenerator">
@@ -742,10 +614,9 @@ export default {
       }
     },
     rent: function () {
-      console.log("Renting done");
-      if (this.checkForValidation()) {
-        this.chapter101 = false;
-        this.chapter102 = false;
+      console.log("Renting");
+      if (this.powerBalance >= 0) {
+        this.showStore = false;
         this.chapter103 = true;
       }
     },
@@ -892,13 +763,6 @@ export default {
       this.bGEcoTypeLabel = false;
       this.gGEcoTypeLabel = false;
       this.yGEcoTypeLabel = false;
-    },
-    checkForValidation() {
-      this.shopValidated = true;
-      if (this.valid.enoughKW == true) {
-        return true;
-      }
-      return false;
     },
   },
   computed: {

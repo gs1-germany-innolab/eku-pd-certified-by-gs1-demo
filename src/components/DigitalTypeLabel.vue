@@ -1,11 +1,11 @@
 <template>
   <div class="outer dtl" :style="coloredStrokes">
     <div class="inner dtl" :style="coloredFill">
-      <div class="dtlCaption" :style="{ fontSize: font_size}">Digital Type Label</div>
-      <div class="dtlRow" :style="{ fontSize: font_size}">{{ type.asset }}</div>
-      <div class="dtlRow" :style="{ fontSize: font_size}">{{ type.gs1id }}</div>
-      <div class="dtlRow" :style="{ fontSize: font_size}">{{ type.manufacturer }}</div>
-      <div class="dtlRow" :style="{ fontSize: font_size}">{{ powerLabel }}</div>
+      <div class="dtlCaption">Digital Type Label</div>
+      <div class="dtlRow">{{ type.asset }}</div>
+      <div class="dtlRow">{{ type.gs1id }}</div>
+      <div class="dtlRow">{{ type.manufacturer }}</div>
+      <div class="dtlRow">{{ powerLabel }}</div>
     </div>
   </div>
 </template>
@@ -13,24 +13,17 @@
 export default {
   name: "DigitalTypeLabel",
   components: {},
-  props: [
-    "type",
-    "color",
-    "font_size",
-    "width",
-    "height",
-  ],
+  props: ["type", "color", "width", "height"],
   data: function () {
     return {};
   },
   computed: {
-      powerLabel(){
-if (this.type.power < 0){
-    return "Consumes < " + (-this.type.power) + " kWh";
-}  
-return "Generates " + this.type.power + " kWh";
-}
-,
+    powerLabel() {
+      if (this.type.power < 0) {
+        return "Consumes < " + -this.type.power + " kWh";
+      }
+      return "Generates " + this.type.power + " kWh";
+    },
     coloredStrokes() {
       return {
         "border-color": this.color,
@@ -44,9 +37,9 @@ return "Generates " + this.type.power + " kWh";
       };
     },
   },
-  mounted(){
-      console.log(this.type);
-  }
+  mounted() {
+    console.log(this.type);
+  },
 };
 </script>
 
@@ -57,6 +50,7 @@ return "Generates " + this.type.power + " kWh";
   font-weight: bold;
   margin: auto;
   margin-top: 5px;
+  font-size: calc(5px + 1vw);
 }
 .dtlRow {
   width: 95%;
@@ -64,13 +58,15 @@ return "Generates " + this.type.power + " kWh";
   border-style: solid;
   border-width: 1px;
   margin: auto;
-  margin-top: 3px;
+  margin-top: 0.1vw;
   background-color: rgba(255, 255, 255, 0.3);
   border-color: rgba(0, 0, 0, 0.2);
+  font-size: calc(3px + 1vw);
 }
+
 .outer.dtl {
-  width: 210px;
-  height: 210px;
+  width: calc(60px + 12vw);
+  height: calc(60px + 10vw);
 }
 .inner.dtl {
   width: 95%;
@@ -83,7 +79,7 @@ return "Generates " + this.type.power + " kWh";
 
   border-style: groove;
   border-width: 3px;
-  border-radius: 50px;
+  border-radius: 2vw;
 
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

@@ -1,7 +1,6 @@
 <template>
   <ShowHideBox :top="top" :left="left" width="290px" height="230px" show>
     <DigitalTypeLabel
-      :font_size="font_size"
       :color="color"
       :type="type"
     ></DigitalTypeLabel>
@@ -16,7 +15,6 @@ export default {
   components: { ShowHideBox, DigitalTypeLabel },
   props: [
     "color",
-    "font_size",
     "top",
     "left",
     "type"

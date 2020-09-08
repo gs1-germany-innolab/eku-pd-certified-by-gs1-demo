@@ -5,7 +5,7 @@
       <slot></slot>
     </div>
     <div v-if="!showing" @click="toggle">
-      <img src="@/assets/questionMark.png" alt="QuestionMark" width="200px" />
+      <img src="@/assets/questionMark.png" alt="QuestionMark" style="width: calc(20px + 10vw);position:absolute;top:0;left:0;" />
     </div>
   </div>
 </template>
