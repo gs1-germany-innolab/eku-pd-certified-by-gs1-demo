@@ -1,11 +1,11 @@
 <template>
   <div class="outer dtl" :style="coloredStrokes">
     <div class="inner dtl" :style="coloredFill">
-      <div class="dtlCaption">Digital Type Label</div>
+      <div class="dtlCaption">{{ type.caption }}</div>
       <div class="dtlRow">{{ type.asset }}</div>
       <div class="dtlRow">{{ type.gs1id }}</div>
-      <div class="dtlRow">{{ type.manufacturer }}</div>
-      <div class="dtlRow">{{ powerLabel }}</div>
+      <div class="dtlRow">{{ type.label3 }}</div>
+      <div class="dtlRow">{{ type.label4 }}</div>
     </div>
     <img src="@/assets/cert.png" class="cert" alt="Certified" v-if="certified" />
   </div>
@@ -19,14 +19,6 @@ export default {
     return {};
   },
   computed: {
-    powerLabel() {
-      if (this.type.power < 0) {
-        return "Consumes < " + -this.type.power + " kWh";
-      }
-      return (
-        "Generates " + (this.type.smoking ? "???" : this.type.power) + " kWh"
-      );
-    },
     coloredStrokes() {
       return {
         "border-color": this.color,

@@ -25,7 +25,7 @@
       :color="powerBalance < 0 ? `red` : `green`"
       style="z-index:1;font-weight: bold;"
     >
-      Powerbalance: {{ powerBalance }} kWh.
+      Total Capacity {{ powerBalance }} kWh.
       <br />
       <button
         type="button"
@@ -220,6 +220,21 @@
         @click="endTypeLabelStory"
       >Explore Certified Dynamic Data</button>
     </ShowHideTextBox>
+
+    <!----------------------------------------------------------------------------------------------------------------------->
+
+    <ShowHideTextBox
+      v-if="showExplainDynamic"
+      left="1vw"
+      top="1vw"
+      width="35vw"
+      color="green"
+      style="z-index:1;"
+    >
+      Dynamic data is used to regulate the grid, concretely to optimize the generator efficiency and hence minimise fuel consumption.
+      <br />
+      <button type="button" class="btn btn-primary btn-lg" @click="hackData">Hack Data!</button>
+    </ShowHideTextBox>
   </div>
 </template>
 
@@ -244,62 +259,91 @@ export default {
       showNoCertText: false,
       timer: null,
       timerInterval: null,
+      randomDataInterval: null,
       certified: false,
       showExplainCertified: false,
+      showExplainDynamic: false,
 
       pumps: [
         {
-          power: -100,
+          caption: "",
+          capacity: -100,
           asset: "Pump",
           gs1id: "8004 40471112342",
-          manufacturer: "Manufacturer 001",
+          label3: "Manufacturer 001",
+          label4: "",
+          health: 99,
+          load: -60,
         },
         {
-          power: -80,
+          caption: "",
+          capacity: -80,
           asset: "Pump",
           gs1id: "8004 061414112345401",
-          manufacturer: "Manufacturer 002",
+          label3: "Manufacturer 002",
+          label4: "",
+          health: 99,
+          load: -50,
         },
       ],
       generators: [
         {
-          power: 100,
+          caption: "",
+          label4: "",
+          capacity: 100,
           asset: "Generator",
           gs1id: "8004 404711165434",
-          manufacturer: "Manufacturer A",
+          label3: "Manufacturer A",
           active: false,
           pic: require("@/assets/redGenerator.png"),
           smoking: false,
+          health: 99,
+          load: 50,
         },
         {
-          power: 50,
+          caption: "",
+          label4: "",
+          capacity: 50,
           asset: "Generator",
           gs1id: "8004 40471116542",
-          manufacturer: "Manufacturer A",
+          label3: "Manufacturer A",
           active: false,
           pic: require("@/assets/blueGenerator.png"),
           smoking: false,
+          health: 99,
+          load: 20,
         },
         {
-          power: 75,
+          caption: "",
+          label4: "",
+          capacity: 75,
           asset: "Generator",
           gs1id: "8004 404712123",
-          manufacturer: "Manufacturer B",
+          label3: "Manufacturer B",
           active: false,
           pic: require("@/assets/greenGenerator.png"),
           smoking: false,
+          health: 99,
+          load: 20,
         },
         {
-          power: 40,
+          caption: "",
+          label4: "",
+          capacity: 40,
           asset: "Generator",
           gs1id: "8004 40994712321",
-          manufacturer: "Manufacturer C",
+          label3: "Manufacturer C",
           active: false,
           pic: require("@/assets/yellowGenerator.png"),
           smoking: false,
+          health: 99,
+          load: 20,
         },
       ],
     };
+  },
+  mounted: function () {
+    this.resetPumpsAndGenerators();
   },
   methods: {
     tick: function () {
@@ -312,6 +356,7 @@ export default {
         for (generator of this.generators) {
           if (generator.active) {
             generator.smoking = true;
+            generator.label4 = "Load Capacity: ??? kWh";
             break;
           }
         }
@@ -334,25 +379,73 @@ export default {
         this.timerInterval = setInterval(this.tick, 1000);
       }
     },
+    resetPumpsAndGenerators() {
+      for (var generator of this.generators) {
+        generator.caption = "Digital Type Label";
+        generator.active = false;
+        generator.smoking = false;
+        generator.label4 = "Load Capacity: " + generator.capacity + " kWh";
+      }
+      for (var pump of this.pumps) {
+        pump.label4 = "Max. Load: " + -pump.capacity + " kWh";
+        pump.caption = "Digital Type Label";
+      }
+    },
     endNoCert: function () {
       this.certified = true;
       this.showExplainCertified = true;
       this.showNoCertText = false;
-      for (var generator of this.generators) {
-        generator.active = false;
-        generator.smoking = false;
-      }
+      this.resetPumpsAndGenerators();
     },
     endTypeLabelStory: function () {
+      this.certified = false;
+      this.showExplainCertified = false;
+      this.showExplainDynamic = true;
+
+      this.randomDataInterval = setInterval(this.randomData, 500);
+    },
+    randomData: function () {
+      var totalLoad = 0;
+
+      for (var pump of this.pumps) {
+        pump.caption = "Status";
+        pump.health += 1.0 - 2 * Math.random();
+        pump.health = Math.min(Math.max(10, pump.health), 100);
+        pump.label3 = "Health: " + Math.round(pump.health) + " %";
+
+        pump.load += 1.0 - 2 * Math.random();
+        pump.load = Math.min(Math.max(pump.capacity, pump.load), 0);
+        totalLoad += pump.load;
+        pump.label4 = "Current Load: " + Math.round(-pump.load) + " kWh";
+      }
+
+      for (var generator of this.generators) {
+        generator.caption = "Status";
+        generator.load = Math.min(generator.capacity, -totalLoad);
+        totalLoad += generator.load;
+
+        generator.health += 1.0 - 2 * Math.random();
+        generator.health = Math.min(Math.max(10, generator.health), 100);
+        generator.label3 = "Health: " + Math.round(generator.health) + " %";
+        if (generator.load === 0) {
+          generator.health = 100;
+          generator.label3 = "Shut Down.";
+        }
+
+        generator.label4 =
+          "Current Load: " + Math.round(generator.load) + " kWh";
+      }
+    },
+    hackData: function () {
       location.reload();
     },
   },
   computed: {
     powerBalance() {
       return (
-        this.pumps.map((x) => x.power).reduce((x, y) => x + y, 0) +
+        this.pumps.map((x) => x.capacity).reduce((x, y) => x + y, 0) +
         this.generators
-          .map((x) => (x.active && !x.smoking ? x.power : 0))
+          .map((x) => (x.active && !x.smoking ? x.capacity : 0))
           .reduce((x, y) => x + y, 0)
       );
     },
