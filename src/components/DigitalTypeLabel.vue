@@ -7,13 +7,14 @@
       <div class="dtlRow">{{ type.manufacturer }}</div>
       <div class="dtlRow">{{ powerLabel }}</div>
     </div>
+    <img src="@/assets/cert.png" class="cert" alt="Certified" v-if="certified" />
   </div>
 </template>
 <script>
 export default {
   name: "DigitalTypeLabel",
   components: {},
-  props: ["type", "color", "width", "height"],
+  props: ["type", "color", "width", "height", "certified"],
   data: function () {
     return {};
   },
@@ -22,12 +23,14 @@ export default {
       if (this.type.power < 0) {
         return "Consumes < " + -this.type.power + " kWh";
       }
-      return "Generates " + this.type.power + " kWh";
+      return (
+        "Generates " + (this.type.smoking ? "???" : this.type.power) + " kWh"
+      );
     },
     coloredStrokes() {
       return {
         "border-color": this.color,
-        background: `repeating-linear-gradient(-45deg, transparent, transparent 3px, ${this.color} 3px, ${this.color} 5px)`,
+        background: `repeating-linear-gradient(-45deg, transparent, transparent 1px, ${this.color} 2px, ${this.color} 5px)`,
       };
     },
     coloredFill() {
@@ -44,6 +47,12 @@ export default {
 </script>
 
 <style>
+.cert {
+  width: 5vw;
+  position: absolute;
+  left: 11vw;
+  top: 11vw;
+}
 .dtlCaption {
   color: white;
   border: none;
@@ -65,6 +74,7 @@ export default {
 }
 
 .outer.dtl {
+  position: relative;
   width: calc(60px + 12vw);
   height: calc(60px + 10vw);
 }

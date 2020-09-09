@@ -16,7 +16,7 @@ export default {
         top: this.top,
         left: this.left,
         right: this.right,
-        background: `repeating-linear-gradient(-45deg, transparent, transparent 3px, ${this.color} 3px, ${this.color} 5px)`,
+        background: `repeating-linear-gradient(-45deg, transparent, transparent 1px, ${this.color} 2px, ${this.color} 5px)`,
       };
     },
   },
@@ -29,7 +29,7 @@ export default {
 
   padding: 1vw 0;
 
-  font-size: calc(5px + 2vw);
+  font-size: calc(4px + 2vw);
   color: black;
 
   border-style: groove;

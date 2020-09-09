@@ -6,6 +6,7 @@
       top="18vw"
       left="32vw"
       style="z-index:1;"
+      :certified="certified"
     ></ShowHideDigitalTypeLabel>
     <!--gs1id="urn:epc:id:giai:0614141.12345401"-->
     <ShowHideDigitalTypeLabel
@@ -14,6 +15,7 @@
       top="18vw"
       left="54vw"
       style="z-index:1;"
+      :certified="certified"
     ></ShowHideDigitalTypeLabel>
 
     <TextBox
@@ -28,8 +30,8 @@
       <button
         type="button"
         class="btn btn-info btn-lg"
-        @click="goToStore"
-        v-if="powerBalance<0"
+        @click="()=>{this.showStore=true;}"
+        v-if="powerBalance<0 && !showNoCertText"
       >Rent Generators</button>
     </TextBox>
 
@@ -57,8 +59,9 @@
       width="35vw"
       color="green"
       style="z-index:1;"
-    >You are mining for resources in a remote area without electricity. You need to setup a micro grid to power your machines.</ShowHideTextBox>
+    >You are mining resources in a remote area without electricity. You need to setup a micro grid to power your machines.</ShowHideTextBox>
 
+    <!-- shop -->
     <div
       class="jumbotron"
       style="background-color: #895D54; position:absolute; z-index:10; width:96vw; height:96vh; top:2vh;left:2vw; overflow:auto;"
@@ -69,15 +72,20 @@
         class="lead"
         style="color: #E5DDDB;"
       >Here you can rent generators to produce the electric energy needed in the field.</p>
-      <h2 style="color: #E61117;" v-if="powerBalance<0">Energy demand: {{ -powerBalance }}kW</h2>
       <hr class="my-4" />
-      <div style="display:inline-block;" v-for="generator in generators" :key="generator.pic">
+      <div
+        style="display:inline-block;"
+        v-for="(generator, index) in generators"
+        :key="generator.pic"
+      >
         <img :src="generator.pic" class="mr-3" alt="Generator" width="200" />
         <DigitalTypeLabel
+          :style="`z-index:${20-index}`"
           :type="generator"
           color="green"
           width="190px"
           height="210px"
+          :certified="certified"
         ></DigitalTypeLabel>
         <div class="form-check-inline mr-5 ml-5">
           <input
@@ -92,430 +100,126 @@
       </div>
 
       <hr class="my-4" />
-      <button type="button" class="btn btn-info btn-lg" @click="rent">Rent generators</button>
+      <h2 style="color: #E5DDDB;;" v-if="powerBalance<0">Energy demand: {{ -powerBalance }}kW</h2>
+      <button
+        type="button"
+        class="btn btn-info btn-lg"
+        @click="rent"
+        :disabled="powerBalance<0"
+      >Rent generators</button>
+
+      <ShowHideTextBox
+        v-if="certified"
+        left="1vw"
+        top="1vw"
+        width="35vw"
+        color="green"
+        style="z-index:21;"
+      >Authenticity of the digital type label is guaranteed by a signature of the manufacturer. The manufactruer's identity is authenticated by GS1.</ShowHideTextBox>
     </div>
+    <!-- end shop -->
 
-
-<div
-        v-for="(generator, index) in generators"
-        :key="generator.pic"
-        :style="`display:inline-block;position:absolute;top:41vw;left: ${index * 25 + 5}vw;`"
-      >
+    <div
+      v-for="(generator, index) in generators"
+      :key="generator.pic"
+      :style="`display:inline-block;position:absolute;top:41vw;left: ${index * 25 + 5}vw;`"
+    >
+      <div v-if="generator.active">
         <img
           :src="generator.pic"
           class="mr-3"
           alt="Generator"
           style="width:calc(10vw + 50px);position:absolute;left:0;top:0;"
-          v-if="generator.active"
         />
+        <img
+          src="@/assets/smoke.png"
+          class="mr-3"
+          alt="Smoke"
+          style="width:calc(8vw + 10px);position:absolute;top:-3vw;left:-3vw"
+          v-if="generator.smoking"
+        />
+
         <ShowHideDigitalTypeLabel
-          v-if="generator.active"
           :type="generator"
-          color="green"
+          :color="generator.smoking ? `red` : `green`"
           width="190px"
           height="210px"
-          style="position:absolute; top:calc(-10px - 5vw); left:0;"
+          style="position:absolute; top:calc(-10px - 6vw); left:2vw;"
+          :show="generator.smoking"
+          :certified="certified"
         ></ShowHideDigitalTypeLabel>
       </div>
+    </div>
 
-    <div v-if="chapter104" class="fullsize">
-      <div v-if="blueGenerator">
-        <div id="blueGenerator">
-          <img
-            src="@/assets/blueGenerator.png"
-            class="mr-3"
-            alt="QuestionMark"
-            width="200"
-            height="170"
-          />
-        </div>
-      </div>
-      <div v-if="redGenerator">
-        <div id="redGenerator">
-          <img
-            src="@/assets/redGenerator.png"
-            class="mr-3"
-            alt="QuestionMark"
-            width="200"
-            height="170"
-          />
-        </div>
-        <div id="rGETL">
-          <img src="@/assets/errorETL.png" class="mr-3" alt="QuestionMark" width="220" height="200" />
-        </div>
-      </div>
-      <div id="showSmoke">
-        <img src="@/assets/smoke.png" class="mr-3" alt="QuestionMark" width="220" height="200" />
-      </div>
-      <div v-if="greenGenerator">
-        <div id="greenGenerator">
-          <img
-            src="@/assets/greenGenerator.png"
-            class="mr-3"
-            alt="QuestionMark"
-            width="200"
-            height="170"
-          />
-        </div>
-      </div>
-      <div v-if="yellowGenerator">
-        <div id="yellowGenerator">
-          <img
-            src="@/assets/yellowGenerator.png"
-            class="mr-3"
-            alt="QuestionMark"
-            width="200"
-            height="170"
-          />
-        </div>
-      </div>
-      <div id="errorETLText">
-        <TextBox left="10px" top="20px" width="500px" height="400px" color="red">
-          The Digital Type Label was tuned!
-          <br />The Generator has been operated outside specifications!
-          <br />Overheat leads to power outage.
-        </TextBox>
-      </div>
-      <div id="chapter1EndingBtn">
-        <button
-          type="button"
-          class="btn btn-info btn-lg"
-          @click="endChapter1"
-        >See the difference with CertifiedByGS1</button>
-      </div>
-    </div>
-    <div v-if="chapter201" class="fullsize">
-      <div id="useCaseCh2">
-        <img src="@/assets/qmwb.png" class="mr-3" alt="QuestionMark" width="500" height="500" />
-      </div>
-      <div id="useCaseTextCh2">
-        <p>
-          Problem:
-          <br />If it was not signed,
-          <br />it might have been tuned.
-          <br />This could result in a high damage!
-          <br />Solution:
-          <br />Signed data from the manufacturer!
-        </p>
-      </div>
-      <div id="redNeedPower">
-        <img src="@/assets/needPower.png" class="mr-3" alt="needPower" width="300" height="275" />
-      </div>
-      <div id="chain">
-        <img src="@/assets/chain.png" class="mr-3" alt="needPower" width="450" height="150" />
-      </div>
-      <div id="pNeedPower">
-        <p>Need power!</p>
-      </div>
-      <div id="pPowerbalance">
-        <p>Powerbalance:</p>
-      </div>
-      <div id="pkW">
-        <p>{{powerBalance}}kW</p>
-      </div>
-    </div>
-    <div v-if="chapter202" class="fullsize">
-      <div class="jumbotron" style="background-color: #895D54; z-index:10;">
-        <h2 class="display-4" style="color: #E5DDDB;">Welcome to your local rental store!</h2>
-        <p
-          class="lead"
-          style="color: #E5DDDB;"
-        >Here you can rent different generators to cover your energy needs.</p>
-        <h2
-          style="color: #E61117;"
-          v-if="!valid.enoughKW"
-        >Reminder: Current energy demand {{powerBalance}}kW</h2>
-        <hr class="my-4" />
-        <img
-          src="@/assets/redGeneratorCh2.png"
-          class="mr-3"
-          alt="QuestionMark"
-          width="200"
-          height="170"
-        />
-        <img
-          src="@/assets/blueGeneratorCh2.png"
-          class="mr-3"
-          alt="QuestionMark"
-          width="200"
-          height="170"
-        />
-        <img
-          src="@/assets/greenGeneratorCh2.png"
-          class="mr-3"
-          alt="QuestionMark"
-          width="200"
-          height="170"
-        />
-        <img
-          src="@/assets/yellowGeneratorCh2.png"
-          class="mr-3"
-          alt="QuestionMark"
-          width="200"
-          height="170"
-        />
-        <div v-if="showExpShop">
-          <div id="expShop">
-            <br />
-            <img src="@/assets/qmwb.png" class="mr-3" alt="QuestionMark" width="450" height="210" />
-            <div id="expShopText">
-              <p>
-                These devices were signed by the manufacturer
-                <br />and therefore these devices also have signed data.
-                <br />You can recognize this by the certification.
-                <br />This device and the corresponding data
-                <br />are therefore trustworthy.
-              </p>
-            </div>
-          </div>
-        </div>
-        <hr class="my-4" />
-        <img src="@/assets/redETLCh2.png" class="m-4" alt="QuestionMark" width="180" height="170" />
-        <img src="@/assets/blueETLCh2.png" class="m-3" alt="QuestionMark" width="180" height="170" />
-        <img src="@/assets/greenETLCh2.png" class="m-3" alt="QuestionMark" width="180" height="170" />
-        <img
-          src="@/assets/yellowETLCh2.png"
-          class="m-4"
-          alt="QuestionMark"
-          width="180"
-          height="170"
-        />
-        <hr class="my-4" />
-        <div class="form-check-inline mr-5 ml-5">
-          <input
-            class="form-check-input position-static mr-5 ml-5"
-            type="checkbox"
-            id="blankCheckbox"
-            value="option1"
-            aria-label="..."
-            v-model="redGenerator"
-          />
-        </div>
-        <div class="form-check-inline mr-5 ml-5">
-          <input
-            class="form-check-input position-static mr-5 ml-5"
-            type="checkbox"
-            id="blankCheckbox"
-            value="option1"
-            aria-label="..."
-            v-model="blueGenerator"
-          />
-        </div>
-        <div class="form-check-inline mr-5 ml-5">
-          <input
-            class="form-check-input position-static mr-5 ml-5"
-            type="checkbox"
-            id="blankCheckbox"
-            value="option1"
-            aria-label="..."
-            v-model="greenGenerator"
-          />
-        </div>
-        <div class="form-check-inline ml-5 mr-5">
-          <input
-            class="form-check-input position-static ml-5 mr-5"
-            type="checkbox"
-            id="blankCheckbox"
-            value="option1"
-            aria-label="..."
-            v-model="yellowGenerator"
-          />
-        </div>
-        <hr class="my-4" />
-        <button type="button" class="btn btn-info btn-lg" @click="rentCh2">Rent generators</button>
-        <button
-          type="button"
-          class="btn btn-info btn-lg ml-5"
-          @click="autoRentCh2"
-        >Auto rent generator</button>
-        <div id="QMShop">
-          <img
-            src="@/assets/questionMark.png"
-            class="mr-3"
-            alt="QuestionMark"
-            width="130"
-            height="110"
-            @click="this.showExpInShop"
-          />
-        </div>
-      </div>
-    </div>
-    <div v-if="chapter203" class="fullsize">
-      <div v-if="blueGenerator">
-        <div id="blueGenerator">
-          <img
-            src="@/assets/blueGeneratorCh2.png"
-            class="mr-3"
-            alt="QuestionMark"
-            width="200"
-            height="170"
-          />
-        </div>
-        <div id="QMblueGenerator">
-          <img
-            src="@/assets/questionMark.png"
-            class="mr-3"
-            alt="QuestionMark"
-            width="130"
-            height="110"
-            @click="showETL1"
-          />
-        </div>
-        <div v-if="bGEcoTypeLabel">
-          <div id="bGETL">
-            <img
-              src="@/assets/blueETLCh2.png"
-              class="mr-3"
-              alt="QuestionMark"
-              width="220"
-              height="200"
-            />
-          </div>
-        </div>
-      </div>
-      <div v-if="redGenerator">
-        <div id="redGenerator">
-          <img
-            src="@/assets/redGeneratorCh2.png"
-            class="mr-3"
-            alt="QuestionMark"
-            width="200"
-            height="170"
-          />
-        </div>
-        <div id="QMredGenerator">
-          <img
-            src="@/assets/questionMark.png"
-            class="mr-3"
-            alt="QuestionMark"
-            width="130"
-            height="110"
-            @click="this.showETL2"
-          />
-        </div>
-        <div v-if="rGEcoTypeLabel || this.endingExplanation">
-          <div id="rGETL">
-            <img
-              src="@/assets/redETLCh2.png"
-              class="mr-3"
-              alt="QuestionMark"
-              width="220"
-              height="200"
-            />
-          </div>
-          <div id="etlTrustExp">
-            <img src="@/assets/qmwb.png" class="mr-3" alt="QuestionMark" width="400" height="200" />
-          </div>
-          <div id="trustPfeil">
-            <img src="@/assets/pfeil.png" class="mr-3" alt="QuestionMark" width="175" height="120" />
-          </div>
-          <div id="trustText">
-            <p>
-              The label is trustworthy because
-              <br />it was signed by the manufacturer himself.
-              <br />So this device was not tuned.
-            </p>
-          </div>
-          <div id="expProblem">
-            <img src="@/assets/qmwb.png" class="mr-3" alt="QuestionMark" width="550" height="350" />
-          </div>
-          <div id="expProblemText">
-            <p>
-              Summarized:
-              <br />If we receive signed data
-              <br />from a device signed by the manufacturer,
-              <br />we can "blindly" trust this device
-              <br />and thus avoid damage through manipulation.
-            </p>
-          </div>
-        </div>
-        <div id="endButton">
-          <button type="button" class="btn btn-primary btn-lg" @click="endStory">End story</button>
-        </div>
-      </div>
-      <div v-if="greenGenerator">
-        <div id="greenGenerator">
-          <img
-            src="@/assets/greenGeneratorCh2.png"
-            class="mr-3"
-            alt="QuestionMark"
-            width="200"
-            height="170"
-          />
-        </div>
-        <div id="QMgreenGenerator">
-          <div>
-            <img
-              src="@/assets/questionMark.png"
-              class="mr-3"
-              alt="QuestionMark"
-              width="130"
-              height="110"
-              @click="showETL3"
-            />
-          </div>
-        </div>
-        <div v-if="gGEcoTypeLabel">
-          <div id="gGETL">
-            <img
-              src="@/assets/greenETLCh2.png"
-              class="mr-3"
-              alt="QuestionMark"
-              width="220"
-              height="200"
-            />
-          </div>
-        </div>
-      </div>
-      <div v-if="yellowGenerator">
-        <div id="yellowGenerator">
-          <img
-            src="@/assets/yellowGeneratorCh2.png"
-            class="mr-3"
-            alt="QuestionMark"
-            width="200"
-            height="170"
-          />
-        </div>
-        <div id="QMyellowGenerator">
-          <div>
-            <img
-              src="@/assets/questionMark.png"
-              class="mr-3"
-              alt="QuestionMark"
-              width="130"
-              height="110"
-              @click="this.showETL4"
-            />
-          </div>
-        </div>
-        <div v-if="yGEcoTypeLabel">
-          <div id="yGETL">
-            <img
-              src="@/assets/yellowETLCh2.png"
-              class="mr-3"
-              alt="QuestionMark"
-              width="220"
-              height="200"
-            />
-          </div>
-        </div>
-      </div>
-      <div id="positivePowerbalance">
-        <img
-          src="@/assets/positivePowerbalance.png"
-          class="mr-3"
-          alt="QuestionMark"
-          width="270"
-          height="210"
-        />
-      </div>
-      <div id="pPText">
-        <p>Powerbalance:</p>
-      </div>
+    <ShowHideTextBox
+      v-if="showNoCertText && timer>0"
+      left="1vw"
+      top="1vw"
+      width="35vw"
+      color="green"
+      style="z-index:1;"
+    >
+      You have rented a few generators according to the digital type label provided by the retailer. Everything seems to be running smoothly.
+      <br />
+      {{ timer }}
+    </ShowHideTextBox>
 
-      <p id="chapter103Powerbalance">+{{positivePowerBalance}}kW</p>
-    </div>
+    <ShowHideTextBox
+      v-if="showNoCertText && timer<=0"
+      left="1vw"
+      top="1vw"
+      width="35vw"
+      color="red"
+      style="z-index:1;"
+    >
+      The Digital Type Label was tuned!
+      <br />The Generator has been operated outside specifications!
+      <br />Overheating leads to a power outage.
+    </ShowHideTextBox>
+
+    <button
+      v-if="showNoCertText && timer<-2"
+      type="button"
+      class="btn btn-success btn-lg"
+      @click="endNoCert"
+      style="position:absolute;left:25vw;top:48vh;z-index:10; width:50vw; font-size: calc(5px + 2vw); font-weight: bold;"
+    >
+      What if the digital type label had been
+      <br />Certified By GS1 ?
+    </button>
+
+    <!----------------------------------------------------------------------------------------------------------------------->
+
+    <ShowHideTextBox
+      v-if="showExplainCertified && powerBalance<0"
+      left="1vw"
+      top="1vw"
+      width="35vw"
+      color="green"
+      style="z-index:1;"
+    >
+      Problem: How can the user know that data is authentic?.
+      <br />Solution: A trustworthy digital signature by the manufacturer can be verified automatically.
+      <br />
+      <img src="@/assets/chain.png" class="mr-3" alt="Certificate Chain" style="width:30vw;" />
+    </ShowHideTextBox>
+
+    <ShowHideTextBox
+      v-if="showExplainCertified && powerBalance>=0"
+      left="1vw"
+      top="1vw"
+      width="35vw"
+      color="green"
+      style="z-index:1;"
+    >
+      A complete chain of trust authentificates the identity of the device manufacturer and the correctness of the type labels.
+      <br />
+      <button
+        type="button"
+        class="btn btn-primary btn-lg"
+        @click="endTypeLabelStory"
+      >Explore Certified Dynamic Data</button>
+    </ShowHideTextBox>
   </div>
 </template>
 
@@ -537,24 +241,12 @@ export default {
     return {
       showInitText: true,
       showStore: false,
+      showNoCertText: false,
+      timer: null,
+      timerInterval: null,
+      certified: false,
+      showExplainCertified: false,
 
-      chapter103: false,
-      chapter104: false,
-      chapter201: false,
-      chapter202: false,
-      chapter203: false,
-      redGenerator: false,
-      blueGenerator: false,
-      greenGenerator: false,
-      yellowGenerator: false,
-      rGEcoTypeLabel: false,
-      bGEcoTypeLabel: false,
-      gGEcoTypeLabel: false,
-      yGEcoTypeLabel: false,
-      smoke: false,
-      shopValidated: false,
-      endingExplanation: false,
-      showExpShop: false,
       pumps: [
         {
           power: -100,
@@ -577,6 +269,7 @@ export default {
           manufacturer: "Manufacturer A",
           active: false,
           pic: require("@/assets/redGenerator.png"),
+          smoking: false,
         },
         {
           power: 50,
@@ -585,6 +278,7 @@ export default {
           manufacturer: "Manufacturer A",
           active: false,
           pic: require("@/assets/blueGenerator.png"),
+          smoking: false,
         },
         {
           power: 75,
@@ -593,6 +287,7 @@ export default {
           manufacturer: "Manufacturer B",
           active: false,
           pic: require("@/assets/greenGenerator.png"),
+          smoking: false,
         },
         {
           power: 40,
@@ -601,206 +296,63 @@ export default {
           manufacturer: "Manufacturer C",
           active: false,
           pic: require("@/assets/yellowGenerator.png"),
+          smoking: false,
         },
       ],
     };
   },
   methods: {
-    showExpInShop: function () {
-      if (this.showExpShop == false) {
-        this.showExpShop = true;
-      } else {
-        this.showExpShop = false;
+    tick: function () {
+      console.log(this.timer);
+      this.timer -= 1;
+      if (this.timer == 0) {
+        console.log("timeout");
+
+        var generator;
+        for (generator of this.generators) {
+          if (generator.active) {
+            generator.smoking = true;
+            break;
+          }
+        }
+      }
+      if (this.timer < -10) {
+        clearInterval(this.timerInterval);
+        this.timerInterval = null;
       }
     },
     rent: function () {
       console.log("Renting");
-      if (this.powerBalance >= 0) {
-        this.showStore = false;
-        this.chapter103 = true;
+      if (this.powerBalance < 0) {
+        return;
       }
-    },
-    rentCh2: function () {
-      console.log("Renting done in chapter 2");
-      if (this.checkForValidation()) {
-        this.chapter201 = false;
-        this.chapter202 = false;
-        this.chapter203 = true;
-      }
-    },
-    autoRentCh2: function () {
-      console.log("Auto renting done in chapter 2");
-      this.redGenerator = true;
-      this.greenGenerator = true;
-      this.yellowGenerator = true;
-      this.chapter201 = false;
-      this.chapter202 = false;
-      this.chapter203 = true;
-    },
-    goToStore: function () {
-      console.log("Went to store");
       this.showInitText = false;
-      this.showStore = true;
-    },
-    goToStoreCh2: function () {
-      console.log("Went to store in chapter 2");
-      this.chapter201 = false;
-      this.chapter202 = true;
-    },
-    showETL4: function () {
-      if (this.chapter103 == true) {
-        if (this.yGEcoTypeLabel == false) {
-          this.yGEcoTypeLabel = true;
-          if (this.smoke === true) {
-            this.chapter103 = false;
-            this.chapter104 = true;
-          }
-          this.smoke = true;
-        } else {
-          this.yGEcoTypeLabel = false;
-        }
-      } else {
-        if (this.yGEcoTypeLabel == false) {
-          this.yGEcoTypeLabel = true;
-          this.endingExplanation = true;
-        } else {
-          this.yGEcoTypeLabel = false;
-        }
+      this.showStore = false;
+      if (!this.certified) {
+        this.showNoCertText = true;
+        this.timer = 5;
+        this.timerInterval = setInterval(this.tick, 1000);
       }
     },
-    showETL3: function () {
-      if (this.chapter103 == true) {
-        if (this.gGEcoTypeLabel == false) {
-          this.gGEcoTypeLabel = true;
-          if (this.smoke === true) {
-            this.chapter103 = false;
-            this.chapter104 = true;
-          }
-          this.smoke = true;
-        } else {
-          this.gGEcoTypeLabel = false;
-        }
-      } else {
-        if (this.gGEcoTypeLabel == false) {
-          this.gGEcoTypeLabel = true;
-          this.endingExplanation = true;
-        } else {
-          this.gGEcoTypeLabel = false;
-        }
+    endNoCert: function () {
+      this.certified = true;
+      this.showExplainCertified = true;
+      this.showNoCertText = false;
+      for (var generator of this.generators) {
+        generator.active = false;
+        generator.smoking = false;
       }
     },
-    showETL2: function () {
-      if (this.chapter103 == true) {
-        if (this.rGEcoTypeLabel == false) {
-          this.rGEcoTypeLabel = true;
-          if (this.smoke === true) {
-            this.chapter103 = false;
-            this.chapter104 = true;
-          }
-          this.smoke = true;
-        } else {
-          this.rGEcoTypeLabel = false;
-        }
-      } else {
-        if (this.rGEcoTypeLabel == false) {
-          this.rGEcoTypeLabel = true;
-          this.endingExplanation = true;
-        } else {
-          this.rGEcoTypeLabel = false;
-        }
-      }
-    },
-    showETL1: function () {
-      if (this.chapter103 == true) {
-        if (this.bGEcoTypeLabel == false) {
-          this.bGEcoTypeLabel = true;
-          if (this.smoke === true) {
-            this.chapter103 = false;
-            this.chapter104 = true;
-          }
-          this.smoke = true;
-        } else {
-          this.bGEcoTypeLabel = false;
-        }
-      } else {
-        if (this.bGEcoTypeLabel == false) {
-          this.bGEcoTypeLabel = true;
-          this.endingExplanation = true;
-        } else {
-          this.bGEcoTypeLabel = false;
-        }
-      }
-    },
-    endChapter1: function () {
-      this.chapter201 = true;
-      this.chapter104 = false;
-      this.chapter103 = false;
-      this.chapter102 = false;
-      this.chapter101 = false;
-      this.redGenerator = false;
-      this.greenGenerator = false;
-      this.blueGenerator = false;
-      this.yellowGenerator = false;
-      this.smoke = false;
-      this.rGEcoTypeLabel = false;
-      this.bGEcoTypeLabel = false;
-      this.gGEcoTypeLabel = false;
-      this.yGEcoTypeLabel = false;
-    },
-    endStory: function () {
-      this.chapter101 = true;
-      this.chapter102 = false;
-      this.chapter103 = false;
-      this.chapter104 = false;
-      this.chapter203 = false;
-      this.chapter202 = false;
-      this.chapter201 = false;
-      this.redGenerator = false;
-      this.greenGenerator = false;
-      this.blueGenerator = false;
-      this.yellowGenerator = false;
-      this.rGEcoTypeLabel = false;
-      this.bGEcoTypeLabel = false;
-      this.gGEcoTypeLabel = false;
-      this.yGEcoTypeLabel = false;
+    endTypeLabelStory: function () {
+      location.reload();
     },
   },
   computed: {
-    valid: function () {
-      var enoughKW = false;
-
-      if (
-        this.redGenerator == true &&
-        this.yellowGenerator == true &&
-        this.greenGenerator == true
-      ) {
-        enoughKW = true;
-      }
-      if (
-        this.redGenerator == true &&
-        this.yellowGenerator == true &&
-        this.blueGenerator == true
-      ) {
-        enoughKW = true;
-      }
-      if (
-        this.redGenerator == true &&
-        this.yellowGenerator == true &&
-        this.greenGenerator == true &&
-        this.blueGenerator == true
-      ) {
-        enoughKW = true;
-      }
-
-      return {
-        enoughKW: enoughKW,
-      };
-    },
     powerBalance() {
       return (
         this.pumps.map((x) => x.power).reduce((x, y) => x + y, 0) +
         this.generators
-          .map((x) => (x.active ? x.power : 0))
+          .map((x) => (x.active && !x.smoking ? x.power : 0))
           .reduce((x, y) => x + y, 0)
       );
     },
@@ -817,200 +369,6 @@ export default {
   height: 100%;
 }
 
-#redNeedPower {
-  position: fixed;
-  right: 50px;
-  bottom: 650px;
-  margin: 0;
-  padding: 0;
-}
-
-#redGenerator {
-  position: fixed;
-  right: 55px;
-  bottom: 50px;
-  margin: 0;
-  padding: 0;
-}
-#blueGenerator {
-  position: fixed;
-  right: 260px;
-  bottom: 70px;
-  margin: 0;
-  padding: 0;
-}
-#greenGenerator {
-  position: fixed;
-  left: 42px;
-  bottom: 50px;
-  margin: 0;
-  padding: 0;
-}
-#yellowGenerator {
-  position: fixed;
-  left: 300px;
-  bottom: 40px;
-  margin: 0;
-  padding: 0;
-}
-#QMredGenerator {
-  position: fixed;
-  right: 20px;
-  bottom: 140px;
-  margin: 0;
-  padding: 0;
-}
-#QMblueGenerator {
-  position: fixed;
-  right: 360px;
-  bottom: 180px;
-  margin: 0;
-  padding: 0;
-}
-#QMgreenGenerator {
-  position: fixed;
-  left: 40px;
-  bottom: 170px;
-  margin: 0;
-  padding: 0;
-}
-#QMyellowGenerator {
-  position: fixed;
-  left: 420px;
-  bottom: 150px;
-  margin: 0;
-  padding: 0;
-}
-#yGETL {
-  position: fixed;
-  left: 350px;
-  bottom: 250px;
-}
-#gGETL {
-  position: fixed;
-  left: 100px;
-  bottom: 270px;
-}
-#rGETL {
-  position: fixed;
-  right: 40px;
-  top: 520px;
-}
-#bGETL {
-  position: fixed;
-  right: 300px;
-  bottom: 280px;
-}
-#pPText {
-  position: fixed;
-  right: 125px;
-  top: 120px;
-  color: black;
-  font-size: 37px;
-}
-#pNeedPower {
-  position: fixed;
-  right: 110px;
-  bottom: 800px;
-  color: black;
-  font-size: 40px;
-}
-#greenLightning {
-  position: fixed;
-  left: 870px;
-  top: 200px;
-  margin: 0;
-  padding: 0;
-}
-#showSmoke {
-  position: fixed;
-  right: 150px;
-  bottom: 100px;
-}
-#chapter1EndingBtn {
-  position: fixed;
-  left: 850px;
-  bottom: 50px;
-}
-#chapter103Powerbalance {
-  position: fixed;
-  right: 190px;
-  top: 170px;
-  color: black;
-  font-size: 40px;
-}
-#etlTrustExp {
-  position: fixed;
-  right: 400px;
-  top: 200px;
-}
-#trustPfeil {
-  position: fixed;
-  right: 250px;
-  top: 400px;
-}
-#trustText {
-  position: fixed;
-  right: 430px;
-  top: 250px;
-  color: black;
-  font-size: 20px;
-}
-#expProblem {
-  position: fixed;
-  left: 50px;
-  top: 100px;
-}
-#expProblemText {
-  position: fixed;
-  left: 75px;
-  top: 150px;
-  color: black;
-  font-size: 25px;
-}
-#useCaseTextCh2 {
-  position: fixed;
-  left: 130px;
-  top: 150px;
-  color: black;
-  font-size: 25px;
-}
-#useCaseCh2 {
-  position: fixed;
-  left: 80px;
-  top: 100px;
-  margin: 0;
-  padding: 0;
-}
-#chain {
-  position: fixed;
-  left: 105px;
-  top: 400px;
-  margin: 0;
-  padding: 0;
-}
-#QMShop {
-  position: absolute;
-  left: 350px;
-  top: 350px;
-}
-#expShop {
-  position: relative;
-}
-#expShopText {
-  position: relative;
-  left: 0px;
-  top: -175px;
-  color: black;
-  font-size: 18px;
-  clear: both;
-}
-#endButton {
-  position: absolute;
-  bottom: 20px;
-  right: 900px;
-}
-
 #app {
   z-index: -1;
   height: auto;
@@ -1025,5 +383,3 @@ export default {
   color: #2c3e50;
 }
 </style>
-
-
