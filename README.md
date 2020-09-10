@@ -1,5 +1,8 @@
 # EKU PD Certified by GS1 - Interactive Presentation
 
+The current version of the presentation is onlne at https://gs1-germany-innolab.github.io/eku-pd-certified-by-gs1-demo/ .
+
+
 ## Run locally
 ```
 git clone https://github.com/gs1-germany-innolab/eku-pd-certified-by-gs1-demo.git
