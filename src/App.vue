@@ -383,7 +383,7 @@ export default {
         {
           caption: "",
           label4: "",
-          capacity: 75,
+          capacity: 80,
           asset: "Generator",
           gs1id: "8004 404712123",
           label3: "Manufacturer B",
