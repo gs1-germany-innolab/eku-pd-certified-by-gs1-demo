@@ -1,31 +1,34 @@
 <template>
   <div id="app" class="fullsize">
     <ShowHideDigitalTypeLabel
-      color="green"
+      :color="hacked ? `red` : `green`"
       :type="pumps[0]"
       top="18vw"
       left="32vw"
       style="z-index:1;"
       :certified="certified"
+      :show="triggerTypelabel"
     ></ShowHideDigitalTypeLabel>
     <!--gs1id="urn:epc:id:giai:0614141.12345401"-->
     <ShowHideDigitalTypeLabel
-      color="green"
+      :color="hacked ? `red` : `green`"
       :type="pumps[1]"
       top="18vw"
       left="54vw"
       style="z-index:1;"
       :certified="certified"
+      :show="triggerTypelabel"
     ></ShowHideDigitalTypeLabel>
 
     <TextBox
+      v-if="!dynamic"
       right="1vw"
       top="1vh"
       width="35vw"
       :color="powerBalance < 0 ? `red` : `green`"
       style="z-index:1;font-weight: bold;"
     >
-      Total Capacity {{ powerBalance }} kWh.
+      Total Capacity {{ powerBalance }} kW
       <br />
       <button
         type="button"
@@ -35,20 +38,32 @@
       >Rent Generators</button>
     </TextBox>
 
+    <TextBox
+      v-if="dynamic"
+      right="1vw"
+      top="1vh"
+      width="35vw"
+      :color="totalLoad === 0 ? `green` : `red`"
+      style="z-index:1;font-weight: bold;"
+    >
+      Power Balance: {{ Math.round(totalLoad) }} kW
+      <br />
+    </TextBox>
+
     <div style="position: absolute; left: 50vw; top: 5vw; z-index:1;">
       <img
         src="@/assets/redLightning.png"
         class="mr-3"
         alt="Red Lightning"
         style="width:10vw;"
-        v-if="powerBalance<0"
+        v-if="powerBalance<0 || this.totalLoad != 0"
       />
       <img
         src="@/assets/greenLightning.png"
         class="mr-3"
         alt="Green Lightning"
         style="width:10vw;"
-        v-if="powerBalance>=0"
+        v-if="powerBalance>=0 && this.totalLoad == 0"
       />
     </div>
 
@@ -59,6 +74,7 @@
       width="35vw"
       color="green"
       style="z-index:1;"
+      show="true"
     >You are mining resources in a remote area without electricity. You need to setup a micro grid to power your machines.</ShowHideTextBox>
 
     <!-- shop -->
@@ -100,7 +116,11 @@
       </div>
 
       <hr class="my-4" />
-      <h2 style="color: #E5DDDB;;" v-if="powerBalance<0">Energy demand: {{ -powerBalance }}kW</h2>
+      <h2 style="color: #E5DDDB;">
+        Energy demand:
+        <span v-if="powerBalance<0">{{ -powerBalance }}kW</span>
+        <span v-if="powerBalance>=0">satisfied</span>
+      </h2>
       <button
         type="button"
         class="btn btn-info btn-lg"
@@ -115,6 +135,7 @@
         width="35vw"
         color="green"
         style="z-index:21;"
+        show="true"
       >Authenticity of the digital type label is guaranteed by a signature of the manufacturer. The manufactruer's identity is authenticated by GS1.</ShowHideTextBox>
     </div>
     <!-- end shop -->
@@ -145,7 +166,7 @@
           width="190px"
           height="210px"
           style="position:absolute; top:calc(-10px - 6vw); left:2vw;"
-          :show="generator.smoking"
+          :show="generator.smoking || triggerTypelabel"
           :certified="certified"
         ></ShowHideDigitalTypeLabel>
       </div>
@@ -158,6 +179,7 @@
       width="35vw"
       color="green"
       style="z-index:1;"
+      show="true"
     >
       You have rented a few generators according to the digital type label provided by the retailer. Everything seems to be running smoothly.
       <br />
@@ -171,6 +193,7 @@
       width="35vw"
       color="red"
       style="z-index:1;"
+      show="true"
     >
       The Digital Type Label was tuned!
       <br />The Generator has been operated outside specifications!
@@ -180,9 +203,9 @@
     <button
       v-if="showNoCertText && timer<-2"
       type="button"
-      class="btn btn-success btn-lg"
+      class="btn btn-primary btn-lg"
       @click="endNoCert"
-      style="position:absolute;left:25vw;top:48vh;z-index:10; width:50vw; font-size: calc(5px + 2vw); font-weight: bold;"
+      style="position:absolute;left:25vw;top:48vh;z-index:10; width:50vw; font-size: calc(5px + 2vw); font-weight: bold;z-index:2;"
     >
       What if the digital type label had been
       <br />Certified By GS1 ?
@@ -196,7 +219,7 @@
       top="1vw"
       width="35vw"
       color="green"
-      style="z-index:1;"
+      style="z-index:2;"
     >
       Problem: How can the user know that data is authentic?.
       <br />Solution: A trustworthy digital signature by the manufacturer can be verified automatically.
@@ -211,29 +234,70 @@
       width="35vw"
       color="green"
       style="z-index:1;"
+      show="true"
     >
       A complete chain of trust authentificates the identity of the device manufacturer and the correctness of the type labels.
-      <br />
-      <button
-        type="button"
-        class="btn btn-primary btn-lg"
-        @click="endTypeLabelStory"
-      >Explore Certified Dynamic Data</button>
+      <br />Congratulations! You have setup a stable micro grid!
     </ShowHideTextBox>
+
+    <button
+      v-if="showExplainCertified && powerBalance>=0 && timer <1 "
+      type="button"
+      class="btn btn-primary btn-lg"
+      @click="endTypeLabelStory"
+      style="position:absolute;left:25vw;top:48vh;z-index:10; width:50vw; font-size: calc(5px + 2vw); font-weight: bold;z-index:2;"
+    >Start Operations</button>
 
     <!----------------------------------------------------------------------------------------------------------------------->
 
     <ShowHideTextBox
-      v-if="showExplainDynamic"
+      v-if="dynamic && !hacked && !certified"
+      left="1vw"
+      top="1vw"
+      width="35vw"
+      color="green"
+      style="z-index:1;"
+    >Dynamic data is used to regulate the grid, concretely to optimize the generator efficiency and hence minimise fuel consumption.</ShowHideTextBox>
+
+    <button
+      v-if="dynamic && !hacked && !certified && timer <1"
+      type="button"
+      class="btn btn-primary btn-lg"
+      @click="hackData"
+      style="position:absolute;left:25vw;top:48vh;z-index:10; width:50vw; font-size: calc(5px + 2vw); font-weight: bold;z-index:2;background-color:black;"
+    >Hack Data!</button>
+
+    <ShowHideTextBox v-if="hacked" left="1vw" top="1vw" width="35vw" color="red" style="z-index:1;">
+      The status information received from the pumps has been hacked to show 0 load.
+      All generators have been switched of and your operations grind to a hold.
+    </ShowHideTextBox>
+
+    <button
+      v-if="hacked && timer<1"
+      type="button"
+      class="btn btn-primary btn-lg"
+      @click="dynamicCert"
+      style="position:absolute;left:25vw;top:48vh;z-index:10; width:50vw; font-size: calc(5px + 2vw); font-weight: bold;z-index:2;"
+    >
+      What if the dynamic data had been
+      <br />Certified By GS1 ?
+    </button>
+
+    <!----------------------------------------------------------------------------------------------------------------------->
+
+    <ShowHideTextBox
+      v-if="dynamic && certified"
       left="1vw"
       top="1vw"
       width="35vw"
       color="green"
       style="z-index:1;"
     >
-      Dynamic data is used to regulate the grid, concretely to optimize the generator efficiency and hence minimise fuel consumption.
+      Problem: Is the machine "who" it claims to be? Is the data from the machine authentic?
+      <br />Solution: Again, a trustworthy digital signature can remedy the situation. Here the machine authenticates its own data by a digital signature.
+      The machine is authenticated by the manufacturer whi in turn gets an authentic Id from GS1.
       <br />
-      <button type="button" class="btn btn-primary btn-lg" @click="hackData">Hack Data!</button>
+      <img src="@/assets/chain.png" class="mr-3" alt="Certificate Chain" style="width:30vw;" />
     </ShowHideTextBox>
   </div>
 </template>
@@ -262,7 +326,10 @@ export default {
       randomDataInterval: null,
       certified: false,
       showExplainCertified: false,
-      showExplainDynamic: false,
+      hacked: false,
+      dynamic: false,
+      totalLoad: 0,
+      triggerTypelabel: false,
 
       pumps: [
         {
@@ -329,7 +396,7 @@ export default {
         {
           caption: "",
           label4: "",
-          capacity: 40,
+          capacity: 130,
           asset: "Generator",
           gs1id: "8004 40994712321",
           label3: "Manufacturer C",
@@ -345,25 +412,33 @@ export default {
   mounted: function () {
     this.resetPumpsAndGenerators();
   },
+  beforeDestroy() {
+    if (this.timerInterval) {
+      clearInterval(this.timerInterval);
+      this.timerInterval = null;
+    }
+    if (this.randomDataInterval) {
+      clearInterval(this.randomDataInterval);
+      this.randomDataInterval = null;
+    }
+  },
   methods: {
     tick: function () {
       console.log(this.timer);
       this.timer -= 1;
-      if (this.timer == 0) {
-        console.log("timeout");
 
-        var generator;
-        for (generator of this.generators) {
+      if (this.timer == 0 && this.showNoCertText) {
+        console.log("BOOM! ;)");
+
+        for (var generator of this.generators) {
           if (generator.active) {
             generator.smoking = true;
-            generator.label4 = "Load Capacity: ??? kWh";
-            break;
+            generator.label4 = "Load Capacity: ??? kW";
+            if (this.powerBalance < 0) {
+              break;
+            }
           }
         }
-      }
-      if (this.timer < -10) {
-        clearInterval(this.timerInterval);
-        this.timerInterval = null;
       }
     },
     rent: function () {
@@ -376,18 +451,20 @@ export default {
       if (!this.certified) {
         this.showNoCertText = true;
         this.timer = 5;
-        this.timerInterval = setInterval(this.tick, 1000);
+      } else {
+        this.timer = 3;
       }
+      this.timerInterval = setInterval(this.tick, 1000);
     },
     resetPumpsAndGenerators() {
       for (var generator of this.generators) {
         generator.caption = "Digital Type Label";
         generator.active = false;
         generator.smoking = false;
-        generator.label4 = "Load Capacity: " + generator.capacity + " kWh";
+        generator.label4 = "Load Capacity: " + generator.capacity + " kW";
       }
       for (var pump of this.pumps) {
-        pump.label4 = "Max. Load: " + -pump.capacity + " kWh";
+        pump.label4 = "Max. Load: " + -pump.capacity + " kW";
         pump.caption = "Digital Type Label";
       }
     },
@@ -400,31 +477,41 @@ export default {
     endTypeLabelStory: function () {
       this.certified = false;
       this.showExplainCertified = false;
-      this.showExplainDynamic = true;
+      this.dynamic = true;
+      this.timer = 5;
+      this.triggerTypelabel = false;
+      this.triggerTypelabel = true;
 
       this.randomDataInterval = setInterval(this.randomData, 500);
     },
     randomData: function () {
-      var totalLoad = 0;
-
+      this.totalLoad = 0;
+      var apparentLoad = 0;
       for (var pump of this.pumps) {
         pump.caption = "Status";
         pump.health += 1.0 - 2 * Math.random();
         pump.health = Math.min(Math.max(10, pump.health), 100);
         pump.label3 = "Health: " + Math.round(pump.health) + " %";
 
-        pump.load += 1.0 - 2 * Math.random();
+        pump.load += 2.0 - 4 * Math.random();
         pump.load = Math.min(Math.max(pump.capacity, pump.load), 0);
-        totalLoad += pump.load;
-        pump.label4 = "Current Load: " + Math.round(-pump.load) + " kWh";
+        this.totalLoad += pump.load;
+        if (!this.hacked) {
+          apparentLoad += pump.load;
+        }
+        pump.label4 =
+          "Current Load: " +
+          (this.hacked ? "0" : Math.round(-pump.load)) +
+          " kW";
       }
 
       for (var generator of this.generators) {
         generator.caption = "Status";
-        generator.load = Math.min(generator.capacity, -totalLoad);
-        totalLoad += generator.load;
+        generator.load = Math.min(generator.capacity, -apparentLoad);
+        this.totalLoad += generator.load;
+        apparentLoad += generator.load;
 
-        generator.health += 1.0 - 2 * Math.random();
+        generator.health += 2.0 - 4 * Math.random();
         generator.health = Math.min(Math.max(10, generator.health), 100);
         generator.label3 = "Health: " + Math.round(generator.health) + " %";
         if (generator.load === 0) {
@@ -433,11 +520,17 @@ export default {
         }
 
         generator.label4 =
-          "Current Load: " + Math.round(generator.load) + " kWh";
+          "Current Load: " + Math.round(generator.load) + " kW";
       }
     },
     hackData: function () {
-      location.reload();
+      this.hacked = true;
+      this.timer = 5;
+    },
+    dynamicCert: function () {
+      this.hacked = false;
+      this.certified = true;
+      this.triggerTypelabel = false;
     },
   },
   computed: {
