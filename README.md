@@ -1,3 +1,4 @@
+![Vue Build and Code Quality](https://github.com/gs1-germany-innolab/eku-pd-certified-by-gs1-demo/workflows/Vue%20Build%20and%20Code%20Quality/badge.svg)
 ![Release Build](https://github.com/gs1-germany-innolab/eku-pd-certified-by-gs1-demo/workflows/Release%20Build/badge.svg)
 
 # EKU PD Certified by GS1 - Interactive Presentation
