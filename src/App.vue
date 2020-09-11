@@ -442,7 +442,7 @@ export default {
         {
           caption: "",
           label4: "",
-          capacity: 50,
+          capacity: 80,
           asset: "Generator",
           gs1id: "8004 40471116542",
           label3: "Manufacturer A",
@@ -455,7 +455,7 @@ export default {
         {
           caption: "",
           label4: "",
-          capacity: 80,
+          capacity: 50,
           asset: "Generator",
           gs1id: "8004 404712123",
           label3: "Manufacturer B",
@@ -468,7 +468,7 @@ export default {
         {
           caption: "",
           label4: "",
-          capacity: 130,
+          capacity: 30,
           asset: "Generator",
           gs1id: "8004 40994712321",
           label3: "Manufacturer C",
@@ -501,12 +501,15 @@ export default {
 
       if (this.timer == 0 && this.showNoCertText) {
         console.log("BOOM! ;)");
-
+        console.log(this.generators);
         for (var generator of this.generators) {
           if (generator.active) {
+            console.log("smoking:");
+            console.log(generator);
+            console.log("power balance:", this.powerBalance);
             generator.smoking = true;
             generator.label4 = "Load Capacity: ??? kW";
-            if (this.powerBalance() < 0) {
+            if (this.powerBalance < 0) {
               break;
             }
           }
