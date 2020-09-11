@@ -221,7 +221,7 @@
       color="green"
       style="z-index:2;"
     >
-      Problem: How can the user know that data is authentic?.
+      Problem: How can the user know that data is authentic?
       <br />Solution: A trustworthy digital signature by the manufacturer can be verified automatically.
       <br />
       <img src="@/assets/chain.png" class="mr-3" alt="Certificate Chain" style="width:30vw;" />
@@ -269,7 +269,7 @@
 
     <ShowHideTextBox v-if="hacked" left="1vw" top="1vw" width="35vw" color="red" style="z-index:1;">
       The status information received from the pumps has been hacked to show 0 load.
-      All generators have been switched of and your operations grind to a hold.
+      All generators have been switched off and your operations grind to a hold.
     </ShowHideTextBox>
 
     <button
@@ -295,7 +295,7 @@
     >
       Problem: Is the machine "who" it claims to be? Is the data from the machine authentic?
       <br />Solution: Again, a trustworthy digital signature can remedy the situation. Here the machine authenticates its own data by a digital signature.
-      The machine is authenticated by the manufacturer whi in turn gets an authentic Id from GS1.
+      The machine is authenticated by the manufacturer who in turn gets an authentic Id from GS1.
       <br />
       <img src="@/assets/chain.png" class="mr-3" alt="Certificate Chain" style="width:30vw;" />
     </ShowHideTextBox>
