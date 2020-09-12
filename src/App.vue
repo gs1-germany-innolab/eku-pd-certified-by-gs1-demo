@@ -173,21 +173,28 @@
     </div>
 
     <ShowHideTextBox
-      v-if="showNoCertText && timer>0"
+      v-if="showNoCertText && !overheated"
       left="1vw"
       top="1vw"
       width="35vw"
       color="green"
       style="z-index:1;"
       show="true"
-    >
-      You have rented a few generators according to the digital type label provided by the retailer. Everything seems to be running smoothly.
-      <br />
-      {{ timer }}
-    </ShowHideTextBox>
+    >You have rented a few generators according to the digital type label provided by the retailer. Everything seems to be running smoothly.</ShowHideTextBox>
+
+    <progress-bar-to-button
+      v-if="showNoCertText&& !overheated"
+      width="20vw"
+      :counter="100 - 10 * timer"
+      right="1vw"
+      top="10vw"
+      color="red"
+      style="z-index:2;"
+      v-on:click="overheat"
+    >Oh?</progress-bar-to-button>
 
     <ShowHideTextBox
-      v-if="showNoCertText && timer<=0"
+      v-if="showNoCertText && overheated"
       left="1vw"
       top="1vw"
       width="35vw"
@@ -378,6 +385,7 @@ import DigitalTypeLabel from "./components/DigitalTypeLabel.vue";
 import ShowHideDigitalTypeLabel from "./components/ShowHideDigitalTypeLabel.vue";
 import TextBox from "./components/TextBox.vue";
 import ShowHideTextBox from "./components/ShowHideTextBox.vue";
+import ProgressBarToButton from "./components/ProgressBarToButton.vue";
 
 export default {
   name: "App",
@@ -386,12 +394,14 @@ export default {
     TextBox,
     ShowHideDigitalTypeLabel,
     ShowHideTextBox,
+    ProgressBarToButton,
   },
   data: function () {
     return {
       showInitText: true,
       showStore: false,
       showNoCertText: false,
+      overheated: false,
       timer: null,
       timerInterval: null,
       randomDataInterval: null,
@@ -498,20 +508,20 @@ export default {
     tick: function () {
       console.log(this.timer);
       this.timer -= 1;
-
-      if (this.timer == 0 && this.showNoCertText) {
-        console.log("BOOM! ;)");
-        console.log(this.generators);
-        for (var generator of this.generators) {
-          if (generator.active) {
-            console.log("smoking:");
-            console.log(generator);
-            console.log("power balance:", this.powerBalance);
-            generator.smoking = true;
-            generator.label4 = "Load Capacity: ??? kW";
-            if (this.powerBalance < 0) {
-              break;
-            }
+    },
+    overheat() {
+      this.overheated = true;
+      console.log("BOOM! ;)");
+      console.log(this.generators);
+      for (var generator of this.generators) {
+        if (generator.active) {
+          console.log("smoking:");
+          console.log(generator);
+          console.log("power balance:", this.powerBalance);
+          generator.smoking = true;
+          generator.label4 = "Load Capacity: ??? kW";
+          if (this.powerBalance < 0) {
+            break;
           }
         }
       }
@@ -525,7 +535,7 @@ export default {
       this.showStore = false;
       if (!this.certified) {
         this.showNoCertText = true;
-        this.timer = 5;
+        this.timer = 10;
       } else {
         this.timer = 3;
       }
