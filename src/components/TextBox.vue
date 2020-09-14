@@ -38,6 +38,7 @@ export default {
   margin-top: 2%;
   margin-bottom: 2%;
   display: inline-block;
+  padding-top: 0.5vw;
 }
 .textBox {
   position: absolute;

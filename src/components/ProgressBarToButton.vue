@@ -1,10 +1,10 @@
 <template>
-  <div :style="computedStyle">
-    <div class="progress" :style="`width:100%;position:absolute;left:0;height:50%;top:25%;z-index:15;`">
+  <div style="text-align:right;position:relative">
+    <div class="progress" :style="`width:100%;position:absolute;left:0;height:90%;top:5%;z-index:15;`">
       <div
         class="progress-bar"
         role="progressbar"
-        :style="`width: ${this.counter}%; background-color:${this.color};`"
+        :style="`height:100%; width: ${Math.min(this.counter,100)}%; background-color:${this.color}; position:absolute; left:0;`"
       ></div>
     </div>
     <button
@@ -12,7 +12,7 @@
       type="button"
       class="btn btn-primary btn-lg"
       v-on:click="$emit('click')"
-      :style="`font-size: calc(5px + 1vw); font-weight: bold; background-color:${this.color};border-color:${this.color};z-index:100;position:relative;`"
+      :style="`font-size: calc(5px + 1vw); font-weight: bold; background-color:${this.color};border-color:${this.color};z-index:100;position:relative;width:100%;height:100%`"
     >
       <slot></slot>
     </button>
@@ -23,19 +23,7 @@
 export default {
   name: "ProgressBarToButton",
   components: {},
-  props: ["color", "top", "left", "right", "counter", "width", "height"],
-  computed: {
-    computedStyle() {
-      return {
-        position: "absolute",
-        top: this.top,
-        left: this.left,
-        right: this.right,
-        width: this.width,
-        "text-align": "right",
-      };
-    },
-  },
+  props: ["color", "counter"],
 };
 </script>
 
