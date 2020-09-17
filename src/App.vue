@@ -51,7 +51,6 @@
       :style="`width:35vw; right:1vw; top:7vw;z-index:2; position:absolute;background-color:${this.lighningBlue};border-color:${this.lighningBlue};`"
     >Rent Generators</button>
 
-    
     <!-- Lighning icon -->
     <div style="position: absolute; left: 50vw; top: 5vw; z-index:1;">
       <img
@@ -124,14 +123,14 @@
         :style="`background-color:${this.lighningBlue};border-color:${this.lighningBlue};`"
       >Rent Generators</button>
       <button
-      type="button"
-      class="close"
-      aria-label="Close"
-      style="position:absolute;right:1vw;top:0.5vw;"
-      @click="rent"
-    >
-      <span aria-hidden="true">&times;</span>
-    </button>
+        type="button"
+        class="close"
+        aria-label="Close"
+        style="position:absolute;right:1vw;top:0.5vw;"
+        @click="rent"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
 
       <ShowHideTextBox
         v-if="certified"
@@ -313,7 +312,7 @@
     <!----------------------------------------------------------------------------------------------------------------------->
 
     <ShowHideTextBox
-      v-if="dynamic && certified"
+      v-if="dynamic && certified && !showPPU"
       left="1vw"
       top="1vw"
       width="35vw"
@@ -328,14 +327,36 @@
     </ShowHideTextBox>
 
     <progress-bar-to-button
-      v-if="dynamic && certified && !showCredits"
+      v-if="dynamic && certified && !showPPU"
       :counter="100 - 10 * timer"
-      @click="showCredits=true"
+      @click="showPPU=true; timer=10"
+      style="width:35vw; right:1vw; top:7vw;z-index:2; position:absolute;"
+      color="blue"
+    >Pay Per Use</progress-bar-to-button>
+
+    <ShowHideTextBox
+      v-if="showPPU"
+      left="1vw"
+      top="1vw"
+      width="35vw"
+      :color="lightningGreen"
+      style="z-index:1;"
+    >
+      Certified usage data is signed by a trusted device and can not be tampered with by you, the rental company, or anyone.
+      Such trustworthy data is needed as a basis for pay per use models to bill the used kWhs instead of just renting the generator for a fixed time period.
+      <br />
+      <img src="@/assets/chain.png" class="mr-3" alt="Certificate Chain" style="width:30vw;" />
+    </ShowHideTextBox>
+
+    <progress-bar-to-button
+      v-if="showPPU"
+      :counter="100 - 10 * timer"
+      @click="showCredits=true; timer=10"
       style="width:35vw; right:1vw; top:7vw;z-index:2; position:absolute;"
       color="blue"
     >Credits</progress-bar-to-button>
 
-    <ShowHideTextBox
+    <TextBox
       v-if="showCredits"
       left="1vw"
       top="1vw"
@@ -406,7 +427,14 @@
           href="https://github.com/gs1-germany-innolab/eku-pd-certified-by-gs1-demo"
         >This presentation is open source on Github.</a>
       </div>
-    </ShowHideTextBox>
+
+      <progress-bar-to-button
+        v-if="showPPU"
+        :counter="100 - 10 * timer"
+        @click="restart"
+        color="blue"
+      >Restart</progress-bar-to-button>
+    </TextBox>
   </div>
 </template>
 
@@ -441,6 +469,7 @@ export default {
       dynamic: false,
       totalLoad: 0,
       triggerTypelabel: false,
+      showPPU: false,
       showCredits: false,
       lightningRed: "#ff4a00",
       lightningGreen: "#20cf15",
@@ -540,8 +569,11 @@ export default {
     }
   },
   methods: {
+    restart: function () {
+      location.reload();
+    },
     tick: function () {
-      console.log(this.timer);
+      //console.log(this.timer);
       this.timer -= 0.25;
     },
     overheat() {
@@ -652,6 +684,7 @@ export default {
       this.certified = true;
       this.triggerTypelabel = false;
       this.triggerTypelabel = true;
+      this.timer = 10;
     },
   },
   computed: {
