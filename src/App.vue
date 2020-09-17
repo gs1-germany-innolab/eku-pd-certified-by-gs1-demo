@@ -1,7 +1,7 @@
 <template>
   <div id="app" class="fullsize">
     <ShowHideDigitalTypeLabel
-      :color="hacked ? `red` : `green`"
+      :color="hacked ? lightningRed : lightningGreen"
       :type="pumps[0]"
       top="18vw"
       left="32vw"
@@ -11,7 +11,7 @@
     ></ShowHideDigitalTypeLabel>
     <!--gs1id="urn:epc:id:giai:0614141.12345401"-->
     <ShowHideDigitalTypeLabel
-      :color="hacked ? `red` : `green`"
+      :color="hacked ? lightningRed : lightningGreen"
       :type="pumps[1]"
       top="18vw"
       left="54vw"
@@ -25,19 +25,9 @@
       right="1vw"
       top="1vh"
       width="35vw"
-      :color="powerBalance < 0 ? `red` : `green`"
+      :color="powerBalance < 0 ? lightningRed : lightningGreen"
       style="z-index:1;font-weight: bold;"
-    >
-      Total Capacity {{ powerBalance }} kW
-      <br />
-      <button
-        type="button"
-        class="btn btn-info btn-lg"
-        @click="()=>{this.showStore=true;}"
-        v-if="powerBalance<0 && !showNoCertText"
-        style="background-color:blue;border-color:blue;"
-      >Rent Generators</button>
-    </TextBox>
+    >Total Capacity {{ powerBalance }} kW</TextBox>
 
     <!-- Balance/Load Indicator -->
     <TextBox
@@ -45,13 +35,23 @@
       right="1vw"
       top="1vh"
       width="35vw"
-      :color="totalLoad === 0 ? `green` : `red`"
+      :color="totalLoad === 0 ? lightningGreen : lightningRed"
       style="z-index:1;font-weight: bold;"
     >
       Power Balance: {{ Math.round(totalLoad) }} kW
       <br />
     </TextBox>
 
+    <!-- Shop Button -->
+    <button
+      type="button"
+      class="btn btn-info btn-lg"
+      @click="()=>{this.showStore=true;}"
+      v-if="powerBalance<0 && !showNoCertText"
+      :style="`width:35vw; right:1vw; top:7vw;z-index:2; position:absolute;background-color:${this.lighningBlue};border-color:${this.lighningBlue};`"
+    >Rent Generators</button>
+
+    
     <!-- Lighning icon -->
     <div style="position: absolute; left: 50vw; top: 5vw; z-index:1;">
       <img
@@ -68,7 +68,7 @@
       left="1vw"
       top="1vw"
       width="35vw"
-      color="green"
+      :color="lightningGreen"
       style="z-index:1;"
       show="true"
     >You are mining resources in a remote area without electricity. You need to setup a micro grid to power your machines.</ShowHideTextBox>
@@ -95,7 +95,7 @@
         <DigitalTypeLabel
           :style="`z-index:${20-index}; position:relative;`"
           :type="generator"
-          color="green"
+          :color="lightningGreen"
           width="190px"
           height="210px"
           :certified="certified"
@@ -121,15 +121,24 @@
         type="button"
         class="btn btn-info btn-lg"
         @click="rent"
-        :disabled="powerBalance<0"
-        style="background-color:blue;border-color:blue;"
+        :style="`background-color:${this.lighningBlue};border-color:${this.lighningBlue};`"
       >Rent Generators</button>
+      <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      style="position:absolute;right:1vw;top:0.5vw;"
+      @click="rent"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+
       <ShowHideTextBox
         v-if="certified"
         left="1vw"
         top="1vw"
         width="35vw"
-        color="green"
+        :color="lightningGreen"
         style="z-index:21;"
         show="true"
       >Authenticity of the digital type label is guaranteed by a signature of the manufacturer. The manufactruer's identity is authenticated by GS1.</ShowHideTextBox>
@@ -159,7 +168,7 @@
 
         <ShowHideDigitalTypeLabel
           :type="generator"
-          :color="generator.smoking ? `red` : `green`"
+          :color="generator.smoking ? lightningRed : lightningGreen"
           width="190px"
           height="210px"
           style="position:absolute; top:calc(-10px - 6vw); left:2vw;"
@@ -176,7 +185,7 @@
       left="1vw"
       top="1vw"
       width="35vw"
-      color="green"
+      :color="lightningGreen"
       style="z-index:1;"
       show="true"
     >You have rented a few generators according to the digital type label provided by the retailer. Everything seems to be running smoothly.</ShowHideTextBox>
@@ -186,7 +195,7 @@
       v-if="showNoCertText&& !overheated"
       :counter="100 - 10 * timer"
       style="width:35vw; right:1vw; top:7vw;z-index:2; position:absolute;"
-      color="red"
+      :color="lightningRed"
       v-on:click="overheat"
     >Are the generators working as expected?</progress-bar-to-button>
 
@@ -196,7 +205,7 @@
       left="1vw"
       top="1vw"
       width="35vw"
-      color="red"
+      :color="lightningRed"
       style="z-index:1;"
       show="true"
     >
@@ -225,7 +234,7 @@
       left="1vw"
       top="1vw"
       width="35vw"
-      color="green"
+      :color="lightningGreen"
       style="z-index:2;"
     >
       Problem: How can the user know that data is authentic?
@@ -240,7 +249,7 @@
       left="1vw"
       top="1vw"
       width="35vw"
-      color="green"
+      :color="lightningGreen"
       style="z-index:1;"
       show="true"
     >
@@ -265,7 +274,7 @@
       left="1vw"
       top="1vw"
       width="35vw"
-      color="green"
+      :color="lightningGreen"
       style="z-index:1;"
     >Dynamic data is used to regulate the grid, concretely to optimize the generator efficiency and hence minimise fuel consumption.</ShowHideTextBox>
 
@@ -278,7 +287,14 @@
     >Hack Data!</progress-bar-to-button>
 
     <!-- explain 7 -->
-    <ShowHideTextBox v-if="hacked" left="1vw" top="1vw" width="35vw" color="red" style="z-index:1;">
+    <ShowHideTextBox
+      v-if="hacked"
+      left="1vw"
+      top="1vw"
+      width="35vw"
+      :color="lightningRed"
+      style="z-index:1;"
+    >
       The status information received from the pumps has been hacked to show 0 load.
       All generators have been switched off and your operations grind to a hold.
     </ShowHideTextBox>
@@ -301,7 +317,7 @@
       left="1vw"
       top="1vw"
       width="35vw"
-      color="green"
+      :color="lightningGreen"
       style="z-index:1;"
     >
       Problem: Is the machine "who" it claims to be? Is the data from the machine authentic?
@@ -426,6 +442,9 @@ export default {
       totalLoad: 0,
       triggerTypelabel: false,
       showCredits: false,
+      lightningRed: "#ff4a00",
+      lightningGreen: "#20cf15",
+      lighningBlue: "#3a4ed4",
 
       pumps: [
         {
@@ -507,6 +526,8 @@ export default {
   },
   mounted: function () {
     this.resetPumpsAndGenerators();
+    this.timerInterval = setInterval(this.tick, 250);
+    this.randomDataInterval = setInterval(this.randomData, 500);
   },
   beforeDestroy() {
     if (this.timerInterval) {
@@ -543,18 +564,15 @@ export default {
     },
     rent: function () {
       console.log("Renting");
+      this.showStore = false;
       if (this.powerBalance < 0) {
         return;
       }
 
       this.showInitText = false;
-      this.showStore = false;
       this.timer = 10;
       if (!this.certified) {
         this.showNoCertText = true;
-      }
-      if (!this.timerInterval) {
-        this.timerInterval = setInterval(this.tick, 250);
       }
     },
     resetPumpsAndGenerators() {
@@ -582,10 +600,11 @@ export default {
       this.timer = 10;
       this.triggerTypelabel = false;
       this.triggerTypelabel = true;
-
-      this.randomDataInterval = setInterval(this.randomData, 500);
     },
     randomData: function () {
+      if (!this.dynamic) {
+        return;
+      }
       this.totalLoad = 0;
       var apparentLoad = 0;
       for (var pump of this.pumps) {
