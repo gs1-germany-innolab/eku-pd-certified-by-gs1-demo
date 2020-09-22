@@ -395,7 +395,24 @@
         <p>
           This presentation hihglights how the ideas developed within the Certified by GS1 project by GS1 Germany can be applied in a real life use case developed by EKU PD.
           The Design and implementation of this presentation was done by EECC, who also lead the technical development within Certified by GS1.
-        </p>The free pictures used in this project stem from
+        </p>
+          <img
+            src="@/assets/gs1Logo.png"
+            class="mr-3"
+            alt="GS1Logo"
+            style="width:calc(8vw + 10px);"
+          />
+          <div>
+            Visit GS1 Germany:
+          <li>
+            <a
+              href="https://www.gs1-germany.de/"
+              target="_blank"
+            >https://www.gs1-germany.de/</a>
+          </li>
+          <br>
+          </div>
+        The free pictures used in this project stem from
         <ul>
           <li>
             <a
@@ -470,7 +487,7 @@ export default {
       totalLoad: 0,
       triggerTypelabel: false,
       showPPU: false,
-      showCredits: false,
+      showCredits: true,
       lightningRed: "#ff4a00",
       lightningGreen: "#20cf15",
       lighningBlue: "#3a4ed4",
