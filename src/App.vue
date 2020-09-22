@@ -487,7 +487,7 @@ export default {
       totalLoad: 0,
       triggerTypelabel: false,
       showPPU: false,
-      showCredits: true,
+      showCredits: false,
       lightningRed: "#ff4a00",
       lightningGreen: "#20cf15",
       lighningBlue: "#3a4ed4",
