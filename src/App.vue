@@ -5,7 +5,7 @@
       :type="pumps[0]"
       top="18vw"
       left="32vw"
-      style="z-index:1;"
+      style="z-index: 1"
       :certified="certified"
       :show="triggerTypelabel"
     ></ShowHideDigitalTypeLabel>
@@ -15,7 +15,7 @@
       :type="pumps[1]"
       top="18vw"
       left="54vw"
-      style="z-index:1;"
+      style="z-index: 1"
       :certified="certified"
       :show="triggerTypelabel"
     ></ShowHideDigitalTypeLabel>
@@ -26,8 +26,9 @@
       top="1vh"
       width="35vw"
       :color="powerBalance < 0 ? lightningRed : lightningGreen"
-      style="z-index:1;font-weight: bold;"
-    >Total Capacity {{ powerBalance }} kW</TextBox>
+      style="z-index: 1; font-weight: bold"
+      >Total Capacity {{ powerBalance }} kW</TextBox
+    >
 
     <!-- Balance/Load Indicator -->
     <TextBox
@@ -36,7 +37,7 @@
       top="1vh"
       width="35vw"
       :color="totalLoad === 0 ? lightningGreen : lightningRed"
-      style="z-index:1;font-weight: bold;"
+      style="z-index: 1; font-weight: bold"
     >
       Power Balance: {{ Math.round(totalLoad) }} kW
       <br />
@@ -46,18 +47,28 @@
     <button
       type="button"
       class="btn btn-info btn-lg"
-      @click="()=>{this.showStore=true;}"
-      v-if="powerBalance<0 && !showNoCertText"
+      @click="
+        () => {
+          this.showStore = true;
+        }
+      "
+      v-if="powerBalance < 0 && !showNoCertText"
       :style="`width:35vw; right:1vw; top:7vw;z-index:2; position:absolute;background-color:${this.lighningBlue};border-color:${this.lighningBlue};`"
-    >Rent Generators</button>
+    >
+      Rent Generators
+    </button>
 
     <!-- Lighning icon -->
-    <div style="position: absolute; left: 50vw; top: 5vw; z-index:1;">
+    <div style="position: absolute; left: 50vw; top: 5vw; z-index: 1">
       <img
-        :src="powerBalance<0 || this.totalLoad != 0 ? require(`@/assets/redLightning.png`) : require(`@/assets/greenLightning.png`)"
+        :src="
+          powerBalance < 0 || this.totalLoad != 0
+            ? require(`@/assets/redLightning.png`)
+            : require(`@/assets/greenLightning.png`)
+        "
         class="mr-3"
         alt="Red Lightning"
-        style="width:10vw;"
+        style="width: 10vw"
       />
     </div>
 
@@ -68,31 +79,42 @@
       top="1vw"
       width="35vw"
       :color="lightningGreen"
-      style="z-index:1;"
+      style="z-index: 1"
       show="true"
-    >You are mining resources in a remote area without electricity. You need to setup a micro grid to power your machines.</ShowHideTextBox>
+      >You are mining resources in a remote area without electricity. You need
+      to setup a micro grid to power your machines.</ShowHideTextBox
+    >
 
     <!-- shop -->
     <div
       class="jumbotron"
-      style="background-color: #895D54; position:absolute; z-index:10; width:96vw; height:96vh; top:2vh;left:2vw; overflow:auto;"
+      style="
+        background-color: #895d54;
+        position: absolute;
+        z-index: 10;
+        width: 96vw;
+        height: 96vh;
+        top: 2vh;
+        left: 2vw;
+        overflow: auto;
+      "
       v-if="showStore"
     >
-      <h2 class="display-4" style="color: #E5DDDB;">Distributor Eve</h2>
-      <p
-        class="lead"
-        style="color: #E5DDDB;"
-      >Here you can rent generators to produce the electric energy needed in the field.</p>
+      <h2 class="display-4" style="color: #e5dddb">Distributor Eve</h2>
+      <p class="lead" style="color: #e5dddb">
+        Here you can rent generators to produce the electric energy needed in
+        the field.
+      </p>
       <hr class="my-4" />
       <!-- Generators (in shop) -->
       <div
-        style="display:inline-block;"
+        style="display: inline-block"
         v-for="(generator, index) in generators"
         :key="generator.pic"
       >
         <img :src="generator.pic" class="mr-3" alt="Generator" width="200" />
         <DigitalTypeLabel
-          :style="`z-index:${20-index}; position:relative;`"
+          :style="`z-index:${20 - index}; position:relative;`"
           :type="generator"
           :color="lightningGreen"
           width="190px"
@@ -111,22 +133,24 @@
         </div>
       </div>
       <hr class="my-4" />
-      <h2 style="color: #E5DDDB;">
+      <h2 style="color: #e5dddb">
         Energy demand:
-        <span v-if="powerBalance<0">{{ -powerBalance }}kW</span>
-        <span v-if="powerBalance>=0">satisfied</span>
+        <span v-if="powerBalance < 0">{{ -powerBalance }}kW</span>
+        <span v-if="powerBalance >= 0">satisfied</span>
       </h2>
       <button
         type="button"
         class="btn btn-info btn-lg"
         @click="rent"
         :style="`background-color:${this.lighningBlue};border-color:${this.lighningBlue};`"
-      >Rent Generators</button>
+      >
+        Rent Generators
+      </button>
       <button
         type="button"
         class="close"
         aria-label="Close"
-        style="position:absolute;right:1vw;top:0.5vw;"
+        style="position: absolute; right: 1vw; top: 0.5vw"
         @click="rent"
       >
         <span aria-hidden="true">&times;</span>
@@ -138,9 +162,12 @@
         top="1vw"
         width="35vw"
         :color="lightningGreen"
-        style="z-index:21;"
+        style="z-index: 21"
         show="true"
-      >Authenticity of the digital type label is guaranteed by a signature of the manufacturer. The manufactruer's identity is authenticated by GS1.</ShowHideTextBox>
+        >Authenticity of the digital type label is guaranteed by a signature of
+        the manufacturer. The manufactruer's identity is authenticated by
+        GS1.</ShowHideTextBox
+      >
     </div>
     <!-- end shop -->
 
@@ -148,20 +175,27 @@
     <div
       v-for="(generator, index) in generators"
       :key="generator.pic"
-      :style="`display:inline-block;position:absolute;top:41vw;left: ${index * 25 + 5}vw;`"
+      :style="`display:inline-block;position:absolute;top:41vw;left: ${
+        index * 25 + 5
+      }vw;`"
     >
       <div v-if="generator.active">
         <img
           :src="generator.pic"
           class="mr-3"
           alt="Generator"
-          style="width:calc(10vw + 50px);position:absolute;left:0;top:0;"
+          style="width: calc(10vw + 50px); position: absolute; left: 0; top: 0"
         />
         <img
           src="@/assets/smoke.png"
           class="mr-3"
           alt="Smoke"
-          style="width:calc(8vw + 10px);position:absolute;top:-3vw;left:-3vw"
+          style="
+            width: calc(8vw + 10px);
+            position: absolute;
+            top: -3vw;
+            left: -3vw;
+          "
           v-if="generator.smoking"
         />
 
@@ -170,7 +204,7 @@
           :color="generator.smoking ? lightningRed : lightningGreen"
           width="190px"
           height="210px"
-          style="position:absolute; top:calc(-10px - 6vw); left:2vw;"
+          style="position: absolute; top: calc(-10px - 6vw); left: 2vw"
           :show="generator.smoking || triggerTypelabel"
           :certified="certified"
         ></ShowHideDigitalTypeLabel>
@@ -185,18 +219,22 @@
       top="1vw"
       width="35vw"
       :color="lightningGreen"
-      style="z-index:1;"
+      style="z-index: 1"
       show="true"
-    >You have rented a few generators according to the digital type label provided by the retailer. Everything seems to be running smoothly.</ShowHideTextBox>
+      >You have rented a few generators according to the digital type label
+      provided by the retailer. Everything seems to be running
+      smoothly.</ShowHideTextBox
+    >
 
     <!-- smoking progress button -->
     <progress-bar-to-button
-      v-if="showNoCertText&& !overheated"
+      v-if="showNoCertText && !overheated"
       :counter="100 - 10 * timer"
-      style="width:35vw; right:1vw; top:7vw;z-index:2; position:absolute;"
+      style="width: 35vw; right: 1vw; top: 7vw; z-index: 2; position: absolute"
       :color="lightningRed"
       v-on:click="overheat"
-    >Are the generators working as expected?</progress-bar-to-button>
+      >Are the generators working as expected?</progress-bar-to-button
+    >
 
     <!-- explain 3 -->
     <ShowHideTextBox
@@ -205,7 +243,7 @@
       top="1vw"
       width="35vw"
       :color="lightningRed"
-      style="z-index:1;"
+      style="z-index: 1"
       show="true"
     >
       The Digital Type Label was tuned!
@@ -218,7 +256,7 @@
       v-if="showNoCertText && overheated"
       :counter="100 - 10 * timer"
       @click="endNoCert"
-      style="width:35vw; right:1vw; top:7vw;z-index:2; position:absolute;"
+      style="width: 35vw; right: 1vw; top: 7vw; z-index: 2; position: absolute"
       color="blue"
     >
       What if the digital type label had been
@@ -229,41 +267,49 @@
 
     <!-- explain 4 -->
     <ShowHideTextBox
-      v-if="showExplainCertified && powerBalance<0"
+      v-if="showExplainCertified && powerBalance < 0"
       left="1vw"
       top="1vw"
       width="35vw"
       :color="lightningGreen"
-      style="z-index:2;"
+      style="z-index: 2"
     >
       Problem: How can the user know that data is authentic?
-      <br />Solution: A trustworthy digital signature by the manufacturer can be verified automatically.
+      <br />Solution: A trustworthy digital signature by the manufacturer can be
+      verified automatically.
       <br />
-      <img src="@/assets/short-chain.png" class="mr-3" alt="Certificate Chain" style="width:30vw;" />
+      <img
+        src="@/assets/short-chain.png"
+        class="mr-3"
+        alt="Certificate Chain"
+        style="width: 30vw"
+      />
     </ShowHideTextBox>
 
     <!-- explain 5 -->
     <ShowHideTextBox
-      v-if="showExplainCertified && powerBalance>=0"
+      v-if="showExplainCertified && powerBalance >= 0"
       left="1vw"
       top="1vw"
       width="35vw"
       :color="lightningGreen"
-      style="z-index:1;"
+      style="z-index: 1"
       show="true"
     >
-      A complete chain of trust authentificates the identity of the device manufacturer and the correctness of the type labels.
+      A complete chain of trust authentificates the identity of the device
+      manufacturer and the correctness of the type labels.
       <br />Congratulations! You have setup a stable micro grid!
     </ShowHideTextBox>
 
     <!-- certify progress button -->
     <progress-bar-to-button
-      v-if="showExplainCertified && powerBalance>=0"
+      v-if="showExplainCertified && powerBalance >= 0"
       :counter="100 - 10 * timer"
       @click="endTypeLabelStory"
-      style="width:35vw; right:1vw; top:7vw;z-index:2; position:absolute;"
+      style="width: 35vw; right: 1vw; top: 7vw; z-index: 2; position: absolute"
       color="blue"
-    >Start Operations</progress-bar-to-button>
+      >Start Operations</progress-bar-to-button
+    >
 
     <!----------------------------------------------------------------------------------------------------------------------->
 
@@ -274,16 +320,19 @@
       top="1vw"
       width="35vw"
       :color="lightningGreen"
-      style="z-index:1;"
-    >Dynamic data is used to regulate the grid, concretely to optimize the generator efficiency and hence minimise fuel consumption.</ShowHideTextBox>
+      style="z-index: 1"
+      >Dynamic data is used to regulate the grid, concretely to optimize the
+      generator efficiency and hence minimise fuel consumption.</ShowHideTextBox
+    >
 
     <progress-bar-to-button
       v-if="dynamic && !hacked && !certified"
       :counter="100 - 10 * timer"
       @click="hackData"
-      style="width:35vw; right:1vw; top:7vw;z-index:2; position:absolute;"
+      style="width: 35vw; right: 1vw; top: 7vw; z-index: 2; position: absolute"
       color="black"
-    >Hack Data!</progress-bar-to-button>
+      >Hack Data!</progress-bar-to-button
+    >
 
     <!-- explain 7 -->
     <ShowHideTextBox
@@ -292,17 +341,18 @@
       top="1vw"
       width="35vw"
       :color="lightningRed"
-      style="z-index:1;"
+      style="z-index: 1"
     >
-      The status information received from the pumps has been hacked to show 0 load.
-      All generators have been switched off and your operations grind to a hold.
+      The status information received from the pumps has been hacked to show 0
+      load. All generators have been switched off and your operations grind to a
+      hold.
     </ShowHideTextBox>
 
     <progress-bar-to-button
       v-if="dynamic && hacked && !certified"
       :counter="100 - 10 * timer"
       @click="dynamicCert"
-      style="width:35vw; right:1vw; top:7vw;z-index:2; position:absolute;"
+      style="width: 35vw; right: 1vw; top: 7vw; z-index: 2; position: absolute"
       color="blue"
     >
       What if the dynamic data had been
@@ -317,22 +367,34 @@
       top="1vw"
       width="35vw"
       :color="lightningGreen"
-      style="z-index:1;"
+      style="z-index: 1"
     >
-      Problem: Is the machine "who" it claims to be? Is the data from the machine authentic?
-      <br />Solution: Again, a trustworthy digital signature can remedy the situation. Here the machine authenticates its own data by a digital signature.
-      The machine is authenticated by the manufacturer who in turn gets an authentic Id from GS1.
+      Problem: Is the machine "who" it claims to be? Is the data from the
+      machine authentic?
+      <br />Solution: Again, a trustworthy digital signature can remedy the
+      situation. Here the machine authenticates its own data by a digital
+      signature. The machine is authenticated by the manufacturer who in turn
+      gets an authentic Id from GS1.
       <br />
-      <img src="@/assets/chain.png" class="mr-3" alt="Certificate Chain" style="width:30vw;" />
+      <img
+        src="@/assets/chain.png"
+        class="mr-3"
+        alt="Certificate Chain"
+        style="width: 30vw"
+      />
     </ShowHideTextBox>
 
     <progress-bar-to-button
       v-if="dynamic && certified && !showPPU"
       :counter="100 - 10 * timer"
-      @click="showPPU=true; timer=10"
-      style="width:35vw; right:1vw; top:7vw;z-index:2; position:absolute;"
+      @click="
+        showPPU = true;
+        timer = 10;
+      "
+      style="width: 35vw; right: 1vw; top: 7vw; z-index: 2; position: absolute"
       color="blue"
-    >Pay Per Use</progress-bar-to-button>
+      >Pay Per Use</progress-bar-to-button
+    >
 
     <ShowHideTextBox
       v-if="showPPU"
@@ -340,21 +402,32 @@
       top="1vw"
       width="35vw"
       :color="lightningGreen"
-      style="z-index:1;"
+      style="z-index: 1"
     >
-      Certified usage data is signed by a trusted device and can not be tampered with by you, the rental company, or anyone.
-      Such trustworthy data is needed as a basis for pay per use models to bill the used kWhs instead of just renting the generator for a fixed time period.
+      Certified usage data is signed by a trusted device and can not be tampered
+      with by you, the rental company, or anyone. Such trustworthy data is
+      needed as a basis for pay per use models to bill the used kWhs instead of
+      just renting the generator for a fixed time period.
       <br />
-      <img src="@/assets/chain.png" class="mr-3" alt="Certificate Chain" style="width:30vw;" />
+      <img
+        src="@/assets/chain.png"
+        class="mr-3"
+        alt="Certificate Chain"
+        style="width: 30vw"
+      />
     </ShowHideTextBox>
 
     <progress-bar-to-button
       v-if="showPPU"
       :counter="100 - 10 * timer"
-      @click="showCredits=true; timer=10"
-      style="width:35vw; right:1vw; top:7vw;z-index:2; position:absolute;"
+      @click="
+        showCredits = true;
+        timer = 10;
+      "
+      style="width: 35vw; right: 1vw; top: 7vw; z-index: 2; position: absolute"
       color="blue"
-    >Credits</progress-bar-to-button>
+      >Credits</progress-bar-to-button
+    >
 
     <TextBox
       v-if="showCredits"
@@ -362,7 +435,7 @@
       top="1vw"
       width="98vw"
       color="#DADADA"
-      style="z-index:10;"
+      style="z-index: 10"
     >
       <a
         href="https://github.com/gs1-germany-innolab/eku-pd-certified-by-gs1-demo"
@@ -373,14 +446,21 @@
           width="80"
           height="80"
           viewBox="0 0 250 250"
-          style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;"
+          style="
+            fill: #151513;
+            color: #fff;
+            position: absolute;
+            top: 0;
+            border: 0;
+            right: 0;
+          "
           aria-hidden="true"
         >
           <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z" />
           <path
             d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
             fill="currentColor"
-            style="transform-origin: 130px 106px;"
+            style="transform-origin: 130px 106px"
             class="octo-arm"
           />
           <path
@@ -390,62 +470,82 @@
           />
         </svg>
       </a>
-      <div style="font-size:1vw;">
+      <div style="font-size: 1vw;text-align:left;padding:1vw;width:100%;">
         <h1>Credits</h1>
         <p>
-          This presentation hihglights how the ideas developed within the Certified by GS1 project by GS1 Germany can be applied in a real life use case developed by EKU PD.
-          The Design and implementation of this presentation was done by EECC, who also lead the technical development within Certified by GS1.
+          This presentation hihglights how the ideas developed within the
+          Certified by GS1 project by GS1 Germany can be applied in a real life
+          use case developed by EKU PD. The Design and implementation of this
+          presentation was done by EECC, who also leads the technical development
+          within Certified by GS1.
         </p>
+            <p>
+            <a href="https://github.com/gs1-germany-innolab/CertifiedByGS1-Konzepte" target="_blank">
           <img
-            src="@/assets/gs1Logo.png"
-            class="mr-3"
-            alt="GS1Logo"
-            style="width:calc(8vw + 10px);"
+            src="@/assets/Certified_by_GS1_Logo.png"
+            class="logo"
+            alt="Certified by GS1"
+            title="Certified by GS1"
           />
+        </a>
+        <a href="https://www.gs1-germany.de/" target="_blank">
+          <img
+            src="@/assets/GS1-Germany-Logo.png"
+            class="logo"
+            alt="GS1 Germany"
+            title="GS1 Germany"
+          />
+        </a>
+        <a href="https://www.ekupd.com/" target="_blank">
           <img
             src="@/assets/EKUlogoh.png"
-            class="mr-3"
-            alt="EKUPDLogo"
-            style="width:calc(8vw + 10px);"
+            class="logo"
+            alt="EKU Power Drives"
+            title="EKU Power Drives"
           />
-          <div>
-              Visit GS1 Germany:
-            <li>
-              <a
-                href="https://www.gs1-germany.de/"
-                target="_blank"
-              >https://www.gs1-germany.de/</a>
-            </li>
-          </div>
-          <div>
-            Visit EKU Power Drives:
-            <li>
-              <a
-                href="https://www.ekupd.com/"
-                target="_blank"
-              >https://www.ekupd.com/</a>
-            </li>
-            <br>
-          </div>
+        </a>
+        <a href="https://www.eecc.de/" target="_blank">
+          <img
+            src="@/assets/eecc_logo.png"
+            class="logo"
+            alt="EECC"
+            title="EECC"
+          />
+        </a>
+        </p>
+        <br>
+        <h1>
+            Interested in the Ideas? Develop them with us!
+            Contact <a href="mailto:sebastian.schmittern@eecc.de">the Certified by GS1 Team</a>!
+        </h1>
+        <br>
+        <p>
         The free pictures used in this project stem from
         <ul>
           <li>
             <a
               href="https://www.dreamstime.com/beautiful-hand-drawn-fashion-generator-icon-hand-drawn-black-sketch-sign-symbol-doodle-isolated-white-background-flat-beautiful-image139535596"
               target="_blank"
-            >https://www.dreamstime.com/beautiful-hand-drawn-fashion-generator-icon-hand-drawn-black-sketch-sign-symbol-doodle-isolated-white-background-flat-beautiful-image139535596</a>
+              >https://www.dreamstime.com/beautiful-hand-drawn-fashion-generator-icon-hand-drawn-black-sketch-sign-symbol-doodle-isolated-white-background-flat-beautiful-image139535596</a
+            >
           </li>
           <li>
             <a
               href="https://de.vecteezy.com/vektorkunst/224422-vektor-wusten-landschaftsillustration"
               target="_blank"
-            >https://de.vecteezy.com/vektorkunst/224422-vektor-wusten-landschaftsillustration</a> (
+              >https://de.vecteezy.com/vektorkunst/224422-vektor-wusten-landschaftsillustration</a
+            >
+            (
             <a
               target="_blank"
               href="https://de.vecteezy.com/gratis-vektor/genau"
-            >Genau Vektoren von Vecteezy</a>)
+              >Genau Vektoren von Vecteezy</a
+            >)
           </li>
-        </ul>This interactive presentation was build with
+        </ul>
+        </p>
+        <p>
+        This interactive presentation was build with
         <ul>
           <li>
             <a href="https://vuejs.org" target="_blank">Vue.js</a>
@@ -454,10 +554,13 @@
             <a href="https://getbootstrap.com/" target="_blank">Bootstrap</a>
           </li>
         </ul>
+        
 
         <a
           href="https://github.com/gs1-germany-innolab/eku-pd-certified-by-gs1-demo"
-        >This presentation is open source on Github.</a>
+          >It is open source on Github.</a
+        >
+        </p>
       </div>
 
       <progress-bar-to-button
@@ -465,7 +568,8 @@
         :counter="100 - 10 * timer"
         @click="restart"
         color="blue"
-      >Restart</progress-bar-to-button>
+        >Restart</progress-bar-to-button
+      >
     </TextBox>
   </div>
 </template>
@@ -753,6 +857,11 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+
+.logo {
+  height: calc(8vw + 10px);
+  margin: auto;
 }
 
 .github-corner:hover .octo-arm {
