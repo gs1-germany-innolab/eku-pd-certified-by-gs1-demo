@@ -474,10 +474,9 @@
         <h1>Credits</h1>
         <p>
           This presentation hihglights how the ideas developed within the
-          Certified by GS1 project by GS1 Germany can be applied in a real life
-          use case developed by EKU PD. The Design and implementation of this
-          presentation was done by EECC, who also leads the technical development
-          within Certified by GS1.
+          Certified by GS1 project by <a href="https://www.gs1-germany.de/" target="_blank">GS1 Germany</a> can be applied in a real life
+          use case developed by <a href="https://www.ekupd.com/" target="_blank">EKU Power Drives</a>. The Design and implementation of this
+          presentation was done by Kevin Ochudlo and Dr. Sebastian Schmittner of <a href="https://www.eecc.de/" target="_blank">EECC</a>. 
         </p>
             <ul style="display: flex; justify-content: space-between; margin:3vw;">
             <li style="display: inline-block;">
@@ -491,7 +490,7 @@
         </a>
             </li>
             <li style="display: inline-block;">
-        <a href="https://www.gs1-germany.de/" target="_blank" style="display: inline-block;">
+        <a href="https://www.gs1-germany.de/" target="_blank">
           <img
             src="@/assets/GS1-Germany-Logo.png"
             class="logo"
@@ -501,7 +500,7 @@
         </a>
         </li>
             <li style="display: inline-block;">
-        <a href="https://www.ekupd.com/" target="_blank" style="display: inline-block;">
+        <a href="https://www.ekupd.com/" target="_blank">
           <img
             src="@/assets/EKUlogoh.png"
             class="logo"
@@ -511,7 +510,7 @@
         </a>
         </li>
             <li style="display: inline-block;">
-        <a href="https://www.eecc.de/" target="_blank" style="display: inline-block;">
+        <a href="https://www.eecc.de/" target="_blank">
           <img
             src="@/assets/eecc_logo.png"
             class="logo"
