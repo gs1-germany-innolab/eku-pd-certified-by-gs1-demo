@@ -1,5 +1,37 @@
 <template>
   <div id="app" class="fullsize">
+ <TextBox
+      v-if="showHello"
+      left="0"
+      top="0"
+      width="100vw"
+      color="#DADADA"
+      style="z-index: 10"
+    >
+      <div style="padding:1vw;width:100%;">
+        <p>
+          This is an interactive presentation of the usage of data and IDs <a href="https://github.com/gs1-germany-innolab/CertifiedByGS1-Konzepte" target="_blank">Certified by GS1</a>
+          in a real life use case developed by <a href="https://www.ekupd.com/" target="_blank">EKU Power Drives</a>.          
+          
+        </p>
+     
+        <b style="margin-top:2vw;margin-bottom:2vw;">
+            Interested in the Ideas? Develop them with us!
+            Contact <a href="mailto:sebastian.schmittern@eecc.de,mayra.castellanos@gs1.de">the Certified by GS1 Team</a>!
+        </b>
+      </div>
+
+      <progress-bar-to-button
+        :counter="100"
+        @click="showHello=false;"
+        color="blue"
+        style="margin:5vw;"
+        >Start the Demo</progress-bar-to-button
+      >
+    </TextBox>
+
+
+
     <ShowHideDigitalTypeLabel
       :color="hacked ? lightningRed : lightningGreen"
       :type="pumps[0]"
@@ -523,7 +555,7 @@
         <br>
         <h1 style="margin-top:2vw;margin-bottom:2vw;">
             Interested in the Ideas? Develop them with us!
-            Contact <a href="mailto:sebastian.schmittern@eecc.de">the Certified by GS1 Team</a>!
+            Contact <a href="mailto:sebastian.schmittern@eecc.de,mayra.castellanos@gs1.de">the Certified by GS1 Team</a>!
         </h1>
         <br>
         <p>
@@ -561,8 +593,6 @@
             <a href="https://getbootstrap.com/" target="_blank">Bootstrap</a>
           </li>
         </ul>
-        
-
         <a
           href="https://github.com/gs1-germany-innolab/eku-pd-certified-by-gs1-demo"
           >It is open source on Github.</a
@@ -599,6 +629,7 @@ export default {
   },
   data: function () {
     return {
+      showHello: true,
       showInitText: true,
       showStore: false,
       showNoCertText: false,
