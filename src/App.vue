@@ -479,7 +479,8 @@
           presentation was done by EECC, who also leads the technical development
           within Certified by GS1.
         </p>
-            <p>
+            <ul style="display: flex; justify-content: space-between; margin:3vw;">
+            <li style="display: inline-block;">
             <a href="https://github.com/gs1-germany-innolab/CertifiedByGS1-Konzepte" target="_blank">
           <img
             src="@/assets/Certified_by_GS1_Logo.png"
@@ -488,7 +489,9 @@
             title="Certified by GS1"
           />
         </a>
-        <a href="https://www.gs1-germany.de/" target="_blank">
+            </li>
+            <li style="display: inline-block;">
+        <a href="https://www.gs1-germany.de/" target="_blank" style="display: inline-block;">
           <img
             src="@/assets/GS1-Germany-Logo.png"
             class="logo"
@@ -496,7 +499,9 @@
             title="GS1 Germany"
           />
         </a>
-        <a href="https://www.ekupd.com/" target="_blank">
+        </li>
+            <li style="display: inline-block;">
+        <a href="https://www.ekupd.com/" target="_blank" style="display: inline-block;">
           <img
             src="@/assets/EKUlogoh.png"
             class="logo"
@@ -504,7 +509,9 @@
             title="EKU Power Drives"
           />
         </a>
-        <a href="https://www.eecc.de/" target="_blank">
+        </li>
+            <li style="display: inline-block;">
+        <a href="https://www.eecc.de/" target="_blank" style="display: inline-block;">
           <img
             src="@/assets/eecc_logo.png"
             class="logo"
@@ -512,9 +519,10 @@
             title="EECC"
           />
         </a>
-        </p>
+        </li>
+        </ul>
         <br>
-        <h1>
+        <h1 style="margin-top:2vw;margin-bottom:2vw;">
             Interested in the Ideas? Develop them with us!
             Contact <a href="mailto:sebastian.schmittern@eecc.de">the Certified by GS1 Team</a>!
         </h1>
