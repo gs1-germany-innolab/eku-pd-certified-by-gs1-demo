@@ -1,12 +1,12 @@
 ![Vue Build and Code Quality](https://github.com/gs1-germany-innolab/eku-pd-certified-by-gs1-demo/workflows/Vue%20Build%20and%20Code%20Quality/badge.svg)
 ![Release Build](https://github.com/gs1-germany-innolab/eku-pd-certified-by-gs1-demo/workflows/Release%20Build/badge.svg)
 
-# EKU PD Certified by GS1 - Interactive Presentation
+# EKU PD Certified by GS1 - Interaktive Presentation
 
-The current version of the presentation is onlne at https://gs1-germany-innolab.github.io/eku-pd-certified-by-gs1-demo/ .
+Diese Präsentation eines im Rahmen des [Certified by GS1](https://github.com/gs1-germany-innolab/CertifiedByGS1-Konzepte) entwickelten Anwendungsfalls ist hier online: https://gs1-germany-innolab.github.io/eku-pd-certified-by-gs1-demo/ .
 
 
-## Run locally
+## Run Locally
 ```
 git clone https://github.com/gs1-germany-innolab/eku-pd-certified-by-gs1-demo.git
 cd eku-pd-certified-by-gs1-demo
