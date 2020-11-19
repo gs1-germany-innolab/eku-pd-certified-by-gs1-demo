@@ -5,7 +5,6 @@
       left="0"
       top="0"
       width="100vw"
-      color="#DADADA"
       style="z-index: 10"
     >
       <div style="padding:1vw;width:100%;">
@@ -24,7 +23,7 @@
       <progress-bar-to-button
         :counter="100"
         @click="showHello=false;"
-        color="blue"
+        :color="lighningBlue"
         style="margin:5vw;"
         >Start the Demo</progress-bar-to-button
       >
@@ -85,7 +84,7 @@
         }
       "
       v-if="powerBalance < 0 && !showNoCertText"
-      :style="`width:35vw; right:1vw; top:7vw;z-index:2; position:absolute;background-color:${this.lighningBlue};border-color:${this.lighningBlue};`"
+      :style="`width:35vw; right:1vw; top:7vw;z-index:2; position:absolute;background-color:${this.lighningBlue}; border-style: none; border-radius: 0;`"
     >
       Rent Generators
     </button>
@@ -105,17 +104,15 @@
     </div>
 
     <!-- explain 1 -->
-    <ShowHideTextBox
+    <TextBox
       v-if="showInitText"
       left="1vw"
       top="1vw"
       width="35vw"
-      :color="lightningGreen"
       style="z-index: 1"
       show="true"
       >You are mining resources in a remote area without electricity. You need
-      to setup a micro grid to power your machines.</ShowHideTextBox
-    >
+      to setup a micro grid to power your machines.</TextBox>
 
     <!-- shop -->
     <div
@@ -174,7 +171,7 @@
         type="button"
         class="btn btn-info btn-lg"
         @click="rent"
-        :style="`background-color:${this.lighningBlue};border-color:${this.lighningBlue};`"
+        :style="`background-color:${this.lighningBlue};border-style: none; border-radius: 0;`"
       >
         Rent Generators
       </button>
@@ -182,23 +179,22 @@
         type="button"
         class="close"
         aria-label="Close"
-        style="position: absolute; right: 1vw; top: 0.5vw"
+        style="position: absolute; right: 1vw; top: 0.5vw;border-style: none; border-radius: 0;"
         @click="rent"
       >
         <span aria-hidden="true">&times;</span>
       </button>
 
-      <ShowHideTextBox
+      <TextBox
         v-if="certified"
         left="1vw"
         top="1vw"
         width="35vw"
-        :color="lightningGreen"
         style="z-index: 21"
         show="true"
         >Authenticity of the digital type label is guaranteed by a signature of
         the manufacturer. The manufactruer's identity is authenticated by
-        GS1.</ShowHideTextBox
+        GS1.</TextBox
       >
     </div>
     <!-- end shop -->
@@ -245,18 +241,17 @@
     <!-- end Generators (in desesrt) -->
 
     <!-- explain 2 -->
-    <ShowHideTextBox
+    <TextBox
       v-if="showNoCertText && !overheated"
       left="1vw"
       top="1vw"
       width="35vw"
-      :color="lightningGreen"
       style="z-index: 1"
       show="true"
       >You have rented a few generators according to the digital type label
       provided by the retailer. Everything seems to be running
-      smoothly.</ShowHideTextBox
-    >
+      smoothly.
+      </TextBox>
 
     <!-- smoking progress button -->
     <progress-bar-to-button
@@ -269,7 +264,7 @@
     >
 
     <!-- explain 3 -->
-    <ShowHideTextBox
+    <TextBox
       v-if="showNoCertText && overheated"
       left="1vw"
       top="1vw"
@@ -281,7 +276,7 @@
       The Digital Type Label was tuned!
       <br />The Generator has been operated outside specifications!
       <br />Overheating leads to a power outage.
-    </ShowHideTextBox>
+    </TextBox>
 
     <!-- certify progress button -->
     <progress-bar-to-button
@@ -289,7 +284,7 @@
       :counter="100 - 10 * timer"
       @click="endNoCert"
       style="width: 35vw; right: 1vw; top: 7vw; z-index: 2; position: absolute"
-      color="blue"
+      :color="lighningBlue"
     >
       What if the digital type label had been
       <br />Certified By GS1 ?
@@ -298,7 +293,7 @@
     <!----------------------------------------------------------------------------------------------------------------------->
 
     <!-- explain 4 -->
-    <ShowHideTextBox
+    <TextBox
       v-if="showExplainCertified && powerBalance < 0"
       left="1vw"
       top="1vw"
@@ -316,22 +311,21 @@
         alt="Certificate Chain"
         style="width: 30vw"
       />
-    </ShowHideTextBox>
+    </TextBox>
 
     <!-- explain 5 -->
-    <ShowHideTextBox
+    <TextBox
       v-if="showExplainCertified && powerBalance >= 0"
       left="1vw"
       top="1vw"
       width="35vw"
-      :color="lightningGreen"
       style="z-index: 1"
       show="true"
     >
       A complete chain of trust authentificates the identity of the device
       manufacturer and the correctness of the type labels.
       <br />Congratulations! You have setup a stable micro grid!
-    </ShowHideTextBox>
+    </TextBox>
 
     <!-- certify progress button -->
     <progress-bar-to-button
@@ -339,22 +333,21 @@
       :counter="100 - 10 * timer"
       @click="endTypeLabelStory"
       style="width: 35vw; right: 1vw; top: 7vw; z-index: 2; position: absolute"
-      color="blue"
+      :color="lighningBlue"
       >Start Operations</progress-bar-to-button
     >
 
     <!----------------------------------------------------------------------------------------------------------------------->
 
     <!-- explain 6 -->
-    <ShowHideTextBox
+    <TextBox
       v-if="dynamic && !hacked && !certified"
       left="1vw"
       top="1vw"
       width="35vw"
-      :color="lightningGreen"
       style="z-index: 1"
       >Dynamic data is used to regulate the grid, concretely to optimize the
-      generator efficiency and hence minimise fuel consumption.</ShowHideTextBox
+      generator efficiency and hence minimise fuel consumption.</TextBox
     >
 
     <progress-bar-to-button
@@ -367,7 +360,7 @@
     >
 
     <!-- explain 7 -->
-    <ShowHideTextBox
+    <TextBox
       v-if="hacked"
       left="1vw"
       top="1vw"
@@ -378,14 +371,14 @@
       The status information received from the pumps has been hacked to show 0
       load. All generators have been switched off and your operations grind to a
       hold.
-    </ShowHideTextBox>
+    </TextBox>
 
     <progress-bar-to-button
       v-if="dynamic && hacked && !certified"
       :counter="100 - 10 * timer"
       @click="dynamicCert"
       style="width: 35vw; right: 1vw; top: 7vw; z-index: 2; position: absolute"
-      color="blue"
+      color="lighningBlue"
     >
       What if the dynamic data had been
       <br />Certified By GS1 ?
@@ -393,7 +386,7 @@
 
     <!----------------------------------------------------------------------------------------------------------------------->
 
-    <ShowHideTextBox
+    <TextBox
       v-if="dynamic && certified && !showPPU"
       left="1vw"
       top="1vw"
@@ -414,7 +407,7 @@
         alt="Certificate Chain"
         style="width: 30vw"
       />
-    </ShowHideTextBox>
+    </TextBox>
 
     <progress-bar-to-button
       v-if="dynamic && certified && !showPPU"
@@ -424,16 +417,15 @@
         timer = 10;
       "
       style="width: 35vw; right: 1vw; top: 7vw; z-index: 2; position: absolute"
-      color="blue"
+      :color="lighningBlue"
       >Pay Per Use</progress-bar-to-button
     >
 
-    <ShowHideTextBox
+    <TextBox
       v-if="showPPU"
       left="1vw"
       top="1vw"
       width="35vw"
-      :color="lightningGreen"
       style="z-index: 1"
     >
       Certified usage data is signed by a trusted device and can not be tampered
@@ -447,7 +439,7 @@
         alt="Certificate Chain"
         style="width: 30vw"
       />
-    </ShowHideTextBox>
+    </TextBox>
 
     <progress-bar-to-button
       v-if="showPPU"
@@ -457,7 +449,7 @@
         timer = 10;
       "
       style="width: 35vw; right: 1vw; top: 7vw; z-index: 2; position: absolute"
-      color="blue"
+      :color="lighningBlue"
       >Credits</progress-bar-to-button
     >
 
@@ -466,7 +458,6 @@
       left="1vw"
       top="1vw"
       width="98vw"
-      color="#DADADA"
       style="z-index: 10"
     >
       <a
@@ -604,7 +595,7 @@
         v-if="showPPU"
         :counter="100 - 10 * timer"
         @click="restart"
-        color="blue"
+        :color="lighningBlue"
         >Restart</progress-bar-to-button
       >
     </TextBox>
@@ -615,7 +606,6 @@
 import DigitalTypeLabel from "./components/DigitalTypeLabel.vue";
 import ShowHideDigitalTypeLabel from "./components/ShowHideDigitalTypeLabel.vue";
 import TextBox from "./components/TextBox.vue";
-import ShowHideTextBox from "./components/ShowHideTextBox.vue";
 import ProgressBarToButton from "./components/ProgressBarToButton.vue";
 
 export default {
@@ -624,7 +614,6 @@ export default {
     DigitalTypeLabel,
     TextBox,
     ShowHideDigitalTypeLabel,
-    ShowHideTextBox,
     ProgressBarToButton,
   },
   data: function () {
@@ -645,9 +634,9 @@ export default {
       triggerTypelabel: false,
       showPPU: false,
       showCredits: false,
-      lightningRed: "#ff4a00",
-      lightningGreen: "#20cf15",
-      lighningBlue: "#3a4ed4",
+      lightningRed: "#F26334",
+      lightningGreen: "#00b74f",
+      lighningBlue: "#002c6c",
 
       pumps: [
         {
@@ -875,6 +864,32 @@ export default {
 </script>
 
 <style>
+
+ /* unvisited link */
+a:link {
+  color: #008dbd;
+  text-decoration: none;
+}
+
+/* visited link */
+a:visited {
+  color: #008dbd;
+  text-decoration: none;
+}
+
+/* mouse over link */
+a:hover {
+  color: #008dbd;
+  text-decoration: none;
+}
+
+/* selected link */
+a:active {
+  color: #008dbd;
+  text-decoration: none;
+} 
+
+
 .fullsize {
   position: absolute;
   top: 0;
@@ -883,6 +898,7 @@ export default {
   height: 100%;
 }
 
+
 #app {
   z-index: -1;
   height: auto;
@@ -890,11 +906,10 @@ export default {
   background-image: url("assets/landingPage.jpg");
   background-size: 100%;
   background-repeat: no-repeat;
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: "Gotham SSm A", "Gotham SSm B", Verdana, sans-serif;
+  font-size: calc(6px + 1vw);
   text-align: center;
-  color: #2c3e50;
+  color: #002c6c;
 }
 
 .logo {

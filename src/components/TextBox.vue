@@ -1,8 +1,6 @@
 <template>
   <div class="textBox textBoxBorder" :style="computedStyle">
-    <div class="innerTextBox textBoxBorder" :style="`border-color: ${this.color}; background: ${this.color}; border-color: ${this.color};`">
-      <slot></slot>
-    </div>
+    <slot></slot>
   </div>
 </template>
 <script>
@@ -14,11 +12,10 @@ export default {
     computedStyle() {
       return {
         width: this.width,
-        "border-color": this.color,
         top: this.top,
         left: this.left,
         right: this.right,
-        background: `repeating-linear-gradient(-45deg, transparent, transparent 1px, ${this.color} 2px, ${this.color} 5px)`,
+        color: this.color
       };
     },
   },
@@ -26,30 +23,10 @@ export default {
 </script>
 
 <style>
-.textBoxBorder{
-    border-style: groove;
-  border-width: 3px;
-  border-radius: 2vw;
-
-}
-.innerTextBox {
-  width: 96%;
-  margin: auto;
-  margin-top: 2%;
-  margin-bottom: 2%;
-  display: inline-block;
-  padding-top: 0.5vw;
-}
 .textBox {
   position: absolute;
-  
-  font-size: calc(4px + 2vw);
-  color: black;
-
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-
+  border-style: none;
+  background-color: #f4f4f4;
   text-align: center;
 }
 </style>
