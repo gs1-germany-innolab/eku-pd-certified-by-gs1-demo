@@ -1,11 +1,14 @@
 <template>
   <div id="app" class="fullsize">
+  <div style="width: 100vw; height:100vh;top:0;left:0;position:absolute;z-index:9;background:white;"  v-if="showHello">
+  </div>
+    
  <TextBox
       v-if="showHello"
-      left="0"
-      top="0"
-      width="100vw"
-      style="z-index: 10"
+      left="5vw"
+      top="10vh"
+      width="90vw"
+      style="z-index: 10;"
     >
       <div style="padding:1vw;width:100%;">
         <p>
@@ -16,7 +19,7 @@
      
         <b style="margin-top:2vw;margin-bottom:2vw;">
             Interested in the Ideas? Develop them with us!
-            Contact <a href="mailto:sebastian.schmittern@eecc.de,mayra.castellanos@gs1.de">the Certified by GS1 Team</a>!
+            Contact <a href="mailto:certified@gs1.de">the Certified by GS1 Team</a>!
         </b>
       </div>
 
@@ -99,7 +102,7 @@
         "
         class="mr-3"
         alt="Red Lightning"
-        style="width: 10vw"
+        style="width: calc(5px + 10vw);"
       />
     </div>
 
@@ -118,7 +121,7 @@
     <div
       class="jumbotron"
       style="
-        background-color: #895d54;
+        background-color: white;
         position: absolute;
         z-index: 10;
         width: 96vw;
@@ -129,9 +132,9 @@
       "
       v-if="showStore"
     >
-      <h2 class="display-4" style="color: #e5dddb">Distributor Eve</h2>
-      <p class="lead" style="color: #e5dddb">
-        Here you can rent generators to produce the electric energy needed in
+      <h2 class="display-4">Distributor Eve</h2>
+      <p class="lead" >
+        Rent generators to produce the electric energy needed in
         the field.
       </p>
       <hr class="my-4" />
@@ -145,7 +148,7 @@
         <DigitalTypeLabel
           :style="`z-index:${20 - index}; position:relative;`"
           :type="generator"
-          :color="lightningGreen"
+          :color="lightningBlue"
           width="190px"
           height="210px"
           :certified="certified"
@@ -162,7 +165,7 @@
         </div>
       </div>
       <hr class="my-4" />
-      <h2 style="color: #e5dddb">
+      <h2 style="color: #454545">
         Energy demand:
         <span v-if="powerBalance < 0">{{ -powerBalance }}kW</span>
         <span v-if="powerBalance >= 0">satisfied</span>
@@ -546,7 +549,7 @@
         <br>
         <h1 style="margin-top:2vw;margin-bottom:2vw;">
             Interested in the Ideas? Develop them with us!
-            Contact <a href="mailto:sebastian.schmittern@eecc.de,mayra.castellanos@gs1.de">the Certified by GS1 Team</a>!
+            Contact <a href="mailto:certified@gs1.de">the Certified by GS1 Team</a>!
         </h1>
         <br>
         <p>
