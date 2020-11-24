@@ -26,7 +26,7 @@ export default {
 .textBox {
   position: absolute;
   border-style: none;
-  background-color: #f4f4f4;
+  background-color: rgb(229, 246, 250);
   text-align: center;
 }
 </style>

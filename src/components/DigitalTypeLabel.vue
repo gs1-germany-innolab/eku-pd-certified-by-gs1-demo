@@ -5,7 +5,7 @@
     :color="color"
     style="margin-left: 2px; margin-right: 2px"
   >
-    <div style="margin-bottom: 0.7vw">
+    <div style="margin-bottom: 0.7vw; position:relative; padding-bottom:1vw;">
       <div class="dtlCaption">{{ type.caption }}</div>
       <div class="dtlRow">{{ type.asset }}</div>
       <div class="dtlRow">{{ type.gs1id }}</div>
@@ -38,10 +38,10 @@ export default {
 
 <style>
 .cert {
-  width: 5vw;
+  height: 3vw;
   position: absolute;
-  left: 11vw;
-  top: 11vw;
+  right: 0;
+  bottom: -1vw;
 }
 .dtlCaption {
   border: none;

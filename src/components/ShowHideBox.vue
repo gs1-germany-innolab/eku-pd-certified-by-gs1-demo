@@ -8,9 +8,9 @@
     </div>
     <div v-if="!showing" @click="toggle">
       <img
-        src="@/assets/questionMark.png"
-        alt="QuestionMark"
-        style="width: calc(20px + 10vw);position:absolute;top:0;left:0;"
+        src="@/assets/GS1_Symbol_Info_Sign_RGB_2015-04-16.png"
+        alt="Info"
+        style="width: calc(8px + 5vw);position:absolute;top:0;left:0;"
       />
     </div>
   </div>
