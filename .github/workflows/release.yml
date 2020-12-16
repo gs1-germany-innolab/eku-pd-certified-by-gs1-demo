@@ -3,7 +3,7 @@ on:
     types:
       - created
 
-name: Release Build
+name: Last Release Build
 
 jobs:
   buildI40:
