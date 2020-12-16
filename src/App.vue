@@ -1,5 +1,7 @@
 <template>
   <div id="app" class="fullsize">
+
+      <!-- overlay -->
   <div style="width: 100vw; height:100vh;top:0;left:0;position:absolute;z-index:9;background:white;"  v-if="showHello">
   </div>
     
@@ -33,26 +35,25 @@
     </TextBox>
 
 
-
+<!-- pumps -->
+<div v-for="(pump, index) in pumps"
+        :key="pump.gs1id"
+:style="`top:33vw;left:${18 + 25 * index}vw;position:absolute;z-index:1;width:13vw;`">
+      <img
+        src="@/assets/copyRighted/pump.png"
+        alt="Pump"
+        style="width:100%;"
+      />
     <ShowHideDigitalTypeLabel
       :color="hacked ? lightningRed : lightningGreen"
-      :type="pumps[0]"
-      top="18vw"
-      left="32vw"
-      style="z-index: 1"
+      :type="pumps[index]"
+      top="0"
+      left="2vw"
+      style="z-index: 2"
       :certified="certified"
       :show="triggerTypelabel"
     ></ShowHideDigitalTypeLabel>
-    <!--gs1id="urn:epc:id:giai:0614141.12345401"-->
-    <ShowHideDigitalTypeLabel
-      :color="hacked ? lightningRed : lightningGreen"
-      :type="pumps[1]"
-      top="18vw"
-      left="54vw"
-      style="z-index: 1"
-      :certified="certified"
-      :show="triggerTypelabel"
-    ></ShowHideDigitalTypeLabel>
+</div>
 
     <TextBox
       v-if="!dynamic"
@@ -93,7 +94,7 @@
     </button>
 
     <!-- Lighning icon -->
-    <div style="position: absolute; left: 50vw; top: 5vw; z-index: 1">
+    <div style="position: absolute; left: 40vw; top: 15vw; z-index: 1">
       <img
         :src="
           powerBalance < 0 || this.totalLoad != 0
@@ -206,7 +207,7 @@
     <div
       v-for="(generator, index) in generators"
       :key="generator.pic"
-      :style="`display:inline-block;position:absolute;top:41vw;left: ${
+      :style="`z-index:2;display:inline-block;position:absolute;top:41vw;left: ${
         index * 25 + 5
       }vw;`"
     >
@@ -235,7 +236,7 @@
           :color="generator.smoking ? lightningRed : lightningGreen"
           width="190px"
           height="210px"
-          style="position: absolute; top: calc(-10px - 6vw); left: 2vw"
+          style="position: relative; top: 0; left: 2vw"
           :show="generator.smoking || triggerTypelabel"
           :certified="certified"
         ></ShowHideDigitalTypeLabel>
@@ -553,31 +554,6 @@
         </h1>
         <br>
         <p>
-        The free pictures used in this project stem from
-        <ul>
-          <li>
-            <a
-              href="https://www.dreamstime.com/beautiful-hand-drawn-fashion-generator-icon-hand-drawn-black-sketch-sign-symbol-doodle-isolated-white-background-flat-beautiful-image139535596"
-              target="_blank"
-              >https://www.dreamstime.com/beautiful-hand-drawn-fashion-generator-icon-hand-drawn-black-sketch-sign-symbol-doodle-isolated-white-background-flat-beautiful-image139535596</a
-            >
-          </li>
-          <li>
-            <a
-              href="https://de.vecteezy.com/vektorkunst/224422-vektor-wusten-landschaftsillustration"
-              target="_blank"
-              >https://de.vecteezy.com/vektorkunst/224422-vektor-wusten-landschaftsillustration</a
-            >
-            (
-            <a
-              target="_blank"
-              href="https://de.vecteezy.com/gratis-vektor/genau"
-              >Genau Vektoren von Vecteezy</a
-            >)
-          </li>
-        </ul>
-        </p>
-        <p>
         This interactive presentation was build with
         <ul>
           <li>
@@ -645,22 +621,32 @@ export default {
         {
           caption: "",
           capacity: -100,
-          asset: "Pump",
+          asset: "Pump 1",
           gs1id: "8004 40471112342",
           label3: "Manufacturer 001",
           label4: "",
           health: 99,
-          load: -60,
+          load: -70,
         },
         {
           caption: "",
           capacity: -80,
-          asset: "Pump",
+          asset: "Pump 2",
           gs1id: "8004 061414112345401",
           label3: "Manufacturer 002",
           label4: "",
           health: 99,
           load: -50,
+        },
+        {
+          caption: "",
+          capacity: -30,
+          asset: "Pump 3",
+          gs1id: "8004 40471112322",
+          label3: "Manufacturer 003",
+          label4: "",
+          health: 99,
+          load: -20,
         },
       ],
       generators: [
@@ -668,11 +654,11 @@ export default {
           caption: "",
           label4: "",
           capacity: 100,
-          asset: "Generator",
+          asset: "Generator 1",
           gs1id: "8004 404711165434",
           label3: "Manufacturer A",
           active: false,
-          pic: require("@/assets/redGenerator.png"),
+          pic: require("@/assets/copyRighted/Generator1.png"),
           smoking: false,
           health: 99,
           load: 50,
@@ -681,11 +667,11 @@ export default {
           caption: "",
           label4: "",
           capacity: 80,
-          asset: "Generator",
+          asset: "Generator 2",
           gs1id: "8004 40471116542",
           label3: "Manufacturer A",
           active: false,
-          pic: require("@/assets/blueGenerator.png"),
+          pic: require("@/assets/copyRighted/Generator2.png"),
           smoking: false,
           health: 99,
           load: 20,
@@ -694,11 +680,11 @@ export default {
           caption: "",
           label4: "",
           capacity: 50,
-          asset: "Generator",
+          asset: "Generator 3",
           gs1id: "8004 404712123",
           label3: "Manufacturer B",
           active: false,
-          pic: require("@/assets/greenGenerator.png"),
+          pic: require("@/assets/copyRighted/Generator3.png"),
           smoking: false,
           health: 99,
           load: 20,
@@ -707,11 +693,11 @@ export default {
           caption: "",
           label4: "",
           capacity: 30,
-          asset: "Generator",
+          asset: "Generator 4",
           gs1id: "8004 40994712321",
           label3: "Manufacturer C",
           active: false,
-          pic: require("@/assets/yellowGenerator.png"),
+          pic: require("@/assets/copyRighted/Generator4.png"),
           smoking: false,
           health: 99,
           load: 20,
@@ -867,8 +853,7 @@ export default {
 </script>
 
 <style>
-
- /* unvisited link */
+/* unvisited link */
 a:link {
   color: #008dbd;
   text-decoration: none;
@@ -890,8 +875,7 @@ a:hover {
 a:active {
   color: #008dbd;
   text-decoration: none;
-} 
-
+}
 
 .fullsize {
   position: absolute;
@@ -901,12 +885,14 @@ a:active {
   height: 100%;
 }
 
+html,body{
+    background-color: #a87b62;
+}
 
 #app {
-  z-index: -1;
   height: auto;
-  padding-top: 56%; /* css trick to set hight to percentage of width */
-  background-image: url("assets/landingPage.jpg");
+  padding-top: 53%; /* css trick to set hight to percentage of width */
+  background-image: url("assets/copyRighted/bg.jpg");
   background-size: 100%;
   background-repeat: no-repeat;
   font-family: "Gotham SSm A", "Gotham SSm B", Verdana, sans-serif;
