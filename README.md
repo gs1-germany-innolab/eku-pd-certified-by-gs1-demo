@@ -2,7 +2,7 @@
 
 # EKU PD Certified by GS1 - Interaktive Presentation
 
-Diese Präsentation eines im Rahmen des [Certified by GS1](https://github.com/gs1-germany-innolab/CertifiedByGS1-Konzepte) entwickelten Anwendungsfalls ist hier online: https://gs1-germany-innolab.github.io/eku-pd-certified-by-gs1-demo/ .
+This is the source of an interactive demonstration, developed as part of the [Certified by GS1](https://github.com/gs1-germany-innolab/CertifiedByGS1-Konzepte) project. **See https://gs1-germany-innolab.github.io/eku-pd-certified-by-gs1-demo/ for the actual demo**.
 
 
 ## Run Locally
